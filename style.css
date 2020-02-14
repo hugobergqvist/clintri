@@ -3,3 +3,11 @@
   color: rgb(255, 0, 204);
   font-family: Comic Sans MS, cursive, sans-serif;
 }
+
+#categoryBtn {
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 10pt;
+  border: 1px solid green;
+  cursor: pointer;
+}
