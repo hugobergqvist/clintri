@@ -1,7 +1,7 @@
 
 // Handle the search
 searchfunction = (e) => {
-    e.preventDefault(); // Prevents the form to submit, it catches the form before it is sent
+
 }
 
 addTreeMap = () => {
