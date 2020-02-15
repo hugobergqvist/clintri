@@ -6,10 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" type="text/css" href="style.css" />
   <title>Clitri - Visualization of Clinical Trials</title>
+
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/searchbar.css">
+  <script src="https://d3js.org/d3.v5.js"></script>
 </head>
 
 <body>
-  <script src="index.js"></script>
+  <!-- <script src="index.js"></script>
   <p id="helloText">Hello all ClinTriers</p>
   <button id="categoryBtn" onClick="getCategories()">
     Console.Log all Categories
@@ -17,7 +21,172 @@
 
   <button id="categoryBtn" onClick="getStudyTypeFromKeyword()">
     Console.Log StudyType & Phase from keyword
-  </button>
+  </button> -->
+
+  <!-- The header of the website -->
+  <header id="header">
+    <div>
+      <h1 id="titleName">ClinTri</h1>
+    </div>
+    <div id="SecondaryHeaderText">
+      <div id="verticalLine"></div>
+      <div>
+        <p id="informationText"><b>Clinical trials information visualization</b></br>Based on 10 000+ medical
+          trials
+        </p>
+      </div>
+    </div>
+    <div id="searchbar">
+      <div id="cover">
+        <form method="get" onsubmit="searchfunction(e)">
+          <div class="tb">
+            <div class="td"><input type="text" placeholder="Condition: e.g. Breast Cancer" required></div>
+            <div class="td" id="s-cover">
+              <button type="submit">
+                <i style="height: 20px; width:20px; font-size: 40px;" class="fa fa-search">ola</i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="menuBar">
+      <button style="width: 50px; height: 30px; background: blue;" onclick="addTreeMap()">Press me!</button>
+    </div>
+  </header>
+
+  <!-- Contains all of the categories -->
+  <div class="wrapper" id="categorieContainer">
+    <div class="categories">
+      <fieldset>
+        <legend>Cardiology</legend> <!-- Holds the bransch name -->
+        <div class="treemap">
+          <!-- Contains the tree-map -->
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur magna a arcu elementum
+          porta.
+          Phasellus condimentum porta molestie. Curabitur congue arcu in augue iaculis, ut cursus enim
+          suscipit. Sed
+          malesuada, lorem sed hendrerit interdum, libero metus efficitur ipsum, ut feugiat urna orci suscipit
+          diam.
+          In quis nisi at sapien finibus vehicula quis sed tellus. Pellentesque maximus cursus sollicitudin.
+          In eu
+          augue eget urna semper scelerisque in ut tortor. Morbi in sem at velit euismod bibendum sed et
+          lorem. Nam
+          laoreet vitae dui vitae semper. Fusce mollis efficitur condimentum. Nunc laoreet dolor et convallis
+          fringilla. Mauris non magna cursus, facilisis nisl a, tincidunt mauris. Nulla eget elit erat. Ut
+          vehicula
+          neque ac velit tincidunt commodo.
+        </div>
+      </fieldset>
+    </div>
+    <div class="categories">
+      <fieldset>
+        <legend>Cancer and Other Neoplasms</legend>
+        <div class="treemap">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur magna a arcu elementum
+          porta.
+          Phasellus condimentum porta molestie. Curabitur congue arcu in augue iaculis, ut cursus enim
+          suscipit. Sed
+          malesuada, lorem sed hendrerit interdum, libero metus efficitur ipsum, ut feugiat urna orci suscipit
+          diam.
+          In quis nisi at sapien finibus vehicula quis sed tellus. Pellentesque maximus cursus sollicitudin.
+          In eu
+          augue eget urna semper scelerisque in ut tortor. Morbi in sem at velit euismod bibendum sed et
+          lorem. Nam
+          laoreet vitae dui vitae semper. Fusce mollis efficitur condimentum. Nunc laoreet dolor et convallis
+          fringilla. Mauris non magna cursus, facilisis nisl a, tincidunt mauris. Nulla eget elit erat. Ut
+          vehicula
+          neque ac velit tincidunt commodo.
+        </div>
+      </fieldset>
+    </div>
+    <div class="categories">
+      <fieldset>
+        <legend>Rare Diseases</legend>
+        <div class="treemap">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur magna a arcu elementum
+          porta.
+          Phasellus condimentum porta molestie. Curabitur congue arcu in augue iaculis, ut cursus enim
+          suscipit. Sed
+          malesuada, lorem sed hendrerit interdum, libero metus efficitur ipsum, ut feugiat urna orci suscipit
+          diam.
+          In quis nisi at sapien finibus vehicula quis sed tellus. Pellentesque maximus cursus sollicitudin.
+          In eu
+          augue eget urna semper scelerisque in ut tortor. Morbi in sem at velit euismod bibendum sed et
+          lorem. Nam
+          laoreet vitae dui vitae semper. Fusce mollis efficitur condimentum. Nunc laoreet dolor et convallis
+          fringilla. Mauris non magna cursus, facilisis nisl a, tincidunt mauris. Nulla eget elit erat. Ut
+          vehicula
+          neque ac velit tincidunt commodo.
+        </div>
+      </fieldset>
+    </div>
+    <div class="categories">
+      <fieldset>
+        <legend>Immune System Diseases</legend>
+        <div class="treemap">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur magna a arcu elementum
+          porta.
+          Phasellus condimentum porta molestie. Curabitur congue arcu in augue iaculis, ut cursus enim
+          suscipit. Sed
+          malesuada, lorem sed hendrerit interdum, libero metus efficitur ipsum, ut feugiat urna orci suscipit
+          diam.
+          In quis nisi at sapien finibus vehicula quis sed tellus. Pellentesque maximus cursus sollicitudin.
+          In eu
+          augue eget urna semper scelerisque in ut tortor. Morbi in sem at velit euismod bibendum sed et
+          lorem. Nam
+          laoreet vitae dui vitae semper. Fusce mollis efficitur condimentum. Nunc laoreet dolor et convallis
+          fringilla. Mauris non magna cursus, facilisis nisl a, tincidunt mauris. Nulla eget elit erat. Ut
+          vehicula
+          neque ac velit tincidunt commodo.
+        </div>
+      </fieldset>
+    </div>
+    <div class="categories">
+      <fieldset>
+        <legend>Eye Diseases</legend>
+        <div class="treemap">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur magna a arcu elementum
+          porta.
+          Phasellus condimentum porta molestie. Curabitur congue arcu in augue iaculis, ut cursus enim
+          suscipit. Sed
+          malesuada, lorem sed hendrerit interdum, libero metus efficitur ipsum, ut feugiat urna orci suscipit
+          diam.
+          In quis nisi at sapien finibus vehicula quis sed tellus. Pellentesque maximus cursus sollicitudin.
+          In eu
+          augue eget urna semper scelerisque in ut tortor. Morbi in sem at velit euismod bibendum sed et
+          lorem. Nam
+          laoreet vitae dui vitae semper. Fusce mollis efficitur condimentum. Nunc laoreet dolor et convallis
+          fringilla. Mauris non magna cursus, facilisis nisl a, tincidunt mauris. Nulla eget elit erat. Ut
+          vehicula
+          neque ac velit tincidunt commodo.
+        </div>
+      </fieldset>
+    </div>
+    <div class="categories">
+      <fieldset>
+        <legend>Parasitic Diseases</legend>
+        <div class="treemap">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum efficitur magna a arcu elementum
+          porta.
+          Phasellus condimentum porta molestie. Curabitur congue arcu in augue iaculis, ut cursus enim
+          suscipit. Sed
+          malesuada, lorem sed hendrerit interdum, libero metus efficitur ipsum, ut feugiat urna orci suscipit
+          diam.
+          In quis nisi at sapien finibus vehicula quis sed tellus. Pellentesque maximus cursus sollicitudin.
+          In eu
+          augue eget urna semper scelerisque in ut tortor. Morbi in sem at velit euismod bibendum sed et
+          lorem. Nam
+          laoreet vitae dui vitae semper. Fusce mollis efficitur condimentum. Nunc laoreet dolor et convallis
+          fringilla. Mauris non magna cursus, facilisis nisl a, tincidunt mauris. Nulla eget elit erat. Ut
+          vehicula
+          neque ac velit tincidunt commodo.
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+  <script src="script/index.js"></script>
 </body>
 
 </html>

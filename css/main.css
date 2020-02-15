@@ -1,0 +1,84 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1em;
+    /* Replaces column-gap and row-gap if it has the same value */
+    grid-auto-rows: minmax(100px, auto);
+    border: 1px solid #eee;
+    box-shadow: 2px 2px #ddd;
+    padding: 10px;
+}
+
+.wrapper>div {
+    padding: 1em;
+}
+
+.treemap {
+    background: rgb(101, 143, 167);
+}
+
+/* .treemap:nth-child(odd) {
+    background: rgb(173, 102, 105);
+} */
+
+#header {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 0.1fr;
+    column-gap: 1em;
+    grid-auto-rows: minmax(80px, auto);
+}
+
+#titleName {
+    color: rgb(48, 111, 161);
+    font-family: "Times New Roman", Times, serif;
+    font-weight: 900;
+    font-size: 45px;
+    text-align: center;
+
+}
+
+/* ::-webkit-input-placeholder {
+    margin-left: 30px;
+    color: red;
+}
+
+:-ms-input-placeholder {
+    margin-left: 30px;
+    color: red;
+}
+
+::placeholder {
+    margin-left: 30px;
+    color: red;
+} */
+
+#SecondaryHeaderText {
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 20px;
+    display: grid;
+    grid-template-columns: 0.1fr 4.9fr;
+}
+
+#verticalLine {
+    border-left: 1px solid #111;
+    height: 80px;
+}
+
+.categories {
+    padding: 0px !important;
+}
+
+fieldset {
+    color: rgb(101, 143, 167); /* TA BORT SENARE: Detta ändrar bara färgen på loreem ipsum för placeholder */
+    border-color: rgb(101, 143, 167);
+}
+
+legend {
+    color: rgb(101, 143, 167);
+    font-weight: bold;
+}
+
+#searchbar {
+    float: right !important;
+}
