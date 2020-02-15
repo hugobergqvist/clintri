@@ -1,13 +1,12 @@
-.tb
-{
-    display: table;
-    width: 100%;
-}
-
 .td
 {
-    display: table-cell;
+    display: inline-block;
     vertical-align: middle;
+    padding: 5px;
+}
+
+#searchImage {
+    margin-left: 2em;
 }
 
 input, button

@@ -82,3 +82,9 @@ legend {
 #searchbar {
     float: right !important;
 }
+
+#menu {
+    position: relative;
+    top: 30px;
+    right: 30px;
+}

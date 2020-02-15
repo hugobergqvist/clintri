@@ -9,6 +9,7 @@
 
   <link rel="stylesheet" type="text/css" href="css/main.css">
   <link rel="stylesheet" type="text/css" href="css/searchbar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://d3js.org/d3.v5.js"></script>
 </head>
 
@@ -42,16 +43,16 @@
           <div class="tb">
             <div class="td"><input type="text" placeholder="Condition: e.g. Breast Cancer" required></div>
             <div class="td" id="s-cover">
-              <button type="submit">
-                <i style="height: 20px; width:20px; font-size: 40px;" class="fa fa-search">ola</i>
-              </button>
+              <input type="image" src="images/chart.svg" alt="Submit" width="48" height="48" id="searchImage">
             </div>
           </div>
         </form>
       </div>
     </div>
     <div id="menuBar">
-      <button style="width: 50px; height: 30px; background: blue;" onclick="addTreeMap()">Press me!</button>
+      <button style="width: 100px; height: 50px; background-color: #eee; color: #444;" onclick="addTreeMap()"
+        id="menu">Press
+        me!</button>
     </div>
   </header>
 
