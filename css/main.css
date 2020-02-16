@@ -1,6 +1,6 @@
 .wrapper {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 1em;
     /* Replaces column-gap and row-gap if it has the same value */
     grid-auto-rows: minmax(100px, auto);
