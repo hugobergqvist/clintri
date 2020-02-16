@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>ClinTri - Visualization of Clinical Trials</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" type="text/css" href="style.css" />
-  <title>Clitri - Visualization of Clinical Trials</title>
-</head>
+  <body>
+    <script src="index.js"></script>
+    <p id="helloText">Hello all ClinTriers</p>
+    <button id="categoryBtn" onClick="getCategories()">
+      Console.Log all Categories
+    </button>
 
-<body>
-  <script src="index.js"></script>
-  <p id="helloText">Hello all ClinTriers</p>
-  <button id="categoryBtn" onClick="getCategories()">
-    Console.Log all Categories
-  </button>
-
-  <button id="categoryBtn" onClick="getStudyTypeFromKeyword()">
-    Console.Log StudyType & Phase from keyword
-  </button>
-</body>
-
+    <button id="categoryBtn" onClick="getStudyTypeFromKeyword()">
+      Console.Log StudyType & Phase from keyword
+    </button>
+  </body>
 </html>
