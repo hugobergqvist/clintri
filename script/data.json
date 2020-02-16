@@ -1,38 +1,109 @@
 {
-    "name": "Categroy",
-    "children": [
-      { "name": "Bacterial and Fungal Diseases", "value": 30540 },
-      { "name": "Behaviors and Mental Disorders", "value": 39840 },
-      { "name": "Blood and Lymph Conditions", "value": 18799 },
-      { "name": "Cancers and Other Neoplasms", "value": 70862 },
-      { "name": "Digestive System Diseases", "value": 30170 },
-      { "name": "Diseases and Abnormalities at or Before Birth", "value": 17083 },
-      { "name": "Disorders of Environmental Origin", "value": 11 },
-      { "name": "Ear, Nose, and Throat Diseases", "value": 5865 },
-      { "name": "Eye Diseases", "value": 9615 },
-      { "name": "Gland and Hormone Related Diseases", "value": 24381 },
-      { "name": "Heart and Blood Diseases", "value": 45720 },
-      { "name": "Immune System Diseases", "value": 37220 },
-      { "name": "Mouth and Tooth Diseases", "value": 6905 },
-      { "name": "Muscle, Bone, and Cartilage Diseases", "value": 18873 },
-      { "name": "Nervous System Diseases", "value": 51733 },
-      { "name": "Nutritional and Metabolic Diseases", "value": 36226 },
-      { "name": "Occupational Diseases", "value": 293 },
-      { "name": "Parasitic Diseases", "value": 2311 },
-      { "name": "Rare Diseases", "value": 66493 },
-      {
-        "name": "Respiratory Tract (Lung and Bronchial) Diseases",
-        "value": 31336
-      },
-      { "name": "Skin and Connective Tissue Diseases", "value": 32330 },
-      { "name": "Substance Related Disorders", "value": 5705 },
-      { "name": "Symptoms and General Pathology", "value": 128137 },
-      {
-        "name": "Urinary Tract, Sexual Organs, and Pregnancy Conditions",
-        "value": 36052
-      },
-      { "name": "Viral Diseases", "value": 17525 },
-      { "name": "Wounds and Injuries", "value": 12766 }
-    ]
-  }
-  
+  "name": "Category",
+  "children": [
+    {
+      "name": "Bacterial and Fungal Diseases",
+      "value": 30540
+    },
+    {
+      "name": "Behaviors and Mental Disorders",
+      "value": 39840
+    },
+    {
+      "name": "Blood and Lymph Conditions",
+      "value": 18799
+    },
+    {
+      "name": "Cancers and Other Neoplasms",
+      "value": 70862
+    },
+    {
+      "name": "Digestive System Diseases",
+      "value": 30170
+    },
+    {
+      "name": "Diseases and Abnormalities at or Before Birth",
+      "value": 17083
+    },
+    {
+      "name": "Disorders of Environmental Origin",
+      "value": 11
+    },
+    {
+      "name": "Ear, Nose, and Throat Diseases",
+      "value": 5865
+    },
+    {
+      "name": "Eye Diseases",
+      "value": 9615
+    },
+    {
+      "name": "Gland and Hormone Related Diseases",
+      "value": 24381
+    },
+    {
+      "name": "Heart and Blood Diseases",
+      "value": 45720
+    },
+    {
+      "name": "Immune System Diseases",
+      "value": 37220
+    },
+    {
+      "name": "Mouth and Tooth Diseases",
+      "value": 6905
+    },
+    {
+      "name": "Muscle, Bone, and Cartilage Diseases",
+      "value": 18873
+    },
+    {
+      "name": "Nervous System Diseases",
+      "value": 51733
+    },
+    {
+      "name": "Nutritional and Metabolic Diseases",
+      "value": 36226
+    },
+    {
+      "name": "Occupational Diseases",
+      "value": 293
+    },
+    {
+      "name": "Parasitic Diseases",
+      "value": 2311
+    },
+    {
+      "name": "Rare Diseases",
+      "value": 66493
+    },
+    {
+      "name": "Respiratory Tract (Lung and Bronchial) Diseases",
+      "value": 31336
+    },
+    {
+      "name": "Skin and Connective Tissue Diseases",
+      "value": 32330
+    },
+    {
+      "name": "Substance Related Disorders",
+      "value": 5705
+    },
+    {
+      "name": "Symptoms and General Pathology",
+      "value": 128137
+    },
+    {
+      "name": "Urinary Tract, Sexual Organs, and Pregnancy Conditions",
+      "value": 36052
+    },
+    {
+      "name": "Viral Diseases",
+      "value": 17525
+    },
+    {
+      "name": "Wounds and Injuries",
+      "value": 12766
+    }
+  ]
+}
