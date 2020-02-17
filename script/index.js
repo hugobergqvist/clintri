@@ -5,9 +5,11 @@ loadJSON = () => {
   return new Promise(function (resolve, reject) {
 
     modifyIncomingData().then(data => {
-     
+
       resolve(data)
     })
+
+    // PREVIOUS CODE WITH PREDETERMINED AND STATIC DATA
     // var incomingData = modifyIncomingData();
     // console.log("DYNAMIC DATA WORKING");
     // console.log(incomingData);
@@ -129,12 +131,12 @@ buildTreeMap = (data) => {
       .duration(70)
       .style("stroke", "transparent")
 
-      //Gets the name of the clicked rectangle
-      let attribute = this.getAttribute("name");
-      console.log(attribute)
+    //Gets the name of the clicked rectangle
+    let attribute = this.getAttribute("name");
+    console.log(attribute)
 
 
-      
+
   }
 
   // use this information to add rectangles:
