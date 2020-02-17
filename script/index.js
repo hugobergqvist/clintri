@@ -27,11 +27,26 @@ loadJSON = () => {
   })
 }
 
+//Load data regarding the sankey tree
+loadSankeytree = () => {
+  var condition = "cancer" // LÄGG TILL SÅ ATT DENNA ÄR EN INKOMMANDE PARAMETER TODO: REMOVE
+  return new Promise(function (resolve, reject) {
+
+    handleSankeyTreeData(condition).then(data => {
+
+      resolve(data)
+    })
+  })
+}
+
 // Handle the search
 searchfunction = (e) => {
 
 }
 
+addSankeyTree = (data) => {
+  buildSankeyTree(data);
+}
 
 
 addTreeMap = (data) => {
@@ -68,8 +83,8 @@ addTreeMap = (data) => {
   //wrapperDiv.appendChild(newDiv);
 }
 
+// This function builds the d3-treemap component
 buildTreeMap = (data) => {
-
   // set the dimensions and margins of the graph
   var margin = { top: 10, right: 10, bottom: 10, left: 10 },
     width = 1600 - margin.left - margin.right,
@@ -135,8 +150,6 @@ buildTreeMap = (data) => {
     let attribute = this.getAttribute("name");
     console.log(attribute)
 
-
-
   }
 
   // use this information to add rectangles:
@@ -155,12 +168,12 @@ buildTreeMap = (data) => {
     .style("fill", function (d) {
 
       let values = getMaxMinLeafValues(root);
-      
+
       let normLeafValue = (d.value - values.leafMin) / (values.leafMax - values.leafMin);
 
-      const colorScale = ["#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd"]
+      const colorScale = ["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#fccde5", "#d9d9d9", "#bc80bd"]
 
-     return colorScale[Math.round(normLeafValue*10)]
+      return colorScale[Math.round(normLeafValue * 10)]
 
     })
     .on("mouseover", mouseOver)
@@ -205,9 +218,9 @@ getMaxMinLeafValues = (rootData) => {
 
 }
 
-
 main = () => {
   loadJSON().then(function (JSON_data) { addTreeMap(JSON_data) })
+  loadSankeytree().then(function (data) { addSankeyTree(data) })
 }
 
 main()
