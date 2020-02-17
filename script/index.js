@@ -152,10 +152,25 @@ buildTreeMap = (data) => {
     .attr('class', "leaf")
     .attr("name", function (d) { return d.data.name })
     .style("stroke", "black")
-    .style("fill", "slateblue")
+    .style("fill", function (d) {
+
+      let values = getMaxMinLeafValues(root);
+      
+      let normLeafValue = (d.value - values.leafMin) / (values.leafMax - values.leafMin);
+
+      const colorScale = ["#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd"]
+
+     return colorScale[Math.round(normLeafValue*10)]
+
+    })
     .on("mouseover", mouseOver)
     .on("mouseleave", mouseLeave)
     .on("click", mouseClick)
+
+
+
+
+  // let colorScar = ["#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd","#ccebc5","#ffed6f"]
 
   // and to add the text labels
   svg
@@ -170,6 +185,26 @@ buildTreeMap = (data) => {
     .attr("fill", "white")
 
 }
+
+getMaxMinLeafValues = (rootData) => {
+
+  let leaves = rootData.leaves();
+  let leafValues = [];
+
+  leaves.forEach(myFunction);
+
+  //Build list of leaf vaslues to use later for color scheme
+  function myFunction(leafValue, index, array) {
+    leafValues.push(leafValue.value)
+  }
+
+  const leafMax = Math.max.apply(Math, leafValues);
+  const leafMin = Math.min.apply(Math, leafValues);
+
+  return { "leafMax": leafMax, "leafMin": leafMin }
+
+}
+
 
 main = () => {
   loadJSON().then(function (JSON_data) { addTreeMap(JSON_data) })
