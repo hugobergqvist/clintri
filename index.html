@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="style.css" />
-    <title>ClinTri - Visualization of Clinical Trials</title>
-  </head>
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <title>ClinTri - Visualization of Clinical Trials</title>
+</head>
+<!-- 
   <body>
     <script src="index.js"></script>
     <p id="helloText">Hello all ClinTriers</p>
@@ -17,5 +18,86 @@
     <button id="categoryBtn" onClick="getStudyTypeFromKeyword()">
       Console.Log StudyType & Phase from keyword
     </button>
-  </body>
+  </body> -->
+
+</html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <title>Clitri - Visualization of Clinical Trials</title>
+
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/searchbar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://d3js.org/d3.v4.js"></script>
+</head>
+
+<body>
+  <script src="index.js"></script>
+  <button id="categoryBtn" onClick="getCategories()">Generate Table</button>
+  <table id="testTable">
+    <thead>
+      <tr>
+        <th>Condition</th>
+        <th>Studies</th>
+        <th>Size</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <!-- <script src="index.js"></script>
+  <p id="helloText">Hello all ClinTriers</p>
+  <button id="categoryBtn" onClick="getCategories()">
+    Console.Log all Categories
+  </button>
+
+  <button id="categoryBtn" onClick="getStudyTypeFromKeyword()">
+    Console.Log StudyType & Phase from keyword
+  </button> -->
+
+  <!-- The header of the website -->
+  <header id="header">
+    <div>
+      <h1 id="titleName">ClinTri</h1>
+    </div>
+    <div id="SecondaryHeaderText">
+      <div id="verticalLine"></div>
+      <div>
+        <p id="informationText"><b>Clinical trials information visualization</b></br>Based on 10 000+ medical
+          trials
+        </p>
+      </div>
+    </div>
+    <div id="searchbar">
+      <div id="cover">
+        <form method="get" onsubmit="searchfunction(e)">
+          <div class="tb">
+            <div class="td"><input type="text" placeholder="Condition: e.g. Breast Cancer" required></div>
+            <div class="td" id="s-cover">
+              <input type="image" src="images/chart.svg" alt="Submit" width="48" height="48" id="searchImage">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="menuBar">
+      <button style="width: 100px; height: 50px; background-color: #eee; color: #444;" onclick="addTreeMap()"
+        id="menu">Press
+        me!</button>
+    </div>
+  </header>
+
+  <!-- Contains all of the categories -->
+  <div class="wrapper" id="categorieContainer">
+
+  </div>
+  <script src="script/handlingdata.js"></script>
+  <script src="script/index.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", modifyIncomingData);    
+  </script>
+</body>
+
 </html>
