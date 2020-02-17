@@ -22,7 +22,6 @@ modifyIncomingData = async () => { // Perhaps change so incoming data is cleanre
         }
     }
 
-    console.log(NewJsonObject);
     return NewJsonObject;
 
     // .then(rawResult => rawResult.json())
