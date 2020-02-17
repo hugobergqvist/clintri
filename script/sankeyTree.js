@@ -1,8 +1,8 @@
 
 // set the dimensions and margins of the graph
 var margin = { top: 10, right: 10, bottom: 10, left: 10 },
-    width = 450 - margin.left - margin.right,
-    height = 480 - margin.top - margin.bottom;
+    width = 1200 - margin.left - margin.right,
+    height = 720 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#my_dataviz").append("svg")
@@ -22,7 +22,7 @@ var sankey = d3.sankey()
     .size([width, height]);
 
 // load the data
-d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_sankey.json", function (error, graph) {
+d3.json("./script/sankey.json", function (error, graph) {
 
     // Constructs a new Sankey generator with the default settings.
     sankey
