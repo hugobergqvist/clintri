@@ -86,6 +86,31 @@
       id="menu">Press
       me!</button>
   </div>
+
+  <div id="phaseDiv">
+    <form id="phaseForm">
+      <label for="phase">Condition:</label>
+      <input type="text" id="phase" name="phase" placeholder="Bacterial and Fungal Diseases"/>
+      <button
+        id="phaseBtn"
+        type="button"
+        onclick="getPhaseDistribution()"
+        value="Get phases"
+      >Get Phases</button>
+    </form>
+    <p id="studiesTotal"></p>
+    <p id="condition"></p>
+    <table id="phaseTable">
+      <thead>
+        <tr>
+          <th>Phase</th>
+          <th>Studies</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  
 </header>
 
 <!-- Contains all of the categories -->
