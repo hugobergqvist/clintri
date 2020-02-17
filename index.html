@@ -18,8 +18,30 @@
     <button id="categoryBtn" onClick="getStudyTypeFromKeyword()">
       Console.Log StudyType & Phase from keyword
     </button>
-  </body> -->
-
+    <div id="phaseDiv">
+      <form id="phaseForm">
+        <label for="phase">Condition:</label>
+        <input type="text" id="phase" name="phase" /><br /><br />
+        <input
+          id="phaseBtn"
+          type="button"
+          onclick="getPhaseDistribution()"
+          value="Get phases"
+        />
+      </form>
+      <p id="studiesTotal"></p>
+      <p id="condition"></p>
+      <table id="phaseTable">
+        <thead>
+          <tr>
+            <th>Phase</th>
+            <th>Studies</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </body>
 </html>
 
 <head>
@@ -57,47 +79,47 @@
     Console.Log StudyType & Phase from keyword
   </button> -->
 
-  <!-- The header of the website -->
-  <header id="header">
-    <div>
-      <h1 id="titleName">ClinTri</h1>
-    </div>
-    <div id="SecondaryHeaderText">
-      <div id="verticalLine"></div>
-      <div>
-        <p id="informationText"><b>Clinical trials information visualization</b></br>Based on 10 000+ medical
-          trials
-        </p>
-      </div>
-    </div>
-    <div id="searchbar">
-      <div id="cover">
-        <form method="get" onsubmit="searchfunction(e)">
-          <div class="tb">
-            <div class="td"><input type="text" placeholder="Condition: e.g. Breast Cancer" required></div>
-            <div class="td" id="s-cover">
-              <input type="image" src="images/chart.svg" alt="Submit" width="48" height="48" id="searchImage">
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div id="menuBar">
-      <button style="width: 100px; height: 50px; background-color: #eee; color: #444;" onclick="addTreeMap()"
-        id="menu">Press
-        me!</button>
-    </div>
-  </header>
-
-  <!-- Contains all of the categories -->
-  <div class="wrapper" id="categorieContainer">
-
+<!-- The header of the website -->
+<header id="header">
+  <div>
+    <h1 id="titleName">ClinTri</h1>
   </div>
-  <script src="script/handlingdata.js"></script>
-  <script src="script/index.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", modifyIncomingData);    
-  </script>
+  <div id="SecondaryHeaderText">
+    <div id="verticalLine"></div>
+    <div>
+      <p id="informationText"><b>Clinical trials information visualization</b></br>Based on 10 000+ medical
+        trials
+      </p>
+    </div>
+  </div>
+  <div id="searchbar">
+    <div id="cover">
+      <form method="get" onsubmit="searchfunction(e)">
+        <div class="tb">
+          <div class="td"><input type="text" placeholder="Condition: e.g. Breast Cancer" required></div>
+          <div class="td" id="s-cover">
+            <input type="image" src="images/chart.svg" alt="Submit" width="48" height="48" id="searchImage">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="menuBar">
+    <button style="width: 100px; height: 50px; background-color: #eee; color: #444;" onclick="addTreeMap()"
+      id="menu">Press
+      me!</button>
+  </div>
+</header>
+
+<!-- Contains all of the categories -->
+<div class="wrapper" id="categorieContainer">
+
+</div>
+<script src="script/handlingdata.js"></script>
+<script src="script/index.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", modifyIncomingData);    
+</script>
 </body>
 
 </html>
