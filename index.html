@@ -10,13 +10,15 @@
   <link rel="stylesheet" type="text/css" href="css/searchbar.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://d3js.org/d3.v4.js"></script>
+  <!-- sankey script -->
   <script src="https://unpkg.com/d3-array@1"></script>
   <script src="https://unpkg.com/d3-collection@1"></script>
   <script src="https://unpkg.com/d3-path@1"></script>
   <script src="https://unpkg.com/d3-shape@1"></script>
   <script src="https://unpkg.com/d3-sankey@0"></script>
+  <!-- sankey script -->
   <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-  <!-- <script src="sankey.json"></script> -->
+
   <style>
     .node rect {
       cursor: move;
@@ -40,7 +42,8 @@
     }
   </style>
 </head>
-< !-- < body>
+
+<body>
   <script src="index.js"></script>
   <p id="helloText">Hello all ClinTriers</p>
   <button id="categoryBtn" onClick="getCategories()">
@@ -50,7 +53,7 @@
   <button id="categoryBtn" onClick="getStudyTypeFromKeyword()">
     Console.Log StudyType & Phase from keyword
   </button>
-  </body>
+</body>
 
 </html>
 
@@ -111,9 +114,7 @@
       </div>
     </div>
     <div id="menuBar">
-      <button style="width: 100px; height: 50px; background-color: #eee; color: #444;" onclick="addTreeMap()"
-        id="menu">Press
-        me!</button>
+      Menu bar placeholder
     </div>
 
     <div id="phaseDiv">

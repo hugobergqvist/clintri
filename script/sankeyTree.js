@@ -32,7 +32,7 @@ d3.json("./script/sankey.json", function (error, graph) {
     sankey
         .nodes(graph.nodes)
         .links(graph.links)
-        .layout(1);
+        .layout(32);
 
     // add in the links
     var link = svg.append("g").selectAll(".link")
