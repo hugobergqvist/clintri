@@ -23,17 +23,4 @@ modifyIncomingData = async () => { // Perhaps change so incoming data is cleanre
     }
 
     return NewJsonObject;
-
-    // .then(rawResult => rawResult.json())
-    // .then(cleanResult => {
-    //     console.log("Trying to cleandata: ");
-    //     console.log(cleanResult.FieldValuesResponse.FieldValues);
-    //     var CleanData = cleanResult.FieldValuesResponse.FieldValues;
-    //     console.log(NewJsonObject);
-    // }).then(() => {
-    //     return NewJsonObject;
-    // })
-    // .catch(err => {
-    //     console.log("Error fetching categories: ", err);
-    // });
 };
