@@ -1,25 +1,30 @@
 buildSankeyTree = data => {
   // set the dimensions and margins of the graph
+  var sankeyDiv = document.getElementById("sankeyContainer");
+  var divWidth = sankeyDiv.offsetWidth;
+  var divHeight = sankeyDiv.offsetHeight;
+  if (divHeight < 300) {
+    divHeight = 500;
+  }
   var margin = {
       top: 10,
       right: 10,
       bottom: 10,
       left: 10
     },
-    width = 450 - margin.left - margin.right, // Kanske går att lägga inherit här istället men det påverkar möjligheten att visa upp allt
-    height = 400 - margin.top - margin.bottom;
+    width = divWidth - margin.left - margin.right, // Kanske går att lägga inherit här istället men det påverkar möjligheten att visa upp allt
+    height = divHeight - margin.top - margin.bottom;
 
-  // Remove previous component 
-  const existing_element = document.querySelector("#sankeyTreeWrapper");
+  // Remove previous component
+  const existing_element = document.querySelector("#sankeyContainer");
   const child = existing_element.firstElementChild;
   if (child) {
     existing_element.removeChild(child);
   }
 
-
   // append the svg object to the body of the page
   var svg = d3
-    .select("#sankeyTreeWrapper")
+    .select("#sankeyContainer")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -36,105 +41,102 @@ buildSankeyTree = data => {
     .nodePadding(50)
     .size([width, height]);
 
-  // load the data
-  d3.json(data, function (error) {
-    console.log("data in sankeyTree.js: ", data);
+  console.log("data in sankeyTree.js: ", data);
 
-    // Constructs a new Sankey generator with the default settings.
-    sankey
-      .nodes(data.nodes)
-      .links(data.links)
-      .layout(32);
+  // Constructs a new Sankey generator with the default settings.
+  sankey
+    .nodes(data.nodes)
+    .links(data.links)
+    .layout(32);
 
-    // add in the links
-    var link = svg
-      .append("g")
-      .selectAll(".link")
-      .data(data.links)
-      .enter()
-      .append("path")
-      .attr("class", "link")
-      .attr("d", sankey.link())
-      .style("stroke-width", function (d) {
-        return Math.max(1, d.dy);
-      })
-      .sort(function (a, b) {
-        return b.dy - a.dy;
-      });
+  // add in the links
+  var link = svg
+    .append("g")
+    .selectAll(".link")
+    .data(data.links)
+    .enter()
+    .append("path")
+    .attr("class", "link")
+    .attr("d", sankey.link())
+    .style("stroke-width", function(d) {
+      return Math.max(1, d.dy);
+    })
+    .sort(function(a, b) {
+      return b.dy - a.dy;
+    });
 
-    // add in the nodes
-    var node = svg
-      .append("g")
-      .selectAll(".node")
-      .data(data.nodes)
-      .enter()
-      .append("g")
-      .attr("class", "node")
-      .attr("transform", function (d) {
-        return "translate(" + d.x + "," + d.y + ")";
-      })
-      .call(
-        d3
+  // add in the nodes
+  var node = svg
+    .append("g")
+    .selectAll(".node")
+    .data(data.nodes)
+    .enter()
+    .append("g")
+    .attr("class", "node")
+    .attr("transform", function(d) {
+      return "translate(" + d.x + "," + d.y + ")";
+    })
+    .call(
+      d3
         .drag()
-        .subject(function (d) {
+        .subject(function(d) {
           return d;
         })
-        .on("start", function () {
+        .on("start", function() {
           this.parentNode.appendChild(this);
         })
         .on("drag", dragmove)
-      );
+    );
 
-    // add the rectangles for the nodes
-    node
-      .append("rect")
-      .attr("height", function (d) {
-        return d.dy;
-      })
-      .attr("width", sankey.nodeWidth())
-      .style("fill", function (d) {
-        return (d.color = color(d.name.replace(/ .*/, "")));
-      })
-      .style("stroke", function (d) {
-        return d3.rgb(d.color).darker(2);
-      })
-      // Add hover text
-      .append("title")
-      .text(function (d) {
-        return d.name + "\n" + "There is " + d.value + " stuff in this node";
-      });
+  // add the rectangles for the nodes
+  node
+    .append("rect")
+    .attr("height", function(d) {
+      return d.dy;
+    })
+    .attr("width", sankey.nodeWidth())
+    .style("fill", function(d) {
+      return (d.color = color(d.name.replace(/ .*/, "")));
+    })
+    .style("stroke", function(d) {
+      return d3.rgb(d.color).darker(2);
+    })
+    // Add hover text
+    .append("title")
+    .text(function(d) {
+      return d.name + "\n" + "There is " + d.value + " stuff in this node";
+    });
 
-    // add in the title for the nodes
-    node
-      .append("text")
-      .attr("x", -6)
-      .attr("y", function (d) {
-        return d.dy / 2;
-      })
-      .attr("dy", ".35em")
-      .attr("text-anchor", "end")
-      .attr("transform", null)
-      .text(function (d) {
-        return d.name;
-      })
-      .filter(function (d) {
-        return d.x < width / 2;
-      })
-      .attr("x", 6 + sankey.nodeWidth())
-      .attr("text-anchor", "start");
+  // add in the title for the nodes
+  node
+    .append("text")
+    .attr("x", -6)
+    .attr("y", function(d) {
+      return d.dy / 2;
+    })
+    .attr("dy", ".35em")
+    .attr("text-anchor", "end")
+    .attr("transform", null)
+    .text(function(d) {
+      return d.name;
+    })
+    .filter(function(d) {
+      return d.x < width / 2;
+    })
+    .attr("x", 6 + sankey.nodeWidth())
+    .attr("text-anchor", "start");
 
-    // the function for moving the nodes
-    function dragmove(d) {
-      d3.select(this).attr(
-        "transform",
-        "translate(" +
+  // the function for moving the nodes
+  function dragmove(d) {
+    d3.select(this).attr(
+      "transform",
+      "translate(" +
         d.x +
         "," +
         (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) +
         ")"
-      );
-      sankey.relayout();
-      link.attr("d", sankey.link());
-    }
-  });
+    );
+    sankey.relayout();
+    link.attr("d", sankey.link());
+  }
 };

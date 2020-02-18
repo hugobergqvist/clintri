@@ -1,6 +1,6 @@
 //Load data
 loadJSON = () => {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     modifyIncomingData().then(data => {
       resolve(data);
     });
@@ -10,17 +10,17 @@ loadJSON = () => {
 // Temporary solution for HWD. @TODO: Try and implement condition handling in a better way
 var condition = "";
 
-const setCondition = (newCondition) => {
+const setCondition = newCondition => {
   condition = newCondition;
 };
 
-const getCondition = (newCondition) => {
+const getCondition = newCondition => {
   return condition;
 };
 // -----------------------
 
 //Load data regarding the sankey tree
-loadSankeytree = (callback) => {
+loadSankeytree = callback => {
   const currentCondition = getCondition();
   handleSankeyTreeData(currentCondition, callback);
 };
@@ -29,6 +29,10 @@ loadSankeytree = (callback) => {
 searchfunction = e => {};
 
 addSankeyTree = data => {
+  var treeDiv = document.getElementById("treeMapContainer");
+  treeDiv.style.display = "none";
+  var sankeyDiv = document.getElementById("sankeyContainer");
+  sankeyDiv.style.display = "grid";
   buildSankeyTree(data);
 };
 
@@ -77,15 +81,15 @@ buildTreeMap = data => {
 
   // append the svg object to the body of the page
   var svg = d3
-    .select("#categorieContainer")
+    .select("#treeMapContainer")
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("width", width)
+    .attr("height", height)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   // Give the data to this cluster layout:
-  var root = d3.hierarchy(data).sum(function (d) {
+  var root = d3.hierarchy(data).sum(function(d) {
     return d.value;
   }); // Here the size of each leave is given in the 'value' field in input data
 
@@ -96,7 +100,7 @@ buildTreeMap = data => {
     .padding(2)(root);
 
   //Mouseover transitions
-  let mouseOver = function (d) {
+  let mouseOver = function(d) {
     d3.selectAll(".leaf")
       .transition()
       .duration(200)
@@ -107,7 +111,7 @@ buildTreeMap = data => {
       .style("opacity", 1);
   };
 
-  let mouseLeave = function (d) {
+  let mouseLeave = function(d) {
     d3.selectAll(".leaf")
       .transition()
       .duration(200)
@@ -118,7 +122,7 @@ buildTreeMap = data => {
       .style("stroke", "transparent");
   };
 
-  let mouseClick = function (d) {
+  let mouseClick = function(d) {
     d3.select(this)
       .transition()
       .duration(70)
@@ -141,24 +145,24 @@ buildTreeMap = data => {
     .data(root.leaves())
     .enter()
     .append("rect")
-    .attr("x", function (d) {
+    .attr("x", function(d) {
       return d.x0;
     })
-    .attr("y", function (d) {
+    .attr("y", function(d) {
       return d.y0;
     })
-    .attr("width", function (d) {
+    .attr("width", function(d) {
       return d.x1 - d.x0;
     })
-    .attr("height", function (d) {
+    .attr("height", function(d) {
       return d.y1 - d.y0;
     })
     .attr("class", "leaf")
-    .attr("name", function (d) {
+    .attr("name", function(d) {
       return d.data.name;
     })
     .style("stroke", "black")
-    .style("fill", function (d) {
+    .style("fill", function(d) {
       let values = getMaxMinLeafValues(root);
 
       let normLeafValue =
@@ -191,13 +195,13 @@ buildTreeMap = data => {
     .data(root.leaves())
     .enter()
     .append("text")
-    .attr("x", function (d) {
+    .attr("x", function(d) {
       return d.x0 + 5;
     }) // +10 to adjust position (more right)
-    .attr("y", function (d) {
+    .attr("y", function(d) {
       return d.y0 + 20;
     }) // +20 to adjust position (lower)
-    .text(function (d) {
+    .text(function(d) {
       return d.data.name;
     })
     .attr("font-size", "15px")
@@ -225,7 +229,7 @@ getMaxMinLeafValues = rootData => {
 };
 
 main = () => {
-  loadJSON().then(function (JSON_data) {
+  loadJSON().then(function(JSON_data) {
     addTreeMap(JSON_data);
   });
   /*loadSankeytree().then(function(data) {
@@ -233,8 +237,8 @@ main = () => {
   });*/
 };
 
-const createSankeytree = (condition) => {
+const createSankeytree = condition => {
   setCondition(condition);
   loadSankeytree(addSankeyTree);
-}
+};
 main();
