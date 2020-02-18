@@ -132,6 +132,7 @@ buildTreeMap = data => {
     //Gets the name of the clicked rectangle
     let attribute = this.getAttribute("name");
     console.log(attribute);
+    createSankeytree(attribute);
   };
 
   // use this information to add rectangles:
@@ -232,7 +233,8 @@ main = () => {
   });*/
 };
 
-const createSankeytree = () => {
+const createSankeytree = (condition) => {
+  setCondition(condition);
   loadSankeytree(addSankeyTree);
 }
 main();

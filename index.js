@@ -77,8 +77,7 @@ getPhaseDistribution = () => {
         studiesCell.appendChild(studies);
       });
       phaseTable.parentNode.replaceChild(new_tbody, phaseTable);
-      setCondition(condition);
-      createSankeytree();
+      createSankeytree(condition);
     })
     .catch(err => {
       console.log("Error fetching phases: ", err);

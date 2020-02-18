@@ -1,3 +1,5 @@
+// Change the name of this file so something related to treemap so it has better file-naming
+
 modifyIncomingData = async () => { // Perhaps change so incoming data is cleanresults so we don't can API if not necessary!
     var NewJsonObject = {
         "name": "Category",
