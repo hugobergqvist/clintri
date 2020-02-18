@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <title>ClinTri - Visualization of Clinical Trials</title>
+
+  <link rel="stylesheet" type="text/css" href="css/newMain.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Bitter:400,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://d3js.org/d3.v4.js"></script>
+</head>
+
+<body>
+    <div id="logo" class="header">
+        <img src="./images/logo.svg" alt="ClinTri" />
+    </div>
+
+    <div id="logo-extend" class="header">
+        <div id="logo-border" style="width:1px; height:50px; background-color: black;"></div>
+        <div style="padding-top:5px">
+            <span style="font-weight: 400; font-size: 20px; line-height: 0px;">Clinical trials information visualization</span>
+            <br/>
+            <span style="font-size: 15px; font-weight: 200;">Based on 10 000+ medical trials</span>
+        </div>
+    </div>
+
+    <div id="extra" class="header"></div>
+
+    <div id="search-bar" class="">
+        <form id="search-form" onsubmit="return false">
+            <input id="search-input-text" type="text" placeholder="e.g. breast cancer">
+            <input type="submit" onclick="searchSubmit(document.getElementById('search-input-text').value)" style="position: absolute; visibility: hidden;">
+            <img src="./images/search_icon.svg" style="position: absolute; right: 25px; align-self: center;"/>
+            <span style="position: absolute; margin-top: -10px; margin-left: 10px; font-family: 'Bitter', serif;">Condition</span>
+        </form>
+        
+    </div>
+    <div id="filter" class="header">
+        <div class="filter-hidden" id="filter-button" onclick="toggleFilter()">
+            
+            <svg class="" id="filter_icon" xmlns="http://www.w3.org/2000/svg" width="34.568" height="38.043" viewBox="0 0 34.568 38.043">
+                <g id="noun_Settings_943929" transform="translate(-11.2 -7.3)">
+                  <g id="Group_13" data-name="Group 13" transform="translate(11.2 7.3)" >
+                    <path id="Path_44" data-name="Path 44" d="M44.12,40.921H40.735A5.92,5.92,0,0,0,35.077,36.6a6.07,6.07,0,0,0-5.7,4.321H12.848a1.648,1.648,0,0,0,0,3.3H29.375a5.864,5.864,0,0,0,11.315,0h3.386a1.644,1.644,0,0,0,1.648-1.648A1.58,1.58,0,0,0,44.12,40.921Zm-9.043,4.321A2.68,2.68,0,0,1,32.4,42.569a2.673,2.673,0,0,1,5.346,0A2.68,2.68,0,0,1,35.077,45.242Z" transform="translate(-11.2 -23.548)" />
+                    <path id="Path_45" data-name="Path 45" d="M12.848,14.918h3.519a5.864,5.864,0,0,0,11.315,0H44.12a1.644,1.644,0,0,0,1.648-1.648,1.617,1.617,0,0,0-1.648-1.648H27.682a5.864,5.864,0,0,0-11.315,0H12.848A1.644,1.644,0,0,0,11.2,13.269,1.617,1.617,0,0,0,12.848,14.918ZM22.025,10.6A2.68,2.68,0,0,1,24.7,13.269a2.625,2.625,0,0,1-2.673,2.673,2.68,2.68,0,0,1-2.673-2.673A2.74,2.74,0,0,1,22.025,10.6Z" transform="translate(-11.2 -7.3)"/>
+                    <path id="Path_46" data-name="Path 46" d="M44.12,70.221H27.682a5.864,5.864,0,0,0-11.315,0H12.848A1.644,1.644,0,0,0,11.2,71.869a1.617,1.617,0,0,0,1.648,1.648h3.519a5.864,5.864,0,0,0,11.315,0H44.12a1.644,1.644,0,0,0,1.648-1.648A1.617,1.617,0,0,0,44.12,70.221Zm-22.1,4.321a2.68,2.68,0,0,1-2.673-2.673,2.673,2.673,0,1,1,5.346,0A2.68,2.68,0,0,1,22.025,74.542Z" transform="translate(-11.2 -39.795)" />
+                  </g>
+                </g>
+              </svg>
+        </div>
+    </div>
+    <div class="wrapper" id="categorieContainer">
+        <div id="content">Content
+            </div>
+        </div>
+        
+    </div>
+        <div class="filter" id="filter-wrapper">
+            <br/>
+            <span style="color: white; text-align: center; margin-left: 20px; font-family: 'Bitter', serif;">TODO: Filter</span>
+        </div>
+    <div id="timeline"> 
+        <div id="time-text"></div>
+        <canvas id="canvas">
+            </canvas>
+    </div>
+</body>
+
+<!-- The header of the website -->
+
+<!-- Contains all of the categories -->
+
+
+</div>
+<script src="script/handlingdata.js"></script>
+<script src="script/index.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", modifyIncomingData);    
+</script>
+
+<script>
+    function toggleFilter(){
+        document.getElementById("filter-button").classList.toggle("filter-show");
+        document.getElementById("filter_icon").classList.toggle("turnWhite");
+        document.getElementById("categorieContainer").classList.toggle("filter-window");
+        document.getElementById("filter-wrapper").classList.toggle("show-filter");
+        console.log("hi");
+    }
+
+    function searchSubmit(searchValue){
+        document.getElementById('content').innerHTML = searchValue;
+    }
+</script>
+
+<script>
+    const c = document.getElementById("canvas");
+    const ctx = c.getContext("2d");
+
+    c.style.width ='100%';
+    c.style.height='100%';
+    c.width  = canvas.offsetWidth;
+    c.height = canvas.offsetHeight;
+
+    const rect = c.getBoundingClientRect();
+    var mousePos = {x:0, y:0}
+    var isMovingLeft = false;
+    var isMovingRight = false;
+    var leftMark ={x:50};
+    var rightMark = {x: 500};
+
+    function initCanvas(){
+        drawMarker();
+    }
+
+    function drawMarker(){
+        ctx.beginPath();
+        ctx.fillStyle = "#38729F";
+        ctx.fillRect(leftMark.x, 0, 6, 55);
+        ctx.fillRect(rightMark.x, 0, 6, 55);
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.strokeStyle = "#38729F";
+        ctx.lineWidth = 4;
+        ctx.moveTo(leftMark.x, 1);
+        ctx.lineTo(rightMark.x+6, 1);
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.beginPath();
+        ctx.lineWidth = 14;
+        ctx.moveTo(leftMark.x, 55);
+        ctx.lineTo(rightMark.x+6, 55);
+        ctx.stroke();
+        ctx.closePath();
+    
+    }
+
+    c.addEventListener("mousemove", e => {
+        mousePos.x = e.clientX - rect.left;
+        mousePos.y = e.clientY - rect.top;
+
+        console.log("span: ", leftMark.x, rightMark.x)
+
+       if(isMovingLeft === true){
+           leftMark.x = mousePos.x;
+           document.getElementById('content').innerHTML = leftMark.x + "-" + rightMark.x;
+
+        ctx.clearRect(0,0,2000,2000);
+        drawMarker();
+       }
+       if(isMovingRight === true){
+        rightMark.x = mousePos.x;
+        document.getElementById('content').innerHTML = leftMark.x + "-" + rightMark.x;
+  
+        ctx.clearRect(0,0,2000,2000);
+        drawMarker();
+       }
+    });
+
+    c.addEventListener("mousedown", e =>{
+        if(Math.abs(mousePos.x - leftMark.x) < 10){
+            isMovingLeft = true;
+        }
+
+        if(Math.abs(mousePos.x - rightMark.x) < 10){
+            isMovingRight = true;
+        }
+        
+    })
+
+    c.addEventListener("mouseup", e =>{
+        isMovingLeft = false;
+        isMovingRight = false;
+    })
+
+    initCanvas();
+</script>
+
+</body>
+
+</html>
