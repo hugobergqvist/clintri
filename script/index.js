@@ -195,8 +195,25 @@ buildTreeMap = data => {
     .text(function (d) {
       return d.data.name;
     })
-    .attr("font-size", "11px")
-    .attr("fill", "white");
+    .attr("textLength", function (d) {
+      var width = Math.round(d.x1 - d.x0 - 10)
+      var widthString = width.toString()
+      var string = widthString + "px"
+      return string;
+    })
+    .attr("lengthAdjust", "spacingAndGlyphs")
+    .attr("font-size", function (d) {
+      var height = Math.round(d.y1 - d.y0)
+      if (height < 20) {
+        return "0px"
+      } else {
+        return "11px";
+      }
+    })
+    .attr("fill", "white")
+    .attr("word-wrap", "break-word")
+    .attr("white-space", "nowrap")
+    .attr("overflow", "hidden");
 };
 
 getMaxMinLeafValues = rootData => {

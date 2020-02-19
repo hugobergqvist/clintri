@@ -38,6 +38,7 @@ font-family: 'Bitter', serif;
   font-size: 100px;
   font-weight: 500;
   color: rgb(126, 126, 126);
+  cursor: pointer;
 }
 
 #sankeyContainer {
