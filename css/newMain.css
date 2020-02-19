@@ -71,6 +71,15 @@ font-family: 'Bitter', serif;
 #categorieContainer {
   background-color: white;
 }
+.link {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: .2;
+}
+
+.link:hover {
+  stroke-opacity: .5;
+}
 
 .filter {
   display: none;
@@ -154,3 +163,5 @@ input:focus {
 width = 1600 - margin.left - margin.right,
     height = 1000 - margin.top - margin.bottom
 */
+
+

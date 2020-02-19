@@ -1,6 +1,6 @@
 //Load data
 loadJSON = () => {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     modifyIncomingData().then(data => {
       resolve(data);
     });
@@ -26,7 +26,7 @@ loadSankeytree = callback => {
 };
 
 // Handle the search
-searchfunction = e => {};
+searchfunction = e => { };
 
 addSankeyTree = data => {
   var treeDiv = document.getElementById("treeMapContainer");
@@ -71,11 +71,11 @@ addTreeMap = data => {
 buildTreeMap = data => {
   // set the dimensions and margins of the graph
   var margin = {
-      top: 10,
-      right: 10,
-      bottom: 10,
-      left: 10
-    },
+    top: 10,
+    right: 10,
+    bottom: 10,
+    left: 10
+  },
     width = 1600 - margin.left - margin.right,
     height = 1000 - margin.top - margin.bottom;
 
@@ -89,7 +89,7 @@ buildTreeMap = data => {
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   // Give the data to this cluster layout:
-  var root = d3.hierarchy(data).sum(function(d) {
+  var root = d3.hierarchy(data).sum(function (d) {
     return d.value;
   }); // Here the size of each leave is given in the 'value' field in input data
 
@@ -100,7 +100,7 @@ buildTreeMap = data => {
     .padding(2)(root);
 
   //Mouseover transitions
-  let mouseOver = function(d) {
+  let mouseOver = function (d) {
     d3.selectAll(".leaf")
       .transition()
       .duration(200)
@@ -111,7 +111,7 @@ buildTreeMap = data => {
       .style("opacity", 1);
   };
 
-  let mouseLeave = function(d) {
+  let mouseLeave = function (d) {
     d3.selectAll(".leaf")
       .transition()
       .duration(200)
@@ -122,7 +122,7 @@ buildTreeMap = data => {
       .style("stroke", "transparent");
   };
 
-  let mouseClick = function(d) {
+  let mouseClick = function (d) {
     d3.select(this)
       .transition()
       .duration(70)
@@ -145,40 +145,31 @@ buildTreeMap = data => {
     .data(root.leaves())
     .enter()
     .append("rect")
-    .attr("x", function(d) {
+    .attr("x", function (d) {
       return d.x0;
     })
-    .attr("y", function(d) {
+    .attr("y", function (d) {
       return d.y0;
     })
-    .attr("width", function(d) {
+    .attr("width", function (d) {
       return d.x1 - d.x0;
     })
-    .attr("height", function(d) {
+    .attr("height", function (d) {
       return d.y1 - d.y0;
     })
     .attr("class", "leaf")
-    .attr("name", function(d) {
+    .attr("name", function (d) {
       return d.data.name;
     })
     .style("stroke", "black")
-    .style("fill", function(d) {
+    .style("fill", function (d) {
       let values = getMaxMinLeafValues(root);
 
       let normLeafValue =
         (d.value - values.leafMin) / (values.leafMax - values.leafMin);
 
       const colorScale = [
-        "#8dd3c7",
-        "#ffffb3",
-        "#bebada",
-        "#fb8072",
-        "#80b1d3",
-        "#fdb462",
-        "#b3de69",
-        "#fccde5",
-        "#d9d9d9",
-        "#bc80bd"
+        "#922B21", "#1F618D", "#2874A6", "#148F77", "#B7950B", "#117A65", "#A04000", "#76448A", "#239B56", "#B03A2E", "#AF601A"
       ];
 
       return colorScale[Math.round(normLeafValue * 10)];
@@ -195,16 +186,16 @@ buildTreeMap = data => {
     .data(root.leaves())
     .enter()
     .append("text")
-    .attr("x", function(d) {
+    .attr("x", function (d) {
       return d.x0 + 5;
     }) // +10 to adjust position (more right)
-    .attr("y", function(d) {
+    .attr("y", function (d) {
       return d.y0 + 20;
     }) // +20 to adjust position (lower)
-    .text(function(d) {
+    .text(function (d) {
       return d.data.name;
     })
-    .attr("font-size", "15px")
+    .attr("font-size", "11px")
     .attr("fill", "white");
 };
 
@@ -229,7 +220,7 @@ getMaxMinLeafValues = rootData => {
 };
 
 main = () => {
-  loadJSON().then(function(JSON_data) {
+  loadJSON().then(function (JSON_data) {
     addTreeMap(JSON_data);
   });
   /*loadSankeytree().then(function(data) {
