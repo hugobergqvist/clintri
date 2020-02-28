@@ -4,39 +4,35 @@ loadJSON = () => {
     modifyIncomingData().then(data => {
       resolve(data);
     });
-
-    // PREVIOUS CODE WITH PREDETERMINED AND STATIC DATA
-    // var incomingData = modifyIncomingData();
-    // console.log("DYNAMIC DATA WORKING");
-    // console.log(incomingData);
-
-    // d3.json("./script/data.json", function (data) {
-    //   console.log("LOADING...")
-
-    //   resolve(data)
-
-    // });
-
-    // resolve(incomingData);
   });
 };
 
+// Temporary solution for HWD. @TODO: Try and implement condition handling in a better way
+var condition = "";
+
+const setCondition = newCondition => {
+  condition = newCondition;
+};
+
+const getCondition = newCondition => {
+  return condition;
+};
+// -----------------------
+
 //Load data regarding the sankey tree
 loadSankeytree = callback => {
-  var condition = "cancer"; // LÄGG TILL SÅ ATT DENNA ÄR EN INKOMMANDE PARAMETER TODO: REMOVE
-  handleSankeyTreeData(condition, callback);
-  /*
-  return new Promise(function(resolve, reject) {
-    handleSankeyTreeData(condition).then(data => {
-      resolve(data);
-    }); 
-  });*/
+  const currentCondition = getCondition();
+  handleSankeyTreeData(currentCondition, callback);
 };
 
 // Handle the search
 searchfunction = e => {};
 
 addSankeyTree = data => {
+  var treeDiv = document.getElementById("treeMapContainer");
+  treeDiv.style.display = "none";
+  var sankeyDiv = document.getElementById("sankeyContainer");
+  sankeyDiv.style.display = "grid";
   buildSankeyTree(data);
 };
 
@@ -74,16 +70,21 @@ addTreeMap = data => {
 // This function builds the d3-treemap component
 buildTreeMap = data => {
   // set the dimensions and margins of the graph
-  var margin = { top: 10, right: 10, bottom: 10, left: 10 },
+  var margin = {
+      top: 10,
+      right: 10,
+      bottom: 10,
+      left: 10
+    },
     width = 1600 - margin.left - margin.right,
     height = 1000 - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
   var svg = d3
-    .select("#categorieContainer")
+    .select("#treeMapContainer")
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("width", width)
+    .attr("height", height)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -135,6 +136,7 @@ buildTreeMap = data => {
     //Gets the name of the clicked rectangle
     let attribute = this.getAttribute("name");
     console.log(attribute);
+    createSankeytree(attribute);
   };
 
   // use this information to add rectangles:
@@ -220,7 +222,10 @@ getMaxMinLeafValues = rootData => {
   const leafMax = Math.max.apply(Math, leafValues);
   const leafMin = Math.min.apply(Math, leafValues);
 
-  return { leafMax: leafMax, leafMin: leafMin };
+  return {
+    leafMax: leafMax,
+    leafMin: leafMin
+  };
 };
 
 main = () => {
@@ -230,7 +235,10 @@ main = () => {
   /*loadSankeytree().then(function(data) {
     addSankeyTree(data);
   });*/
-  loadSankeytree(addSankeyTree);
 };
 
+const createSankeytree = condition => {
+  setCondition(condition);
+  loadSankeytree(addSankeyTree);
+};
 main();
