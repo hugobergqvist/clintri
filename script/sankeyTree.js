@@ -1,4 +1,7 @@
 buildSankeyTree = data => {
+
+  return new Promise(function (resolve, reject) {
+  
   // set the dimensions and margins of the graph
   var sankeyDiv = document.getElementById("sankeyContainer");
   var divWidth = sankeyDiv.offsetWidth;
@@ -139,4 +142,7 @@ buildSankeyTree = data => {
     sankey.relayout();
     link.attr("d", sankey.link());
   }
+
+}),  Promise.resolve();
+
 };

@@ -1,3 +1,5 @@
+
+
 getCategories = () => {
   let url =
     "https://clinicaltrials.gov/api/query/field_values?expr=&field=ConditionBrowseBranchName&fmt=json";
@@ -34,6 +36,7 @@ getCategories = () => {
 };
 
 getStudyTypeFromKeyword = (keyword = "cancer") => {
+
   let url =
     "https://clinicaltrials.gov/api/query/study_fields?expr=" +
     keyword +
@@ -47,6 +50,7 @@ getStudyTypeFromKeyword = (keyword = "cancer") => {
 };
 
 getPhaseDistribution = () => {
+
   let condition = document.getElementById("phase").value;
   const phaseTable = document
     .getElementById("phaseTable")
