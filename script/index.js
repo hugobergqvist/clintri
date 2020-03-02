@@ -124,8 +124,8 @@ buildTreeMap = data => {
       .style("stroke", "transparent");
   };
 
+  // Tooltip
   let mousemove = function (d) {
-    //let attribute = this.getAttribute("name");
     var xPosition = d3.event.pageX + 5;
     var yPosition = d3.event.pageY + 5;
     d3.select("#tooltip")
@@ -141,6 +141,7 @@ buildTreeMap = data => {
     d3.select("#tooltip").classed("hidden", true);
   }
 
+  // Move to SankeyTree
   let mouseClick = function (d) {
     d3.select(this)
       .transition()
