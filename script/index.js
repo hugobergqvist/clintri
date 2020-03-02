@@ -1,6 +1,32 @@
+stateHandler = (state) => {
+
+  //Accepts strings "loading" and "loaded"
+
+  let loaderDiv = document.getElementById("loader");
+  let treeMapDiv = document.getElementById("treeMapContainer");
+
+  if (state == "loading") {
+
+    loaderDiv.classList.remove("hideLoader");
+    treeMapDiv.style.display = "none";
+  }
+
+  if (state == "loaded") {
+    loaderDiv.classList.add("hideLoader");
+    //treeMapDiv.style.display = "block";
+  }
+
+  else {
+    //loaderDiv.classList.add("hideLoader");
+    //console.log("ERROR, stateHandler error")
+  }
+
+}
+
 //Load data
 loadJSON = () => {
   return new Promise(function (resolve, reject) {
+
     modifyIncomingData().then(data => {
       resolve(data);
     });
@@ -21,8 +47,10 @@ const getCondition = newCondition => {
 
 //Load data regarding the sankey tree
 loadSankeytree = callback => {
+
   const currentCondition = getCondition();
   handleSankeyTreeData(currentCondition, callback);
+
 };
 
 // Handle the search
@@ -33,7 +61,7 @@ addSankeyTree = data => {
   treeDiv.style.display = "none";
   var sankeyDiv = document.getElementById("sankeyContainer");
   sankeyDiv.style.display = "grid";
-  buildSankeyTree(data);
+  buildSankeyTree(data).then(stateHandler("loaded"));
 };
 
 addTreeMap = data => {
@@ -143,7 +171,7 @@ buildTreeMap = data => {
         "#43A9F3", "#47BCD3", "#4BC6DA", "#359688", "#4CB050", "#57C85B", "#8BC34A", "#CCDC3A", "#C7FF04",
         "#F6C00B", "#F49803", "#F15823"
       ];
-      console.log(i)
+      //console.log(Math.floor(Math.random() * Math.floor(20)))
       if (i >= 20) { i = 0 }
       else { i += 1; }
       return colorScale[i];
@@ -151,8 +179,6 @@ buildTreeMap = data => {
     .on("mouseover", mouseOver)
     .on("mouseleave", mouseLeave)
     .on("click", mouseClick);
-
-  // let colorScar = ["#8dd3c7","#ffffb3","#bebada","#fb8072","#80b1d3","#fdb462","#b3de69","#fccde5","#d9d9d9","#bc80bd","#ccebc5","#ffed6f"]
 
   // and to add the text labels
   svg
@@ -167,27 +193,36 @@ buildTreeMap = data => {
       return d.y0 + 20;
     }) // +20 to adjust position (lower)
     .text(function (d) {
-      return d.data.name;
+      var string = d.data.name
+      var rect_width = Math.round(d.x1 - d.x0)
+      if (string.length * 10 > rect_width) {
+        string = string.substring(0, rect_width / 7)
+        console.log("to wide")
+      }
+      console.log("width:", Math.round(d.x1 - d.x0))
+      console.log("string:", string.length)
+      return string;
     })
-    .attr("textLength", function (d) {
+    /* .attr("textLength", function (d) {
       var width = Math.round(d.x1 - d.x0 - 10)
       var widthString = width.toString()
       var string = widthString + "px"
       return string;
     })
-    .attr("lengthAdjust", "spacingAndGlyphs")
+    .attr("lengthAdjust", "spacingAndGlyphs") */
     .attr("font-size", function (d) {
       var height = Math.round(d.y1 - d.y0)
       if (height < 20) {
         return "0px"
       } else {
-        return "11px";
+        return "13px";
       }
     })
     .attr("fill", "white")
     .attr("word-wrap", "break-word")
     .attr("white-space", "nowrap")
     .attr("overflow", "hidden");
+
 };
 
 getMaxMinLeafValues = rootData => {
@@ -211,6 +246,7 @@ getMaxMinLeafValues = rootData => {
 };
 
 main = () => {
+
   loadJSON().then(function (JSON_data) {
     addTreeMap(JSON_data);
   });
@@ -220,7 +256,9 @@ main = () => {
 };
 
 const createSankeytree = condition => {
+
   setCondition(condition);
+  stateHandler("loading")//Sets loading state to control loader animation, state: loaded is set after invoking function buildsankeytree()
   loadSankeytree(addSankeyTree);
 };
 main();

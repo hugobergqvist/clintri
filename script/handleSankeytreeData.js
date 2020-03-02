@@ -44,6 +44,7 @@ oldHandleSankeyTreeData = async condition => {
   return result;
 };
 
+
 handleSankeyTreeData = (condition, callback) => {
   megaFetch(condition, 1, 1000, [], callback);
   /*
@@ -168,12 +169,14 @@ const formatData = (condition, data, callback) => {
 };
 
 const megaFetch = (
+ 
   condition = "heart attack",
   min = 1,
   max = 1000,
   totalResult = [],
   callback
 ) => {
+
   var currentRes = totalResult;
   let megaUrl = `https://clinicaltrials.gov/api/query/study_fields?expr=${condition}&fields=BriefTitle%2CStudyType%2CPhase&min_rnk=${min}&max_rnk=${max}&fmt=json`;
   fetch(megaUrl)
