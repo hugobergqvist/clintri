@@ -117,12 +117,29 @@ buildTreeMap = data => {
     d3.selectAll(".leaf")
       .transition()
       .duration(200)
-      .style("opacity", 0.8);
+      .style("opacity", 1);
     d3.select(this)
       .transition()
       .duration(200)
       .style("stroke", "transparent");
   };
+
+  let mousemove = function (d) {
+    //let attribute = this.getAttribute("name");
+    var xPosition = d3.event.pageX + 5;
+    var yPosition = d3.event.pageY + 5;
+    d3.select("#tooltip")
+      .style("left", xPosition + "px")
+      .style("top", yPosition + "px");
+    d3.select("#tooltip #name")
+      .text(d.data.name);
+    d3.select("#tooltip #value")
+      .text("Number of studies: " + d.data.value);
+    d3.select("#tooltip").classed("hidden", false);
+  }
+  let mouseout = function (d) {
+    d3.select("#tooltip").classed("hidden", true);
+  }
 
   let mouseClick = function (d) {
     d3.select(this)
@@ -178,6 +195,8 @@ buildTreeMap = data => {
     })
     .on("mouseover", mouseOver)
     .on("mouseleave", mouseLeave)
+    .on("mousemove", mousemove)
+    .on("mouseout", mouseout)
     .on("click", mouseClick);
 
   // and to add the text labels
