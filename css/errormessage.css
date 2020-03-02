@@ -1,0 +1,9 @@
+.showMessage {
+    position: absolute; 
+    top: 40%;
+    left: 50%;
+}
+
+.hideMessage {
+    display: none;
+}

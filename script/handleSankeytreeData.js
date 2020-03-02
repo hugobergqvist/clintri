@@ -48,39 +48,39 @@ oldHandleSankeyTreeData = async condition => {
 handleSankeyTreeData = (condition, callback) => {
   megaFetch(condition, 1, 1000, [], callback);
   /*
-  var result = {
-    nodes: [],
-    links: []
-  };
+var result = {
+  nodes: [],
+  links: []
+};
 
-  var counter = 1;
+var counter = 1;
 
-  let url = `https://clinicaltrials.gov/api/query/field_values?expr=${condition}&field=Phase&fmt=json`;
+let url = `https://clinicaltrials.gov/api/query/field_values?expr=${condition}&field=Phase&fmt=json`;
 
-  fetch(url)
-    .then(rawRes => rawRes.json())
-    .then(cleanRes => {
+fetch(url)
+  .then(rawRes => rawRes.json())
+  .then(cleanRes => {
+    result["nodes"].push({
+      node: 0,
+      name: condition
+    });
+    cleanRes.FieldValuesResponse.FieldValues.map(element => {
       result["nodes"].push({
-        node: 0,
-        name: condition
+        node: counter,
+        name: element.FieldValue
       });
-      cleanRes.FieldValuesResponse.FieldValues.map(element => {
-        result["nodes"].push({
-          node: counter,
-          name: element.FieldValue
-        });
-        result["links"].push({
-          source: 0,
-          target: counter,
-          value: element.NStudiesFoundWithValue
-        });
-        counter += 1;
+      result["links"].push({
+        source: 0,
+        target: counter,
+        value: element.NStudiesFoundWithValue
       });
-    })
-    .then(() => {
-      callback(result);
-    })
-    .catch(err => console.log("error fetching sankey tree data: ", err));*/
+      counter += 1;
+    });
+  })
+  .then(() => {
+    callback(result);
+  })
+  .catch(err => console.log("error fetching sankey tree data: ", err));*/
 };
 
 const formatData = (condition, data, callback) => {
@@ -169,7 +169,7 @@ const formatData = (condition, data, callback) => {
 };
 
 const megaFetch = (
- 
+
   condition = "heart attack",
   min = 1,
   max = 1000,
@@ -189,5 +189,8 @@ const megaFetch = (
         formatData(condition, currentRes, callback);
       }
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+      stateHandler("error");
+    });
 };

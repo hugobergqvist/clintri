@@ -3,17 +3,40 @@ stateHandler = (state) => {
   //Accepts strings "loading" and "loaded"
 
   let loaderDiv = document.getElementById("loader");
+  let errorMessageDiv = document.getElementById("errorMessage");
   let treeMapDiv = document.getElementById("treeMapContainer");
 
   if (state == "loading") {
 
     loaderDiv.classList.remove("hideLoader");
+    if (!errorMessageDiv.classList.contains("hideMessage")) {
+      errorMessageDiv.classList.add("hideMessage");
+    }
+
     treeMapDiv.style.display = "none";
   }
 
   if (state == "loaded") {
     loaderDiv.classList.add("hideLoader");
+
+    if (!errorMessageDiv.classList.contains("hideMessage")) {
+      errorMessageDiv.classList.add("hideMessage");
+    }
     //treeMapDiv.style.display = "block";
+  }
+
+  if (state == "error") {
+    loaderDiv.classList.add("hideLoader");
+
+    const existing_element = document.querySelector("#sankeyContainer");
+    const child = existing_element.firstElementChild;
+    if (child) {
+      existing_element.removeChild(child);
+    }
+    errorMessageDiv.classList.remove("hideMessage");
+    console.log("We got an error when fetching from API");
+
+
   }
 
   else {
@@ -54,7 +77,7 @@ loadSankeytree = callback => {
 };
 
 // Handle the search
-searchfunction = e => { };
+// searchfunction = e => { };
 
 addSankeyTree = data => {
   var treeDiv = document.getElementById("treeMapContainer");
