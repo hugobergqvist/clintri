@@ -197,10 +197,7 @@ buildTreeMap = data => {
       var rect_width = Math.round(d.x1 - d.x0)
       if (string.length * 10 > rect_width) {
         string = string.substring(0, rect_width / 7)
-        console.log("to wide")
       }
-      console.log("width:", Math.round(d.x1 - d.x0))
-      console.log("string:", string.length)
       return string;
     })
     /* .attr("textLength", function (d) {
