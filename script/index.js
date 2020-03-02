@@ -39,32 +39,6 @@ addSankeyTree = data => {
 addTreeMap = data => {
   // Add new treemap
   buildTreeMap(data);
-  //var newTreemap = document.createElement("div");
-  //newTreemap.classList.add("treemap");
-  //newTreemap.setAttribute("id", "treemap");
-
-  // ADD TREEMAP: newTreemap.appendChild(treemap);
-  //var newContent = document.createTextNode("Hi there and greetings!");
-  //newTreemap.appendChild(newContent);
-
-  // Add Legend
-  //var newLegend = document.createElement("LEGEND");
-  //var legendText = document.createTextNode("NewLegend:");  // Make dynamic with incoming data!!
-  //newLegend.appendChild(legendText);
-
-  // Add Fieldset
-  //var newFieldset = document.createElement("fieldset");
-  //newFieldset.appendChild(newLegend);
-  //newFieldset.appendChild(newTreemap);
-
-  // Add entire new div with all its children
-  //var newDiv = document.createElement("div");
-  //newDiv.classList.add("categories");
-  //newDiv.appendChild(newFieldset);
-
-  // Find the wrapper containing all categories and push the new element
-  //var wrapperDiv = document.getElementById("categorieContainer");
-  //wrapperDiv.appendChild(newDiv);
 };
 
 // This function builds the d3-treemap component
@@ -140,6 +114,7 @@ buildTreeMap = data => {
   };
 
   // use this information to add rectangles:
+  var i = 0;
   svg
     .selectAll("rect")
     .data(root.leaves())
@@ -161,18 +136,17 @@ buildTreeMap = data => {
     .attr("name", function (d) {
       return d.data.name;
     })
-    .style("stroke", "black")
-    .style("fill", function (d) {
-      let values = getMaxMinLeafValues(root);
-
-      let normLeafValue =
-        (d.value - values.leafMin) / (values.leafMax - values.leafMin);
+    .style("fill", function () {
 
       const colorScale = [
-        "#922B21", "#1F618D", "#2874A6", "#148F77", "#B7950B", "#117A65", "#A04000", "#76448A", "#239B56", "#B03A2E", "#AF601A"
+        "#EC407B", "#D34747", "#E91F63", "#F24182", "#D335EE", "#9D27B0", "#673BB7", "#3F51B5", "#3D96F2",
+        "#43A9F3", "#47BCD3", "#4BC6DA", "#359688", "#4CB050", "#57C85B", "#8BC34A", "#CCDC3A", "#C7FF04",
+        "#F6C00B", "#F49803", "#F15823"
       ];
-
-      return colorScale[Math.round(normLeafValue * 10)];
+      console.log(i)
+      if (i >= 20) { i = 0 }
+      else { i += 1; }
+      return colorScale[i];
     })
     .on("mouseover", mouseOver)
     .on("mouseleave", mouseLeave)
