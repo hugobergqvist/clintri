@@ -44,7 +44,6 @@ oldHandleSankeyTreeData = async condition => {
   return result;
 };
 
-
 handleSankeyTreeData = (condition, callback) => {
   megaFetch(condition, 1, 1000, [], callback);
   /*
@@ -88,14 +87,29 @@ const formatData = (condition, data, callback) => {
     nodes: [
       { node: 0, name: condition, id: "Root" },
       { node: 1, name: "None" },
-      { node: 2, name: "Final" }
+      { node: 2, name: "Expanded Access" },
+      { node: 3, name: "Observational" },
+      { node: 4, name: "Interventional" },
+      { node: 5, name: "Phase 1" },
+      { node: 6, name: "Phase 2" },
+      { node: 7, name: "Phase 3" },
+      { node: 8, name: "Phase 4" }
     ],
     links: []
   };
-  var nodeObj = { Root: 0, None: 1, Final: 2 };
+  var nodeObj = {
+    Root: 0,
+    None: 1,
+    "Expanded Access": 2,
+    Observational: 3,
+    Interventional: 4,
+    "Phase 1": 5,
+    "Phase 2": 6,
+    "Phase 3": 7,
+    "Phase 4": 8
+  };
   var counterObj = {};
-  var studyCounter = 0;
-  var nodeCounter = 3;
+  var nodeCounter = 9;
 
   data.map(object => {
     if (!Object.keys(nodeObj).includes(object.StudyType[0])) {
@@ -129,22 +143,6 @@ const formatData = (condition, data, callback) => {
       var phase = object.Phase[0] != undefined ? object.Phase[0] : "None";
       counterObj[object.StudyType] = { [phase]: 1 };
     }
-    if (studyCounter < 60) {
-      if (object.Phase[0] === undefined) {
-        formattedObj["links"].push({
-          source: nodeObj["None"],
-          target: 2,
-          value: 20
-        });
-      } else {
-        formattedObj["links"].push({
-          source: nodeObj[object.Phase[0]],
-          target: 2,
-          value: 20
-        });
-      }
-      studyCounter += 1;
-    }
   });
 
   Object.entries(counterObj).map(elem => {
@@ -165,18 +163,20 @@ const formatData = (condition, data, callback) => {
     });
   });
 
+  formattedObj["links"].forEach(node => {
+    console.log(node);
+  });
+
   callback(formattedObj);
 };
 
 const megaFetch = (
-
   condition = "heart attack",
   min = 1,
   max = 1000,
   totalResult = [],
   callback
 ) => {
-
   var currentRes = totalResult;
   let megaUrl = `https://clinicaltrials.gov/api/query/study_fields?expr=${condition}&fields=BriefTitle%2CStudyType%2CPhase&min_rnk=${min}&max_rnk=${max}&fmt=json`;
   fetch(megaUrl)
