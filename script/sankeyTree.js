@@ -1,6 +1,6 @@
 buildSankeyTree = (data, phaseData) => {
   return (
-    new Promise(function(resolve, reject) {
+    new Promise(function (resolve, reject) {
       // set the dimensions and margins of the graph
       var sankeyDiv = document.getElementById("sankeyContainer");
       var divWidth = sankeyDiv.offsetWidth;
@@ -9,11 +9,11 @@ buildSankeyTree = (data, phaseData) => {
         divHeight = 500;
       }
       var margin = {
-          top: 10,
-          right: 10,
-          bottom: 10,
-          left: 10
-        },
+        top: 10,
+        right: 10,
+        bottom: 10,
+        left: 10
+      },
         width = divWidth - margin.left - margin.right, // Kanske går att lägga inherit här istället men det påverkar möjligheten att visa upp allt
         height = divHeight - margin.top - margin.bottom;
 
@@ -54,7 +54,7 @@ buildSankeyTree = (data, phaseData) => {
 
       alphabethicalSort = arr => {
         // sort() returns the sorted array.
-        arr.sort(function(a, b) {
+        arr.sort(function (a, b) {
           var titleA = a.BriefTitle;
           var titleB = b.BriefTitle;
           if (titleA < titleB) {
@@ -76,7 +76,7 @@ buildSankeyTree = (data, phaseData) => {
       //console.log("this is sorted Alphabetically reverse: ", alphabethicalSort(phase4).reverse());
 
       dateSort = arr => {
-        arr.sort(function(a, b) {
+        arr.sort(function (a, b) {
           return new Date(b.StartDate) - new Date(a.StartDate);
         });
         return arr;
@@ -114,7 +114,8 @@ buildSankeyTree = (data, phaseData) => {
         .append("path")
         .attr("class", "link")
         .attr("d", sankey.link())
-        .style("stroke-width", function(d) {
+        .style('fill', 'none')
+        .style("stroke-width", function (d) {
           return Math.max(1, d.dy);
         });
 
@@ -126,7 +127,7 @@ buildSankeyTree = (data, phaseData) => {
         .enter()
         .append("g")
         .attr("class", "node")
-        .attr("transform", function(d) {
+        .attr("transform", function (d) {
           if (d["value"] > 0) {
             return "translate(" + d.x + "," + d.y + ")";
           }
@@ -134,10 +135,10 @@ buildSankeyTree = (data, phaseData) => {
         .call(
           d3
             .drag()
-            .subject(function(d) {
+            .subject(function (d) {
               return d;
             })
-            .on("start", function() {
+            .on("start", function () {
               this.parentNode.appendChild(this);
             })
             .on("drag", dragmove)
@@ -146,19 +147,19 @@ buildSankeyTree = (data, phaseData) => {
       // add the rectangles for the nodes
       node
         .append("rect")
-        .attr("height", function(d) {
+        .attr("height", function (d) {
           return d.dy;
         })
         .attr("width", sankey.nodeWidth())
-        .style("fill", function(d) {
+        .style("fill", function (d) {
           return (d.color = color(d.name.replace(/ .*/, "")));
         })
-        .style("stroke", function(d) {
+        .style("stroke", function (d) {
           return d3.rgb(d.color).darker(2);
         })
         // Add hover text
         .append("title")
-        .text(function(d) {
+        .text(function (d) {
           return d.name + "\n" + "There are " + d.value + " studies in this node";
         });
 
@@ -167,13 +168,13 @@ buildSankeyTree = (data, phaseData) => {
       node
         .append("text")
         .attr("x", -6)
-        .attr("y", function(d) {
+        .attr("y", function (d) {
           return d.dy / 2;
         })
         .attr("dy", ".35em")
         .attr("text-anchor", "end")
         .attr("transform", null)
-        .text(function(d) {
+        .text(function (d) {
           if (d.value !== 0) {
             if (d.node !== 0) {
               let percentage = Math.round((d.value / rootVal) * 100);
@@ -187,11 +188,45 @@ buildSankeyTree = (data, phaseData) => {
             }
           }
         })
-        .filter(function(d) {
+        .filter(function (d) {
           return d.x < width / 2;
         })
         .attr("x", 6 + sankey.nodeWidth())
         .attr("text-anchor", "start");
+
+      var defs = svg.append("defs");
+      link.style('stroke', (d, i) => {
+
+        // make unique gradient ids  
+        const gradientID = `gradient${i}`;
+        const startColor = d.source.color;
+        const stopColor = d.target.color;
+        const x1 = d.source.x;
+        const y1 = d.source.y;
+        const x2 = d.target.x;
+        const y2 = d.target.y;
+
+        const linearGradient = defs.append('linearGradient')
+          .attr("gradientUnits", "userSpaceOnUse")
+          .attr('id', gradientID);
+
+        linearGradient.attr("x1", x1)
+          .attr("y1", y1)
+          .attr("x2", x2)
+          .attr("y2", y2);
+
+        linearGradient.selectAll('stop')
+          .data([
+            { offset: '10%', color: startColor },
+            { offset: '90%', color: stopColor }
+          ])
+          .enter().append('stop')
+          .attr('offset', d => { return d.offset; })
+          .attr('stop-color', d => { return d.color; });
+
+        return `url(#${gradientID})`;
+      })
+
 
       // the function for moving the nodes
       function dragmove(d) {

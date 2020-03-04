@@ -77,11 +77,11 @@ font-family: 'Bitter', serif;
 #categorieContainer {
   background-color: white;
 }
-.link {
+/* .link {
   fill: none;
   stroke: #000;
   stroke-opacity: .2;
-}
+}  */
 
 .link:hover {
   stroke-opacity: .5;
