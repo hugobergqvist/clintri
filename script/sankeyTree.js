@@ -44,7 +44,60 @@ buildSankeyTree = (data, phaseData) => {
         .size([width, height]);
 
       console.log("phaseData in sankeyTree: ", phaseData);
-      console.log("data in sankeyTree.js: ", data);
+
+      let phase4 = phaseData["Phase 4"];
+      let phase41 = [...phase4];
+      let phase42 = [...phase4];
+      let phase43 = [...phase4];
+
+      console.log("this is phase 4:", phase4);
+
+      alphabethicalSort = arr => {
+        // sort() returns the sorted array.
+        arr.sort(function(a, b) {
+          var titleA = a.BriefTitle;
+          var titleB = b.BriefTitle;
+          if (titleA < titleB) {
+            //If compareFunction(a, b) returns less than 0, sort a to an index lower than b (i.e. a comes first).
+            return -1;
+          }
+          if (titleA > titleB) {
+            //If compareFunction(a, b) returns greater than 0, sort b to an index lower than a (i.e. b comes first).
+            return 1;
+          }
+          //If compareFunction(a, b) returns 0, leave a and b unchanged with respect to each other, but sorted with respect to all different elements.
+          return 0;
+        });
+
+        return arr;
+      };
+
+      console.log("this is sorted Alphabetically: ", alphabethicalSort(phase41));
+      //console.log("this is sorted Alphabetically reverse: ", alphabethicalSort(phase4).reverse());
+
+      dateSort = arr => {
+        arr.sort(function(a, b) {
+          return new Date(b.StartDate) - new Date(a.StartDate);
+        });
+        return arr;
+      };
+
+      console.log("this is sorted by Date", dateSort(phase42));
+
+      stringSearch = (arr, keyword) => {
+        newArr = [];
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i].BriefTitle[0].includes(keyword)) {
+            //check if the current study title have the keywords
+            newArr.push(arr[i]);
+          }
+        }
+        return newArr;
+      };
+
+      console.log("This is String Search with keyword 'Pretreatment'", stringSearch(phase43, "Pretreatment"));
+
+      //console.log("data in sankeyTree.js: ", data);
 
       // Constructs a new Sankey generator with the default settings.
       sankey
@@ -106,9 +159,7 @@ buildSankeyTree = (data, phaseData) => {
         // Add hover text
         .append("title")
         .text(function(d) {
-          return (
-            d.name + "\n" + "There are " + d.value + " studies in this node"
-          );
+          return d.name + "\n" + "There are " + d.value + " studies in this node";
         });
 
       // add in the title for the nodes
@@ -144,14 +195,7 @@ buildSankeyTree = (data, phaseData) => {
 
       // the function for moving the nodes
       function dragmove(d) {
-        d3.select(this).attr(
-          "transform",
-          "translate(" +
-            d.x +
-            "," +
-            (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) +
-            ")"
-        );
+        d3.select(this).attr("transform", "translate(" + d.x + "," + (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) + ")");
         sankey.relayout();
         link.attr("d", sankey.link());
       }
