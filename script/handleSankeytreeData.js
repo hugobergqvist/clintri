@@ -33,68 +33,65 @@ const formatData = (condition, data, callback) => {
   let listObj = {};
   var nodeCounter = 9;
 
-  Promise.all(
-    data.map(object => {
-      if (listObj[object["Phase"]]) {
-        listObj[object["Phase"]].push(object);
-      } else {
-        listObj[object["Phase"]] = [object];
-      }
+  data.map(object => {
+    if (listObj[object["Phase"]]) {
+      listObj[object["Phase"]].push(object);
+    } else {
+      listObj[object["Phase"]] = [object];
+    }
 
-      if (!Object.keys(nodeObj).includes(object.StudyType[0])) {
-        nodeObj[object.StudyType[0]] = nodeCounter;
-        formattedObj["nodes"].push({
-          node: nodeCounter,
-          name: object.StudyType[0]
-        });
-        nodeCounter += 1;
-      }
-
-      if (
-        !Object.keys(nodeObj).includes(object.Phase[0]) &&
-        object.Phase[0] !== undefined
-      ) {
-        nodeObj[object.Phase[0]] = nodeCounter;
-        formattedObj["nodes"].push({
-          node: nodeCounter,
-          name: object.Phase[0]
-        });
-        nodeCounter += 1;
-      }
-      if (Object.keys(counterObj).includes(object.StudyType[0])) {
-        var phase = object.Phase[0] != undefined ? object.Phase[0] : "None";
-        if (counterObj[object.StudyType][phase]) {
-          counterObj[object.StudyType][phase] += 1;
-        } else {
-          counterObj[object.StudyType][phase] = 1;
-        }
-      } else {
-        var phase = object.Phase[0] != undefined ? object.Phase[0] : "None";
-        counterObj[object.StudyType] = { [phase]: 1 };
-      }
-    })
-  )
-    .then(() => {
-      Object.entries(counterObj).map(elem => {
-        var total = 0;
-        Object.entries(elem[1]).map(innerElem => {
-          total += innerElem[1];
-          formattedObj["links"].push({
-            source: nodeObj[elem[0]],
-            target: nodeObj[innerElem[0]],
-            value: innerElem[1]
-          });
-        });
-
-        formattedObj["links"].push({
-          source: 0,
-          target: nodeObj[elem[0]],
-          value: total
-        });
+    if (!Object.keys(nodeObj).includes(object.StudyType[0])) {
+      nodeObj[object.StudyType[0]] = nodeCounter;
+      formattedObj["nodes"].push({
+        node: nodeCounter,
+        name: object.StudyType[0]
       });
-    })
-    .then(() => callback(formattedObj, listObj))
-    .catch(err => console.log("Error in formatData: ", err));
+      nodeCounter += 1;
+    }
+
+    if (
+      !Object.keys(nodeObj).includes(object.Phase[0]) &&
+      object.Phase[0] !== undefined
+    ) {
+      nodeObj[object.Phase[0]] = nodeCounter;
+      formattedObj["nodes"].push({
+        node: nodeCounter,
+        name: object.Phase[0]
+      });
+      nodeCounter += 1;
+    }
+    if (Object.keys(counterObj).includes(object.StudyType[0])) {
+      var phase = object.Phase[0] != undefined ? object.Phase[0] : "None";
+      if (counterObj[object.StudyType][phase]) {
+        counterObj[object.StudyType][phase] += 1;
+      } else {
+        counterObj[object.StudyType][phase] = 1;
+      }
+    } else {
+      var phase = object.Phase[0] != undefined ? object.Phase[0] : "None";
+      counterObj[object.StudyType] = { [phase]: 1 };
+    }
+  });
+
+  Object.entries(counterObj).map(elem => {
+    var total = 0;
+    Object.entries(elem[1]).map(innerElem => {
+      total += innerElem[1];
+      formattedObj["links"].push({
+        source: nodeObj[elem[0]],
+        target: nodeObj[innerElem[0]],
+        value: innerElem[1]
+      });
+    });
+
+    formattedObj["links"].push({
+      source: 0,
+      target: nodeObj[elem[0]],
+      value: total
+    });
+  });
+
+  callback(formattedObj, listObj);
 };
 
 const megaFetch = (
