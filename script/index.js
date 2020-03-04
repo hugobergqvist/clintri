@@ -66,6 +66,13 @@ loadSankeytree = callback => {
   handleSankeyTreeData(currentCondition, callback);
 };
 
+handleLogoClick = () => {
+  var treeDiv = document.getElementById("treeMapContainer");
+  var sankeyDiv = document.getElementById("sankeyContainer");
+  sankeyDiv.style.display = "none";
+  treeDiv.style.display = "grid";
+}
+
 // Handle the search
 // searchfunction = e => { };
 

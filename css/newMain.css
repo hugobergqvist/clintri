@@ -17,7 +17,9 @@ font-family: 'Bitter', serif;
   align-content: center;
   justify-content: center;
 }
-
+.clintri-logo{
+  cursor: pointer;
+}
 .wrapper {
   display: grid;
   grid-row: 2/3;
