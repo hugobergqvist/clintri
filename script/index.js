@@ -266,7 +266,6 @@ buildTreeMap = data => {
       var rect_width = Math.round(d.x1 - d.x0);
       if (string.length * 10 > rect_width) {
         string = string.substring(0, rect_width / 7);
-        if (string != "(" + d.data.value + ")" && rect_width > 40) { string = string + ".." }
       }
       return string;
     })
@@ -283,7 +282,6 @@ buildTreeMap = data => {
     .attr("y", d => d.y0 + 40)
 
   text.selectAll("tspan.text")
-    .data(d => d.text.split("\n"))
     .enter()
     .append("tspan")
     .attr("class", "text")
