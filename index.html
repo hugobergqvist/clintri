@@ -21,7 +21,7 @@
 
 <body>
     <div id="logo" class="header">
-        <img src="./images/logo.svg" alt="ClinTri" />
+        <a href="index.html"><img src="./images/logo.svg" class="clintri-logo" alt="ClinTri" /></a>
     </div>
 
     <div id="logo-extend" class="header">
@@ -41,7 +41,9 @@
             <input id="search-input-text" type="text" placeholder="e.g. breast cancer">
             <input type="submit" onclick="createSankeytree(document.getElementById('search-input-text').value)"
                 style="position: absolute; visibility: hidden;">
-            <img src="./images/search_icon.svg" style="position: absolute; right: 25px; align-self: center;" />
+            <img src="./images/search_icon.svg" class="search-button"
+                onclick="createSankeytree(document.getElementById('search-input-text').value)"
+                style="position: absolute; right: 25px; align-self: center;" />
             <span
                 style="position: absolute; margin-top: -10px; margin-left: 10px; font-family: 'Bitter', serif;">Condition</span>
         </form>
@@ -73,8 +75,10 @@
         <div id="errorMessage" class="showMessage hideMessage">
             <h1 id="errortext">Condition was not found :( <br /> Please retry with another condition!</h1>
         </div>
-        <div id="loader" class="loader hideLoader"><img src="./images/Pulse-1s-200px.gif" alt="loader"><div id="loaderCounter"></div></div>
-        
+        <div id="loader" class="loader hideLoader"><img src="./images/Pulse-1s-200px.gif" alt="loader">
+            <div id="loaderCounter"></div>
+        </div>
+
         <div id="tooltip" class="hidden">
             <p><strong id="name"></strong></p>
             <p><span id="value"></span></p>
