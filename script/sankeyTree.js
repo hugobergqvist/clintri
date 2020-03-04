@@ -5,7 +5,7 @@ buildSankeyTree = (data, phaseData) => {
       var sankeyDiv = document.getElementById("sankeyContainer");
       var divWidth = sankeyDiv.offsetWidth;
       var divHeight = sankeyDiv.offsetHeight;
-      if (divHeight < 300) {
+      if (divHeight < 400) {
         divHeight = 500;
       }
       var margin = {
