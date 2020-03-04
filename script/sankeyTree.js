@@ -1,4 +1,4 @@
-buildSankeyTree = data => {
+buildSankeyTree = (data, phaseData) => {
   return (
     new Promise(function(resolve, reject) {
       // set the dimensions and margins of the graph
@@ -43,6 +43,7 @@ buildSankeyTree = data => {
         .nodePadding(50)
         .size([width, height]);
 
+      console.log("phaseData in sankeyTree: ", phaseData);
       console.log("data in sankeyTree.js: ", data);
 
       // Constructs a new Sankey generator with the default settings.
@@ -105,7 +106,9 @@ buildSankeyTree = data => {
         // Add hover text
         .append("title")
         .text(function(d) {
-          return d.name + "\n" + "There is " + d.value + " stuff in this node";
+          return (
+            d.name + "\n" + "There are " + d.value + " studies in this node"
+          );
         });
 
       // add in the title for the nodes
