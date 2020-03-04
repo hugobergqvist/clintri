@@ -41,7 +41,7 @@ stateHandler = state => {
 
 //Load data
 loadJSON = () => {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     modifyIncomingData().then(data => {
       resolve(data);
     });
@@ -86,11 +86,11 @@ addTreeMap = data => {
 buildTreeMap = data => {
   // set the dimensions and margins of the graph
   var margin = {
-      top: 10,
-      right: 10,
-      bottom: 10,
-      left: 10
-    },
+    top: 10,
+    right: 10,
+    bottom: 10,
+    left: 10
+  },
     width = 1600 - margin.left - margin.right,
     height = 1000 - margin.top - margin.bottom;
 
@@ -104,7 +104,7 @@ buildTreeMap = data => {
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   // Give the data to this cluster layout:
-  var root = d3.hierarchy(data).sum(function(d) {
+  var root = d3.hierarchy(data).sum(function (d) {
     return d.value;
   }); // Here the size of each leave is given in the 'value' field in input data
 
@@ -115,7 +115,7 @@ buildTreeMap = data => {
     .padding(2)(root);
 
   //Mouseover transitions
-  let mouseOver = function(d) {
+  let mouseOver = function (d) {
     d3.selectAll(".leaf")
       .transition()
       .duration(200)
@@ -126,7 +126,7 @@ buildTreeMap = data => {
       .style("opacity", 1);
   };
 
-  let mouseLeave = function(d) {
+  let mouseLeave = function (d) {
     d3.selectAll(".leaf")
       .transition()
       .duration(200)
@@ -138,7 +138,7 @@ buildTreeMap = data => {
   };
 
   // Tooltip
-  let mousemove = function(d) {
+  let mousemove = function (d) {
     var xPosition = d3.event.pageX + 5;
     var yPosition = d3.event.pageY + 5;
     d3.select("#tooltip")
@@ -148,12 +148,12 @@ buildTreeMap = data => {
     d3.select("#tooltip #value").text("Number of studies: " + d.data.value);
     d3.select("#tooltip").classed("hidden", false);
   };
-  let mouseout = function(d) {
+  let mouseout = function (d) {
     d3.select("#tooltip").classed("hidden", true);
   };
 
   // Move to SankeyTree
-  let mouseClick = function(d) {
+  let mouseClick = function (d) {
     d3.select(this)
       .transition()
       .duration(70)
@@ -177,23 +177,23 @@ buildTreeMap = data => {
     .data(root.leaves())
     .enter()
     .append("rect")
-    .attr("x", function(d) {
+    .attr("x", function (d) {
       return d.x0;
     })
-    .attr("y", function(d) {
+    .attr("y", function (d) {
       return d.y0;
     })
-    .attr("width", function(d) {
+    .attr("width", function (d) {
       return d.x1 - d.x0;
     })
-    .attr("height", function(d) {
+    .attr("height", function (d) {
       return d.y1 - d.y0;
     })
     .attr("class", "leaf")
-    .attr("name", function(d) {
+    .attr("name", function (d) {
       return d.data.name;
     })
-    .style("fill", function() {
+    .style("fill", function () {
       const colorScale = [
         "#EC407B",
         "#D34747",
@@ -232,33 +232,25 @@ buildTreeMap = data => {
     .on("click", mouseClick);
 
   // and to add the text labels
-  svg
+  let text = svg
     .selectAll("text")
     .data(root.leaves())
     .enter()
     .append("text")
-    .attr("x", function(d) {
-      return d.x0 + 5;
-    }) // +10 to adjust position (more right)
-    .attr("y", function(d) {
-      return d.y0 + 20;
-    }) // +20 to adjust position (lower)
-    .text(function(d) {
+    .attr("x", d => d.x0 + 5)
+    .attr("y", d => d.y0 + 20)
+
+  text.append("tspan")
+    .text(function (d) {
       var string = d.data.name;
       var rect_width = Math.round(d.x1 - d.x0);
       if (string.length * 10 > rect_width) {
         string = string.substring(0, rect_width / 7);
+        if (string != d.data.name && rect_width > 40) { string = string + ".." }
       }
       return string;
     })
-    /* .attr("textLength", function (d) {
-      var width = Math.round(d.x1 - d.x0 - 10)
-      var widthString = width.toString()
-      var string = widthString + "px"
-      return string;
-    })
-    .attr("lengthAdjust", "spacingAndGlyphs") */
-    .attr("font-size", function(d) {
+    .attr("font-size", function (d) {
       var height = Math.round(d.y1 - d.y0);
       if (height < 20) {
         return "0px";
@@ -267,9 +259,35 @@ buildTreeMap = data => {
       }
     })
     .attr("fill", "white")
-    .attr("word-wrap", "break-word")
-    .attr("white-space", "nowrap")
-    .attr("overflow", "hidden");
+
+  text.append("tspan")
+    .text(function (d) {
+      var string = "(" + d.data.value + ")";
+      var rect_width = Math.round(d.x1 - d.x0);
+      if (string.length * 10 > rect_width) {
+        string = string.substring(0, rect_width / 7);
+        if (string != "(" + d.data.value + ")" && rect_width > 40) { string = string + ".." }
+      }
+      return string;
+    })
+    .attr("font-size", function (d) {
+      var height = Math.round(d.y1 - d.y0);
+      if (height < 40) {
+        return "0px";
+      } else {
+        return "10px";
+      }
+    })
+    .attr("fill", "white")
+    .attr("x", d => d.x0 + 5)
+    .attr("y", d => d.y0 + 40)
+
+  text.selectAll("tspan.text")
+    .data(d => d.text.split("\n"))
+    .enter()
+    .append("tspan")
+    .attr("class", "text")
+    .text(d => d)
 };
 
 getMaxMinLeafValues = rootData => {
@@ -293,7 +311,7 @@ getMaxMinLeafValues = rootData => {
 };
 
 main = () => {
-  loadJSON().then(function(JSON_data) {
+  loadJSON().then(function (JSON_data) {
     addTreeMap(JSON_data);
   });
   /*loadSankeytree().then(function(data) {
