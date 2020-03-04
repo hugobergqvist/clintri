@@ -97,6 +97,22 @@ buildSankeyTree = (data, phaseData) => {
 
       console.log("This is String Search with keyword 'Pretreatment'", stringSearch(phase43, "Pretreatment"));
 
+      // This updates the breadcrumbnavigation, sankey-breadcrumb
+      const condition = getCondition();
+      document.getElementById("breadcrumbSankey").innerHTML = condition;
+      const breadcrumbSankey = document.getElementById("breadcrumbSankey");
+      breadcrumbSankey.classList.remove("hideBreadcrumb");
+
+      const breadcrumbList = document.getElementById("breadcrumbList");
+      const breadcrumbStudy = document.getElementById("breadcrumbStudy");
+
+      if (!breadcrumbList.classList.contains("hideBreadcrumb")) {
+        breadcrumbList.classList.add("hideBreadcrumb");
+      } else if (!breadcrumbStudy.classList.contains("hideBreadcrumb")) {
+        breadcrumbStudy.classList.add("hideBreadcrumb");
+      }
+
+
       //console.log("data in sankeyTree.js: ", data);
 
       // Constructs a new Sankey generator with the default settings.

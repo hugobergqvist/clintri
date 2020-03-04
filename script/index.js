@@ -49,7 +49,7 @@ loadJSON = () => {
 };
 
 // Temporary solution for HWD. @TODO: Try and implement condition handling in a better way
-var condition = "";
+var condition = "Heart attack";
 
 const setCondition = newCondition => {
   condition = newCondition;
@@ -59,6 +59,21 @@ const getCondition = newCondition => {
   return condition;
 };
 // -----------------------
+
+GoToHome = () => {
+  location.reload();
+}
+
+GoToSankeyTree = () => {
+  const condition = getCondition();
+  document.getElementById("breadcrumbSankey").innerHTML = condition;
+
+  createSankeytree(condition);
+}
+
+GoToList = () => {
+  // FILL IN!!
+}
 
 //Load data regarding the sankey tree
 loadSankeytree = callback => {

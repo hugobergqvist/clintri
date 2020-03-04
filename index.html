@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="css/newMain.css">
     <link rel="stylesheet" type="text/css" href="css/loader.css">
     <link rel="stylesheet" type="text/css" href="css/errormessage.css">
+    <link rel="stylesheet" type="text/css" href="css/breadcrumbs.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Bitter:400,700&display=swap" rel="stylesheet">
@@ -70,8 +71,15 @@
             </svg>
         </div>
     </div>
-
     <div class="wrapper" id="content">
+        <div id="navigationBreadcrumbs">
+            <ul class="breadcrumb">
+                <li id="breadcrumbHome" onclick="GoToHome()" class="home">Home</li>
+                <li id="breadcrumbSankey" onclick="GoToSankeyTree()" class="hideBreadcrumb">{Sankeytree}</li>
+                <li id="breadcrumbList" onclick="GoToList()" class="hideBreadcrumb">{List}</li>
+                <li id="breadcrumbStudy" class="hideBreadcrumb">{study}</li>
+            </ul>
+        </div>
         <div id="errorMessage" class="showMessage hideMessage">
             <h1 id="errortext">Condition was not found :( <br /> Please retry with another condition!</h1>
         </div>
