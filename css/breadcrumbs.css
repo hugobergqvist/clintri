@@ -1,0 +1,35 @@
+ul.breadcrumb {
+    padding: 10px 16px;
+    list-style: none;
+    background-color: #eee;
+  }
+  
+  ul.breadcrumb li {
+    display: inline;
+    font-size: 18px;
+    color: rgb(49, 112, 166);
+    font-weight: 900;
+    cursor: pointer;
+  }
+  
+  ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: rgb(49, 112, 166);
+    content: "/\00a0";
+  }
+  
+  #navigationBreadcrumbs {
+    width: 100vw;
+    z-index: 10;
+    height: 20px;
+  }
+
+
+  /* hide / show - css */
+  #breadcrumbSankey, #breadcrumbList, #breadcrumbStudy {
+      display: inline;
+  } 
+
+  .hideBreadcrumb{
+    display: none!important;
+ }
