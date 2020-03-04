@@ -41,7 +41,9 @@
             <input id="search-input-text" type="text" placeholder="e.g. breast cancer">
             <input type="submit" onclick="createSankeytree(document.getElementById('search-input-text').value)"
                 style="position: absolute; visibility: hidden;">
-            <img src="./images/search_icon.svg" style="position: absolute; right: 25px; align-self: center;" />
+            <img src="./images/search_icon.svg" class="search-button"
+                onclick="createSankeytree(document.getElementById('search-input-text').value)"
+                style="position: absolute; right: 25px; align-self: center;" />
             <span
                 style="position: absolute; margin-top: -10px; margin-left: 10px; font-family: 'Bitter', serif;">Condition</span>
         </form>

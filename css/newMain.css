@@ -20,6 +20,9 @@ font-family: 'Bitter', serif;
 .clintri-logo{
   cursor: pointer;
 }
+.search-button{
+  cursor: pointer;
+}
 .wrapper {
   display: grid;
   grid-row: 2/3;
