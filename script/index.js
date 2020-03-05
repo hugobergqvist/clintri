@@ -48,7 +48,7 @@ loadJSON = () => {
   });
 };
 
-// Temporary solution for HWD. @TODO: Try and implement condition handling in a better way
+// Temporary solution for HWD. @TODO: Try and implement condition handling in a better way1
 var condition = "Heart attack";
 
 const setCondition = newCondition => {
