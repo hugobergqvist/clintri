@@ -307,6 +307,7 @@
             ctx2.clearRect(0, 0, 2000, 2000);
             drawMarker();
         }
+        updateSankey()
     });
 
     c.addEventListener("mousedown", e => {
@@ -355,7 +356,7 @@
     c.addEventListener("mouseup", e => {
         isMovingLeft = false;
         isMovingRight = false;
-        updateSankey()
+        //updateSankey()
 
     })
 
