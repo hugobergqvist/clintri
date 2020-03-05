@@ -99,18 +99,19 @@ buildSankeyTree = (data, phaseData) => {
 
       // This updates the breadcrumbnavigation, sankey-breadcrumb
       const condition = getCondition();
-      document.getElementById("breadcrumbSankey").innerHTML = condition;
       const breadcrumbSankey = document.getElementById("breadcrumbSankey");
+      breadcrumbSankey.innerHTML = condition;
       breadcrumbSankey.classList.remove("hideBreadcrumb");
 
       const breadcrumbList = document.getElementById("breadcrumbList");
-      const breadcrumbStudy = document.getElementById("breadcrumbStudy");
+      // const breadcrumbStudy = document.getElementById("breadcrumbStudy");
 
       if (!breadcrumbList.classList.contains("hideBreadcrumb")) {
         breadcrumbList.classList.add("hideBreadcrumb");
-      } else if (!breadcrumbStudy.classList.contains("hideBreadcrumb")) {
-        breadcrumbStudy.classList.add("hideBreadcrumb");
       }
+      // else if (!breadcrumbStudy.classList.contains("hideBreadcrumb")) {
+      //   breadcrumbStudy.classList.add("hideBreadcrumb");
+      // }
 
 
       //console.log("data in sankeyTree.js: ", data);
@@ -125,6 +126,16 @@ buildSankeyTree = (data, phaseData) => {
 
       //Phase content list view builder
       function buildPhaseContentList(phaseData) {
+        // Update breadcrumbnavigation
+        const studyType = phaseData[0].StudyType[0];
+        const phaseName = phaseData[0].Phase[0];
+        const breadcrumb = studyType + " - " + phaseName;
+        // console.log(studyType, " - ", phaseName);
+        const breadcrumbList = document.getElementById("breadcrumbList");
+        breadcrumbList.innerHTML = breadcrumb;
+        breadcrumbList.classList.remove("hideBreadcrumb");
+
+
         let sankey = document.getElementById("sankeyContainer");
         let phaseList = document.getElementById("phaseContentListContainer");
 
@@ -137,6 +148,8 @@ buildSankeyTree = (data, phaseData) => {
           html += div;
         }
         phaseList.innerHTML = html;
+
+
 
       }
 
