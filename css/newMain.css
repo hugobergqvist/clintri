@@ -3,7 +3,7 @@ body {
   display: grid;
   margin: 0;
   grid-template-columns: 290px 570px auto 450px 150px 100px;
-  grid-template-rows: 120px auto 75px;
+  grid-template-rows: 120px 20px auto 75px;
   font-family: "Comfortaa", cursive;
 }
 /*
@@ -17,24 +17,26 @@ font-family: 'Bitter', serif;
   align-content: center;
   justify-content: center;
 }
-.clintri-logo{
+.clintri-logo {
   cursor: pointer;
 }
-.search-button{
+.search-button {
   cursor: pointer;
 }
 .wrapper {
   display: grid;
-  grid-row: 2/3;
+  grid-row: 3/4;
   grid-column: 1/-1;
   grid-template-columns: 10px auto 10px;
   grid-template-rows: 10px auto 0px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 #treeMapContainer {
   display: grid;
   background-color: white;
-  grid-column: 2/3;
+  grid-column: 1/-1;
   grid-row: 2/3;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
   align-items: center;
@@ -46,10 +48,14 @@ font-family: 'Bitter', serif;
   cursor: pointer;
 }
 
+#sankeyTreeWrapper {
+  display: none;
+}
+
 #sankeyContainer {
   display: none;
   background-color: white;
-  grid-column: 2/3;
+  grid-column: 1/-1;
   grid-row: 2/3;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
   align-items: center;
@@ -62,6 +68,7 @@ font-family: 'Bitter', serif;
 #timeline {
   display: grid;
   grid-column: 1/-1;
+  grid-row: 4/5;
 }
 
 #time-text {
@@ -84,7 +91,7 @@ font-family: 'Bitter', serif;
 }  */
 
 .link:hover {
-  stroke-opacity: .5;
+  stroke-opacity: 0.5;
 }
 
 .filter {
@@ -172,7 +179,7 @@ width = 1600 - margin.left - margin.right,
 
 #tooltip {
   position: absolute;
-  height:  auto;
+  height: auto;
   width: auto;
   padding: 10px;
   background-color: white;
@@ -195,8 +202,4 @@ width = 1600 - margin.left - margin.right,
   font-family: sans-serif;
   font-size: 16px;
   line-height: 20px;
-}
-
-#treeMapContainer, #sankeyContainer {
-  margin-top: 55px;
 }
