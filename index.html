@@ -52,7 +52,7 @@
     </div>
     <div id="filter" class="header">
         <div class="filter-hidden" id="filter-button" onclick="toggleFilter()">
-            
+
             <svg class="" id="filter_icon" xmlns="http://www.w3.org/2000/svg" width="34.568" height="38.043"
                 viewBox="0 0 34.568 38.043">
                 <g id="noun_Settings_943929" transform="translate(-11.2 -7.3)">
@@ -98,7 +98,8 @@
             <table id="phaseTable">
                 <thead id="phaseTableHeader">
                     <tr>
-                        <th><span id="studyTitle">Study Title </span><input id="studySearch" type="text" value="" placeholder="key search" style="margin-left: 200px;"></input></th>                       
+                        <th><span id="studyTitle">Study Title </span><input id="studySearch" type="text" value=""
+                                placeholder="key search" style="margin-left: 200px;"></input></th>
                         <th>Start Date</th>
                     </tr>
                 </thead>
@@ -109,13 +110,15 @@
                 </tbody>
             </table>
         </div>
-        <div id="singleStudy">Ind. Study</div>
+        <div id="singleStudy">
+            <h2 id="singleStudyTitle">Name of study</h2>
+        </div>
     </div>
 
     </div>
     <div class="filter" id="filter-wrapper">
         <br />
-        <p style="color: white">intervalStart:  March, 2016</p>
+        <p style="color: white">intervalStart: March, 2016</p>
         <p style="color: white">intervalEnd: April, 2017</p>
         <button onclick="updateSankeyTree()">Filter</button>
         <span style="color: white; text-align: center; margin-left: 20px; font-family: 'Bitter', serif;">TODO:
@@ -124,6 +127,7 @@
     <!-- Wrapper div contains the treemap -->
     <div id="sankeyTreeWrapper"></div>
 
+    <script src="script/fetchSingleStudy.js"></script>
     <script src="script/handlingdata.js"></script>
     <script src="script/sankeyTree.js"></script>
     <script src="script/handleSankeytreeData.js"></script>
@@ -152,22 +156,22 @@
     const ctx = c.getContext("2d");
     const ctx2 = c2.getContext("2d");
 
-    
+
     c.width = window.innerWidth * ratio;
-    c.height = 75*ratio;
-    c.style.width = window.innerWidth+'px';
+    c.height = 75 * ratio;
+    c.style.width = window.innerWidth + 'px';
     c.style.height = '75px';
     c.style.position = "absolute";
-    
+
 
     c2.width = window.innerWidth * ratio;
-    c2.height = 75*ratio;
-    c2.style.width = window.innerWidth+'px';
+    c2.height = 75 * ratio;
+    c2.style.width = window.innerWidth + 'px';
     c2.style.height = 75;
     c2.style.position = "absolute";
 
-    ctx.scale(ratio,ratio);
-    ctx2.scale(ratio,ratio);
+    ctx.scale(ratio, ratio);
+    ctx2.scale(ratio, ratio);
 
     const rect = c.getBoundingClientRect();
     var mousePos = { x: 0, y: 0 }
@@ -176,48 +180,48 @@
     var leftMark = { x: 50 };
     var rightMark = { x: 500 };
 
-    var divWidth = window.innerWidth-20;
-    var scaleMarks = {start: 10+10, stop: 10}
+    var divWidth = window.innerWidth - 20;
+    var scaleMarks = { start: 10 + 10, stop: 10 }
     var spanYears = 25;
     var startYear = 1995;
 
 
     function initCanvas() {
-        
+
         drawMarker();
     }
 
     function drawScale() {
 
-        var stepsDist = divWidth/spanYears;
-        var stepDistSmall = stepsDist/5;
-        for(var i = 0; i<spanYears; i++ ){
-        ctx2.beginPath();
-        if( leftMark.x < scaleMarks.start + (i*stepsDist) && rightMark.x > scaleMarks.start + (i*stepsDist)){
-            ctx2.fillStyle ="rgba(47,47,47,1)";
-        }else{
-            ctx2.fillStyle ="rgba(183,183,183,1)";        
-        }
-        
-        ctx2.fillRect(scaleMarks.start + (i*stepsDist),0,2,20);
-        ctx2.closePath();
-        ctx2.font = "14px Comfortaa";
-        ctx2.textAlign = "start"; 
-        ctx2.fillText(startYear+(i*1), 6+(i*stepsDist), 36);        
-            for(var x=0; x<5; x++){
+        var stepsDist = divWidth / spanYears;
+        var stepDistSmall = stepsDist / 5;
+        for (var i = 0; i < spanYears; i++) {
+            ctx2.beginPath();
+            if (leftMark.x < scaleMarks.start + (i * stepsDist) && rightMark.x > scaleMarks.start + (i * stepsDist)) {
+                ctx2.fillStyle = "rgba(47,47,47,1)";
+            } else {
+                ctx2.fillStyle = "rgba(183,183,183,1)";
+            }
+
+            ctx2.fillRect(scaleMarks.start + (i * stepsDist), 0, 2, 20);
+            ctx2.closePath();
+            ctx2.font = "14px Comfortaa";
+            ctx2.textAlign = "start";
+            ctx2.fillText(startYear + (i * 1), 6 + (i * stepsDist), 36);
+            for (var x = 0; x < 5; x++) {
                 ctx2.beginPath();
-                if( leftMark.x < scaleMarks.start + (i*stepsDist)+(x*stepDistSmall) && rightMark.x > scaleMarks.start + (i*stepsDist)+(x*stepDistSmall)){
-                    ctx2.fillStyle ="rgba(47,47,47,1)";
-                }else{
-                    ctx2.fillStyle ="rgba(183,183,183,1)";
+                if (leftMark.x < scaleMarks.start + (i * stepsDist) + (x * stepDistSmall) && rightMark.x > scaleMarks.start + (i * stepsDist) + (x * stepDistSmall)) {
+                    ctx2.fillStyle = "rgba(47,47,47,1)";
+                } else {
+                    ctx2.fillStyle = "rgba(183,183,183,1)";
                 }
-                ctx2.fillRect(scaleMarks.start + (i*stepsDist)+(x*stepDistSmall),0,1,15);
+                ctx2.fillRect(scaleMarks.start + (i * stepsDist) + (x * stepDistSmall), 0, 1, 15);
                 ctx2.closePath();
             }
         }
 
-        
-        
+
+
 
     }
 
@@ -246,15 +250,15 @@
         ctx.closePath();
 
         ctx.beginPath();
-        ctx.moveTo(leftMark.x+6, 18);
-        ctx.lineTo(leftMark.x+16, 26);
-        ctx.lineTo(leftMark.x+6, 34);
+        ctx.moveTo(leftMark.x + 6, 18);
+        ctx.lineTo(leftMark.x + 16, 26);
+        ctx.lineTo(leftMark.x + 6, 34);
         ctx.fill();
         ctx.closePath();
 
         ctx.beginPath();
         ctx.moveTo(rightMark.x, 18);
-        ctx.lineTo(rightMark.x-10, 26);
+        ctx.lineTo(rightMark.x - 10, 26);
         ctx.lineTo(rightMark.x, 34);
         ctx.fill();
         ctx.closePath();
@@ -268,11 +272,11 @@
         // console.log("span: ", leftMark.x, rightMark.x)
 
         if (isMovingLeft === true) {
-            
-                
+
+
             leftMark.x = mousePos.x;
             //document.getElementById('content').innerHTML = leftMark.x + "-" + rightMark.x;
-            
+
             ctx.clearRect(0, 0, 2000, 2000);
             ctx2.clearRect(0, 0, 2000, 2000);
             drawMarker();
@@ -301,17 +305,17 @@
     const updateSankey = () => {
         let end = new Date()
         let start = new Date()
-        start.setDate(start.getDate() - (1000000 / leftMark.x) )
-        end.setDate(end.getDate() + (rightMark.x  * 1.1) )
-        timeFilterSankeyTree(start, end )
-    }   
+        start.setDate(start.getDate() - (1000000 / leftMark.x))
+        end.setDate(end.getDate() + (rightMark.x * 1.1))
+        timeFilterSankeyTree(start, end)
+    }
 
 
     c.addEventListener("mouseup", e => {
         isMovingLeft = false;
         isMovingRight = false;
         updateSankey()
-        
+
     })
 
     initCanvas();

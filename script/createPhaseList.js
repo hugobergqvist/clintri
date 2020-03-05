@@ -4,7 +4,7 @@ const createPhaseList = lists => {
   sankey.style.display = "none";
 
   let phaseListContainer = document.getElementById("phaseContentListContainer");
-  phaseListContainer.style.display = "grid";
+  phaseListContainer.style.display = "inline-block";
 
   let table = document.getElementById("phaseTable");
 
@@ -29,6 +29,11 @@ const createPhaseList = lists => {
 
     let title = document.createTextNode(element["BriefTitle"]);
     let date = document.createTextNode(element["StartDate"]);
+
+    newRow.setAttribute("class", "studylistItem");
+    titleCell.onclick = function (e) {
+      onClickSingleStudy(e)
+    }
 
     titleCell.appendChild(title);
     dateCell.appendChild(date);

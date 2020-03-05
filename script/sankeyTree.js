@@ -2,7 +2,7 @@ let testList;
 
 buildSankeyTree = (data, phaseData) => {
   return (
-    new Promise(function(resolve, reject) {
+    new Promise(function (resolve, reject) {
       // set the dimensions and margins of the graph
       var sankeyDiv = document.getElementById("sankeyContainer");
       var divWidth = sankeyDiv.offsetWidth;
@@ -11,11 +11,11 @@ buildSankeyTree = (data, phaseData) => {
         divHeight = 500;
       }
       var margin = {
-          top: 10,
-          right: 10,
-          bottom: 10,
-          left: 10
-        },
+        top: 10,
+        right: 10,
+        bottom: 10,
+        left: 10
+      },
         width = divWidth - margin.left - margin.right, // Kanske går att lägga inherit här istället men det påverkar möjligheten att visa upp allt
         height = divHeight - margin.top - margin.bottom;
 
@@ -101,7 +101,7 @@ buildSankeyTree = (data, phaseData) => {
         .append("path")
         .attr("class", "link")
         .attr("d", sankey.link())
-        .attr("phase", function(d) {
+        .attr("phase", function (d) {
           return d.target.name;
         })
         .on("click", d => {
@@ -114,7 +114,7 @@ buildSankeyTree = (data, phaseData) => {
         })
         .style("fill", "none")
         .style("cursor", "pointer")
-        .style("stroke-width", function(d) {
+        .style("stroke-width", function (d) {
           return Math.max(1, d.dy);
         });
 
@@ -126,7 +126,7 @@ buildSankeyTree = (data, phaseData) => {
         .enter()
         .append("g")
         .attr("class", "node")
-        .attr("transform", function(d) {
+        .attr("transform", function (d) {
           if (d["value"] > 0) {
             return "translate(" + d.x + "," + d.y + ")";
           }
@@ -135,24 +135,24 @@ buildSankeyTree = (data, phaseData) => {
       // add the rectangles for the nodes
       node
         .append("rect")
-        .attr("height", function(d) {
+        .attr("height", function (d) {
           return d.dy;
         })
         .attr("width", sankey.nodeWidth())
-        .style("fill", function(d) {
+        .style("fill", function (d) {
           return (d.color = color(d.name.replace(/ .*/, "")));
         })
-        .style("stroke", function(d) {
+        .style("stroke", function (d) {
           return d3.rgb(d.color).darker(2);
         })
         .style("cursor", "pointer")
         .call(
           d3
             .drag()
-            .subject(function(d) {
+            .subject(function (d) {
               return d;
             })
-            .on("start", function() {
+            .on("start", function () {
               this.parentNode.appendChild(this);
             })
             .on("drag", dragmove)
@@ -160,7 +160,7 @@ buildSankeyTree = (data, phaseData) => {
 
         // Add hover text
         .append("title")
-        .text(function(d) {
+        .text(function (d) {
           return d.name + "\n" + "There are " + d.value + " studies in this node";
         });
 
@@ -169,16 +169,16 @@ buildSankeyTree = (data, phaseData) => {
       node
         .append("text")
         .attr("x", -6)
-        .attr("y", function(d) {
+        .attr("y", function (d) {
           return d.dy / 2;
         })
         .attr("dy", ".35em")
         .attr("text-anchor", "end")
         .attr("transform", null)
-        .text(function(d) {
+        .text(function (d) {
           return d.name + ` (${d.value} studies)`;
         })
-        .filter(function(d) {
+        .filter(function (d) {
           return d.x < width / 2;
         })
         .attr("x", 6 + sankey.nodeWidth())
@@ -236,7 +236,7 @@ buildSankeyTree = (data, phaseData) => {
 
 const alphabethicalSort = arr => {
   // sort() returns the sorted array.
-  arr.sort(function(a, b) {
+  arr.sort(function (a, b) {
     var titleA = a.BriefTitle;
     var titleB = b.BriefTitle;
     if (titleA < titleB) {
@@ -255,7 +255,7 @@ const alphabethicalSort = arr => {
 };
 
 const dateSort = arr => {
-  arr.sort(function(a, b) {
+  arr.sort(function (a, b) {
     return new Date(b.StartDate) - new Date(a.StartDate);
   });
   return arr;
@@ -282,8 +282,12 @@ let studyDateHead = d.getElementsByTagName("th")[1];
 let studyTitle = document.getElementById("studyTitle");
 let studySearch = document.getElementById("studySearch");
 
+// Sort on title
 studyTitle.addEventListener("click", () => {
   document.getElementById("phaseTableBody").innerHTML = "";
+
+  fetchSingleStudy('NCT01874691'); // FOR TESTING: CALL THIS FUNCTION WHEN WE WANT TO SHOW SPECIFIC STUDY
+
   if (studySearch.value) {
     let newList = stringSearch(testList, studySearch.value);
     alphabethicalSort(newList);
@@ -294,6 +298,7 @@ studyTitle.addEventListener("click", () => {
   }
 });
 
+// Sort on date
 studyDateHead.addEventListener("click", () => {
   document.getElementById("phaseTableBody").innerHTML = "";
   if (studySearch.value) {
@@ -306,9 +311,15 @@ studyDateHead.addEventListener("click", () => {
   }
 });
 
+// Sort on keyword
 studySearch.addEventListener("change", e => {
   document.getElementById("phaseTableBody").innerHTML = "";
   let searchWord = e.target.value;
   let newList = stringSearch(testList, searchWord);
   createPhaseList(newList);
 });
+
+// var tabledatacell = document.getElementsByClassName("studylistItem");
+// tabledatacell.addEventListener("click", (e) => {
+//   console.log("TD CLICKED");
+// })
