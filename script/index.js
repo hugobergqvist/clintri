@@ -62,18 +62,18 @@ const getCondition = newCondition => {
 
 GoToHome = () => {
   location.reload();
-}
+};
 
 GoToSankeyTree = () => {
   const condition = getCondition();
   document.getElementById("breadcrumbSankey").innerHTML = condition;
 
   createSankeytree(condition);
-}
+};
 
 GoToList = () => {
   // FILL IN!!
-}
+};
 
 //Load data regarding the sankey tree
 loadSankeytree = callback => {
@@ -86,7 +86,7 @@ handleLogoClick = () => {
   var sankeyDiv = document.getElementById("sankeyContainer");
   sankeyDiv.style.display = "none";
   treeDiv.style.display = "grid";
-}
+};
 
 // Handle the search
 // searchfunction = e => { };
@@ -108,13 +108,15 @@ addTreeMap = data => {
 buildTreeMap = data => {
   // set the dimensions and margins of the graph
   var margin = {
-    top: 10,
-    right: 10,
-    bottom: 10,
-    left: 10
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
   },
-    width = 1600 - margin.left - margin.right,
-    height = 1000 - margin.top - margin.bottom;
+    //width = 1600 - margin.left - margin.right,
+    width = window.innerWidth - 40;
+  //height = 1000 - margin.top - margin.bottom;
+  height = window.innerHeight - 240;
 
   // append the svg object to the body of the page
   var svg = d3
@@ -266,15 +268,16 @@ buildTreeMap = data => {
     .attr("y", d => d.y0 + 20)
     .attr("transform", function (d) {
       var rect_width = Math.round(d.x1 - d.x0);
-      if (rect_width < 60) {
+      if (rect_width < 70) {
         hasRotated = true;
-        previousX = d.x0;
-        previousY = d.y0 + 30;
+        previousX = d.x0 + 10;
+        previousY = d.y0 + 20;
         return "rotate(" + 90 + "," + previousX + "," + previousY + ")";
       }
-    })
+    });
 
-  text.append("tspan")
+  text
+    .append("tspan")
     .text(function (d) {
       var rect_width = Math.round(d.x1 - d.x0);
       var rect_height = Math.round(d.y1 - d.y0);
@@ -283,15 +286,19 @@ buildTreeMap = data => {
       if (rect_width > 60) {
         if (string.length * 10 > rect_width) {
           string = string.substring(0, rect_width / 7);
-          if (string != d.data.name && rect_width > 40) { string = string + ".." }
+          if (string != d.data.name && rect_width > 40) {
+            string = string + "..";
+          }
         }
       }
 
-      if (rect_width < 60) {
+      if (rect_width < 70) {
         var rect_width = Math.round(d.x1 - d.x0);
         if (string.length * 10 > rect_height) {
           string = string.substring(0, rect_height / 15);
-          if (string != d.data.name && rect_height > 40) { string = string + ".. " }
+          if (string != d.data.name && rect_height > 40) {
+            string = string + ".. ";
+          }
         }
         var string = string + " (" + d.data.value + ")";
       }
@@ -306,13 +313,14 @@ buildTreeMap = data => {
         return "13px";
       }
     })
-    .attr("fill", "white")
+    .attr("fill", "white");
 
-  text.append("tspan")
+  text
+    .append("tspan")
     .text(function (d) {
       var rect_width = Math.round(d.x1 - d.x0);
       var string = "";
-      if (rect_width >= 60) {
+      if (rect_width > 70) {
         var string = "(" + d.data.value + ")";
         var rect_width = Math.round(d.x1 - d.x0);
         if (string.length * 10 > rect_width) {
@@ -331,13 +339,14 @@ buildTreeMap = data => {
     })
     .attr("fill", "white")
     .attr("x", d => d.x0 + 5)
-    .attr("y", d => d.y0 + 40)
+    .attr("y", d => d.y0 + 40);
 
-  text.selectAll("tspan.text")
+  text
+    .selectAll("tspan.text")
     .enter()
     .append("tspan")
     .attr("class", "text")
-    .text(d => d)
+    .text(d => d);
 };
 
 getMaxMinLeafValues = rootData => {

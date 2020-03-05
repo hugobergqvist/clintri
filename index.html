@@ -71,15 +71,15 @@
             </svg>
         </div>
     </div>
+    <div id="navigationBreadcrumbs">
+        <ul class="breadcrumb">
+            <li id="breadcrumbHome" onclick="GoToHome()" class="home">Home</li>
+            <li id="breadcrumbSankey" onclick="GoToSankeyTree()" class="hideBreadcrumb">{Sankeytree}</li>
+            <li id="breadcrumbList" onclick="GoToList()" class="hideBreadcrumb">{List}</li>
+            <li id="breadcrumbStudy" class="hideBreadcrumb">{study}</li>
+        </ul>
+    </div>
     <div class="wrapper" id="content">
-        <div id="navigationBreadcrumbs">
-            <ul class="breadcrumb">
-                <li id="breadcrumbHome" onclick="GoToHome()" class="home">Home</li>
-                <li id="breadcrumbSankey" onclick="GoToSankeyTree()" class="hideBreadcrumb">{Sankeytree}</li>
-                <li id="breadcrumbList" onclick="GoToList()" class="hideBreadcrumb">{List}</li>
-                <li id="breadcrumbStudy" class="hideBreadcrumb">{study}</li>
-            </ul>
-        </div>
         <div id="errorMessage" class="showMessage hideMessage">
             <h1 id="errortext">Condition was not found :( <br /> Please retry with another condition!</h1>
         </div>
@@ -187,14 +187,14 @@
 
         if (isMovingLeft === true) {
             leftMark.x = mousePos.x;
-            document.getElementById('content').innerHTML = leftMark.x + "-" + rightMark.x;
+            //document.getElementById('content').innerHTML = leftMark.x + "-" + rightMark.x;
 
             ctx.clearRect(0, 0, 2000, 2000);
             drawMarker();
         }
         if (isMovingRight === true) {
             rightMark.x = mousePos.x;
-            document.getElementById('content').innerHTML = leftMark.x + "-" + rightMark.x;
+            //document.getElementById('content').innerHTML = leftMark.x + "-" + rightMark.x;
 
             ctx.clearRect(0, 0, 2000, 2000);
             drawMarker();
