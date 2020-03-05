@@ -1,7 +1,13 @@
 .loader {
   position: absolute;
+<<<<<<< HEAD
   top: calc(50vh - 100px);
   left: calc(50vw - 100px);
+=======
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+>>>>>>> 33ce3ae1a76eb67994484c9d070cecf1bebb4630
 }
 
 .hideLoader {
