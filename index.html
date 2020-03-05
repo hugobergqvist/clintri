@@ -159,13 +159,24 @@
     var mousePos = { x: 0, y: 0 }
     var isMovingLeft = false;
     var isMovingRight = false;
-    var leftMark = { x: 50 };
-    var rightMark = { x: 500 };
+    var leftMark = { x: 10 };
+    var rightMark = { x: window.innerWidth-10};
 
     var divWidth = window.innerWidth-20;
     var scaleMarks = {start: 10+10, stop: 10}
-    var spanYears = 25;
+
+    
+    var startDate = new Date(1995,1,1,0,0,0)
+    var endDate = new Date(2020,1,0,0,0)
+    var currentDate = new Date();
+    var spanYears = currentDate.getYear()-startDate.getYear();
+    var spanMilliSecond = currentDate-startDate;
+
+    var pixelsPerYear = divWidth / (endDate.getYear()-startDate.getYear())
+    console.log("date:", divWidth/pixelsPerYear)
+
     var startYear = 1995;
+    var endYear = 2020;
 
 
     function initCanvas() {
@@ -176,29 +187,36 @@
     function drawScale() {
 
         var stepsDist = divWidth/spanYears;
-        var stepDistSmall = stepsDist/5;
-        for(var i = 0; i<spanYears; i++ ){
+        var stepDistSmall = stepsDist/6;
+        for(var i = 0; i < spanYears; i++ ){
         ctx2.beginPath();
-        if( leftMark.x < scaleMarks.start + (i*stepsDist) && rightMark.x > scaleMarks.start + (i*stepsDist)){
+        if( leftMark.x < divWidth - 18 - (i*stepsDist) && rightMark.x > divWidth - 18 - (i*stepsDist)){
             ctx2.fillStyle ="rgba(47,47,47,1)";
         }else{
             ctx2.fillStyle ="rgba(183,183,183,1)";        
         }
         
-        ctx2.fillRect(scaleMarks.start + (i*stepsDist),0,2,20);
+        ctx2.fillRect(divWidth-18 - (i*stepsDist),0,2,20);
+        //ctx2.fillRect(scaleMarks.start + (i*stepsDist),0,2,20);
         ctx2.closePath();
         ctx2.font = "14px Comfortaa";
-        ctx2.textAlign = "start"; 
-        ctx2.fillText(startYear+(i*1), 6+(i*stepsDist), 36);        
-            for(var x=0; x<5; x++){
-                ctx2.beginPath();
-                if( leftMark.x < scaleMarks.start + (i*stepsDist)+(x*stepDistSmall) && rightMark.x > scaleMarks.start + (i*stepsDist)+(x*stepDistSmall)){
+        ctx2.textAlign = "center"; 
+        ctx2.fillText(endYear-(i*1), divWidth - 18 - (i*stepsDist), 36);  
+        //ctx2.fillText(startYear+(i*1), 6+(i*stepsDist), 36);  
+                
+            for(var x=0; x<6; x++){
+                if(divWidth - 18 - (i*stepsDist)-(x*stepDistSmall) > spanYears){
+                    ctx2.beginPath();
+                if( leftMark.x < divWidth - 18 - (i*stepsDist) - (x*stepDistSmall) && rightMark.x > divWidth - 18 - (i*stepsDist) - (x*stepDistSmall)){
                     ctx2.fillStyle ="rgba(47,47,47,1)";
                 }else{
                     ctx2.fillStyle ="rgba(183,183,183,1)";
                 }
-                ctx2.fillRect(scaleMarks.start + (i*stepsDist)+(x*stepDistSmall),0,1,15);
+                ctx2.fillRect(divWidth - 18 - (i*stepsDist)-(x*stepDistSmall),0,1,15);
+                //ctx2.fillRect(scaleMarks.start + (i*stepsDist)+(x*stepDistSmall),0,1,15);
                 ctx2.closePath();
+                }
+                
             }
         }
 
@@ -213,21 +231,21 @@
         ctx.beginPath();
         ctx.fillStyle = "#38729F";
         ctx.fillRect(leftMark.x, 0, 6, 55);
-        ctx.fillRect(rightMark.x, 0, 6, 55);
+        ctx.fillRect(rightMark.x-6, 0, 6, 55);
         ctx.closePath();
 
         ctx.beginPath();
         ctx.strokeStyle = "#38729F";
         ctx.lineWidth = 4;
         ctx.moveTo(leftMark.x, 1);
-        ctx.lineTo(rightMark.x + 6, 1);
+        ctx.lineTo(rightMark.x, 1);
         ctx.stroke();
         ctx.closePath();
 
         ctx.beginPath();
         ctx.lineWidth = 14;
         ctx.moveTo(leftMark.x, 55);
-        ctx.lineTo(rightMark.x + 6, 55);
+        ctx.lineTo(rightMark.x , 55);
         ctx.stroke();
         ctx.closePath();
 
@@ -239,9 +257,9 @@
         ctx.closePath();
 
         ctx.beginPath();
-        ctx.moveTo(rightMark.x, 18);
-        ctx.lineTo(rightMark.x-10, 26);
-        ctx.lineTo(rightMark.x, 34);
+        ctx.moveTo(rightMark.x-6, 18);
+        ctx.lineTo(rightMark.x-16, 26);
+        ctx.lineTo(rightMark.x-6, 34);
         ctx.fill();
         ctx.closePath();
 
@@ -285,10 +303,33 @@
     })
 
     const updateSankey = () => {
+
+        /*
         let end = new Date()
         let start = new Date()
         start.setDate(start.getDate() - (1000000 / leftMark.x) )
         end.setDate(end.getDate() + (rightMark.x  * 1.1) )
+        */
+
+        var leftMarkerYear = (divWidth - 18 - leftMark.x) / pixelsPerYear
+        var rightMarkerYear = (divWidth - 18 - rightMark.x) / pixelsPerYear
+        var leftMarkMonth = Math.round(12*(1-(leftMarkerYear % 1)));
+        var rightMarkMonth = Math.round(12*(1-(rightMarkerYear % 1)));
+
+        var start = new Date(2020 - Math.ceil(leftMarkerYear),leftMarkMonth,0,0,0);
+        var end = new Date(2020 - Math.ceil(rightMarkerYear), rightMarkMonth,0,0,0)
+        //console.log("start", start);
+        //console.log("end", end)
+        /*
+        console.log("Left:", leftMark.x)
+        console.log("Right:", rightMark.x)
+        console.log("Pixels per year:", pixelsPerYear)
+        console.log("Left Year:", 2020 - Math.ceil(leftMarkerYear))
+        console.log("Right Year:", 2020 - Math.ceil(rightMarkerYear))
+        console.log("Left Month:", leftMarkMonth)
+        console.log("Right Month:", rightMarkMonth)
+        console.log()
+        */
         timeFilterSankeyTree(start, end )
     }   
 
