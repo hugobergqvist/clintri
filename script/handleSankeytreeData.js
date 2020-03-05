@@ -2,6 +2,37 @@ handleSankeyTreeData = (condition, callback) => {
   megaFetch(condition, 1, 1000, [], callback);
 };
 
+const timeFilterSankeyTree = (startDate, endDate) => {
+  let condition = getCondition();
+  restructureData(getFetchedData(), startDate, endDate).then(res => {
+    console.log(res);
+    formatData(condition, res, addSankeyTree);
+  });
+};
+
+async function restructureData(
+  separatedData,
+  startDate = "March, 2016",
+  endDate = "April, 2017"
+) {
+  let start = new Date(startDate);
+  let end = new Date(endDate);
+  console.log("start: ", startDate, " end: ", endDate);
+
+  return new Promise(resolve => {
+    let uniformData = [];
+    separatedData.forEach(study => {
+      let studyDate = new Date(study["StartDate"]);
+      if (studyDate > start && studyDate < end) {
+        if (!uniformData.includes(study)) {
+          uniformData.push(study);
+        }
+      }
+    });
+    resolve(uniformData);
+  });
+}
+
 const formatData = (condition, data, callback) => {
   var formattedObj = {
     nodes: [
@@ -32,7 +63,7 @@ const formatData = (condition, data, callback) => {
   var counterObj = {};
   let listObj = {};
   var nodeCounter = 9;
-
+  console.log("DATA: ", data);
   data.map(object => {
     if (object["Phase"].length === 0) {
       if (listObj["None"]) {
@@ -121,6 +152,7 @@ const megaFetch = (
       if (cleanRes.StudyFieldsResponse.NStudiesReturned === 1000) {
         megaFetch(condition, min + 1000, max + 1000, currentRes, callback);
       } else {
+        setFetchedData(currentRes);
         formatData(condition, currentRes, callback);
       }
     })

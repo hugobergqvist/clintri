@@ -41,7 +41,7 @@ stateHandler = state => {
 
 //Load data
 loadJSON = () => {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function(resolve, reject) {
     modifyIncomingData().then(data => {
       resolve(data);
     });
@@ -76,10 +76,19 @@ GoToSankeyTree = () => {
 // };
 
 let CurrentData = {
-  "data": [],
-  "listData": []
+  data: [],
+  listData: []
 };
 
+let FetchedData = [];
+
+const setFetchedData = data => {
+  FetchedData.push(...data);
+};
+
+const getFetchedData = () => {
+  return FetchedData;
+};
 
 // This saves the data that was previously used, so it can get accessed without calling the API again
 setCurrentData = (data, listData) => {
@@ -87,9 +96,9 @@ setCurrentData = (data, listData) => {
   CurrentData.listData = listData;
 
   // console.log("CURRENTDATA = ", CurrentData);
-}
+};
 
-// This function returns a JSON object of the current data. To use it and build sankey-tree use: 
+// This function returns a JSON object of the current data. To use it and build sankey-tree use:
 //      buildSankeyTree(data, listData).then(() => {
 //        stateHandler("loaded");
 //        setCurrentData(data, listData);
@@ -97,7 +106,7 @@ setCurrentData = (data, listData) => {
 
 getCurrentData = () => {
   return CurrentData;
-}
+};
 
 //Load data regarding the sankey tree
 loadSankeytree = callback => {
@@ -135,11 +144,11 @@ addTreeMap = data => {
 buildTreeMap = data => {
   // set the dimensions and margins of the graph
   var margin = {
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0
-  },
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0
+    },
     //width = 1600 - margin.left - margin.right,
     width = window.innerWidth - 40;
   //height = 1000 - margin.top - margin.bottom;
@@ -155,7 +164,7 @@ buildTreeMap = data => {
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   // Give the data to this cluster layout:
-  var root = d3.hierarchy(data).sum(function (d) {
+  var root = d3.hierarchy(data).sum(function(d) {
     return d.value;
   }); // Here the size of each leave is given in the 'value' field in input data
 
@@ -166,7 +175,7 @@ buildTreeMap = data => {
     .padding(2)(root);
 
   //Mouseover transitions
-  let mouseOver = function (d) {
+  let mouseOver = function(d) {
     d3.selectAll(".leaf")
       .transition()
       .duration(200)
@@ -177,7 +186,7 @@ buildTreeMap = data => {
       .style("opacity", 1);
   };
 
-  let mouseLeave = function (d) {
+  let mouseLeave = function(d) {
     d3.selectAll(".leaf")
       .transition()
       .duration(200)
@@ -189,7 +198,7 @@ buildTreeMap = data => {
   };
 
   // Tooltip
-  let mousemove = function (d) {
+  let mousemove = function(d) {
     var xPosition = d3.event.pageX + 5;
     var yPosition = d3.event.pageY + 5;
     d3.select("#tooltip")
@@ -199,12 +208,12 @@ buildTreeMap = data => {
     d3.select("#tooltip #value").text("Number of studies: " + d.data.value);
     d3.select("#tooltip").classed("hidden", false);
   };
-  let mouseout = function (d) {
+  let mouseout = function(d) {
     d3.select("#tooltip").classed("hidden", true);
   };
 
   // Move to SankeyTree
-  let mouseClick = function (d) {
+  let mouseClick = function(d) {
     d3.select(this)
       .transition()
       .duration(70)
@@ -228,23 +237,23 @@ buildTreeMap = data => {
     .data(root.leaves())
     .enter()
     .append("rect")
-    .attr("x", function (d) {
+    .attr("x", function(d) {
       return d.x0;
     })
-    .attr("y", function (d) {
+    .attr("y", function(d) {
       return d.y0;
     })
-    .attr("width", function (d) {
+    .attr("width", function(d) {
       return d.x1 - d.x0;
     })
-    .attr("height", function (d) {
+    .attr("height", function(d) {
       return d.y1 - d.y0;
     })
     .attr("class", "leaf")
-    .attr("name", function (d) {
+    .attr("name", function(d) {
       return d.data.name;
     })
-    .style("fill", function () {
+    .style("fill", function() {
       const colorScale = [
         "#EC407B",
         "#D34747",
@@ -293,7 +302,7 @@ buildTreeMap = data => {
     .append("text")
     .attr("x", d => d.x0 + 5)
     .attr("y", d => d.y0 + 20)
-    .attr("transform", function (d) {
+    .attr("transform", function(d) {
       var rect_width = Math.round(d.x1 - d.x0);
       if (rect_width < 70) {
         hasRotated = true;
@@ -305,7 +314,7 @@ buildTreeMap = data => {
 
   text
     .append("tspan")
-    .text(function (d) {
+    .text(function(d) {
       var rect_width = Math.round(d.x1 - d.x0);
       var rect_height = Math.round(d.y1 - d.y0);
       var string = d.data.name;
@@ -332,7 +341,7 @@ buildTreeMap = data => {
 
       return string;
     })
-    .attr("font-size", function (d) {
+    .attr("font-size", function(d) {
       var height = Math.round(d.y1 - d.y0);
       if (height < 20) {
         return "0px";
@@ -344,7 +353,7 @@ buildTreeMap = data => {
 
   text
     .append("tspan")
-    .text(function (d) {
+    .text(function(d) {
       var rect_width = Math.round(d.x1 - d.x0);
       var string = "";
       if (rect_width > 70) {
@@ -356,7 +365,7 @@ buildTreeMap = data => {
         return string;
       }
     })
-    .attr("font-size", function (d) {
+    .attr("font-size", function(d) {
       var height = Math.round(d.y1 - d.y0);
       if (height < 40) {
         return "0px";
@@ -397,7 +406,7 @@ getMaxMinLeafValues = rootData => {
 };
 
 main = () => {
-  loadJSON().then(function (JSON_data) {
+  loadJSON().then(function(JSON_data) {
     addTreeMap(JSON_data);
   });
   /*loadSankeytree().then(function(data) {
