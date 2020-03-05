@@ -70,6 +70,9 @@ font-family: 'Bitter', serif;
   border: 1px solid black;
   display: none;
 }
+#singleStudyTitle {
+  text-align: center;
+}
 #sankeyTreeWrapper {
   display: none;
 }
