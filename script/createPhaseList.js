@@ -18,11 +18,10 @@ const createPhaseList = lists => {
   titleHeaderCell.appendChild(titleHeader);
   dateHeaderCell.appendChild(dateHeader); 
  */
-  let tableBody = document.getElementById("phaseTableBody");
-  console.log(tableBody);
 
+  let tableBody = document.getElementById("phaseTableBody");
   lists.forEach(element => {
-    console.log(element);
+    //console.log(element);
     let newRow = tableBody.insertRow();
     let titleCell = newRow.insertCell(0);
     let dateCell = newRow.insertCell(1);
@@ -35,9 +34,9 @@ const createPhaseList = lists => {
     newRow.setAttribute("class", "studylistItem");
     titleCell.setAttribute("id", NCTId); // Funkar inte riktigt?
 
-    titleCell.onclick = function (e) {
-      onClickSingleStudy(e)
-    }
+    titleCell.onclick = function(e) {
+      onClickSingleStudy(e);
+    };
 
     titleCell.appendChild(title);
     dateCell.appendChild(date);
@@ -47,5 +46,5 @@ const createPhaseList = lists => {
   table.appendChild(tableBody);
   phaseListContainer.appendChild(table);
 
-  console.log(lists);
+  //console.log(lists);
 };

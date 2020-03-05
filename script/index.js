@@ -67,6 +67,10 @@ GoToHome = () => {
 GoToSankeyTree = () => {
   const condition = getCondition();
   document.getElementById("breadcrumbSankey").innerHTML = condition;
+  const singleStudy = document.getElementById("singleStudy");
+  const phaseContentListContainer = document.getElementById("phaseContentListContainer");
+  singleStudy.style.display = "none";
+  phaseContentListContainer.style.display = "none";
 
   createSankeytree(condition);
 };
