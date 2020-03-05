@@ -17,4 +17,8 @@ const fetchSingleStudy = (id) => {
 
 const onClickSingleStudy = (e) => {
     const studyTitle = e.target.innerHTML;
+    const studyId = e.target.id;
+    fetchSingleStudy(studyId);
+    console.log(studyTitle, ": ", e.target.id);
+
 }

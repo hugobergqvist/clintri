@@ -286,8 +286,6 @@ let studySearch = document.getElementById("studySearch");
 studyTitle.addEventListener("click", () => {
   document.getElementById("phaseTableBody").innerHTML = "";
 
-  fetchSingleStudy('NCT01874691'); // FOR TESTING: CALL THIS FUNCTION WHEN WE WANT TO SHOW SPECIFIC STUDY
-
   if (studySearch.value) {
     let newList = stringSearch(testList, studySearch.value);
     alphabethicalSort(newList);
@@ -318,8 +316,3 @@ studySearch.addEventListener("change", e => {
   let newList = stringSearch(testList, searchWord);
   createPhaseList(newList);
 });
-
-// var tabledatacell = document.getElementsByClassName("studylistItem");
-// tabledatacell.addEventListener("click", (e) => {
-//   console.log("TD CLICKED");
-// })

@@ -29,8 +29,12 @@ const createPhaseList = lists => {
 
     let title = document.createTextNode(element["BriefTitle"]);
     let date = document.createTextNode(element["StartDate"]);
+    let NCTId = element["NCTId"];
+    // console.log(NCTId)
 
     newRow.setAttribute("class", "studylistItem");
+    titleCell.setAttribute("id", NCTId); // Funkar inte riktigt?
+
     titleCell.onclick = function (e) {
       onClickSingleStudy(e)
     }
