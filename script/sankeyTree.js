@@ -165,7 +165,7 @@ buildSankeyTree = (data, phaseData) => {
         });
 
       // add in the title for the nodes
-      let rootVal = data["nodes"][0]["value"];
+
       node
         .append("text")
         .attr("x", -6)
@@ -176,18 +176,7 @@ buildSankeyTree = (data, phaseData) => {
         .attr("text-anchor", "end")
         .attr("transform", null)
         .text(function(d) {
-          if (d.value !== 0) {
-            if (d.node !== 0) {
-              let percentage = Math.round((d.value / rootVal) * 100);
-              if (percentage === 0) {
-                return d.name + ` (< 1%)`;
-              } else {
-                return d.name + ` (${percentage}%)`;
-              }
-            } else {
-              return d.name + " (100%)";
-            }
-          }
+          return d.name + ` (${d.value} studies)`;
         })
         .filter(function(d) {
           return d.x < width / 2;
