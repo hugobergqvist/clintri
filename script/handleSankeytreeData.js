@@ -5,7 +5,6 @@ handleSankeyTreeData = (condition, callback) => {
 const timeFilterSankeyTree = (startDate, endDate) => {
   let condition = getCondition();
   restructureData(getFetchedData(), startDate, endDate).then(res => {
-    console.log(res);
     formatData(condition, res, addSankeyTree);
   });
 };
@@ -17,7 +16,6 @@ async function restructureData(
 ) {
   let start = new Date(startDate);
   let end = new Date(endDate);
-  console.log("start: ", startDate, " end: ", endDate);
 
   return new Promise(resolve => {
     let uniformData = [];
