@@ -121,18 +121,7 @@
     document.addEventListener("DOMContentLoaded", modifyIncomingData);    
 </script>
 
-<script>
-    function toggleFilter() {
-        document.getElementById("filter-button").classList.toggle("filter-show");
-        document.getElementById("filter_icon").classList.toggle("turnWhite");
-        document.getElementById("categorieContainer").classList.toggle("filter-window");
-        document.getElementById("filter-wrapper").classList.toggle("show-filter");
-    }
 
-    function searchSubmit(searchValue) {
-        document.getElementById('content').innerHTML = searchValue;
-    }
-</script>
 
 <script>
     const c = document.getElementById("canvas");
@@ -219,6 +208,24 @@
     initCanvas();
 </script>
 
+<script>
+    function toggleFilter() {
+        document.getElementById("filter-button").classList.toggle("filter-show");
+        document.getElementById("filter_icon").classList.toggle("turnWhite");
+        //document.getElementById("categorieContainer").classList.toggle("filter-window");
+        //document.getElementById("content").classList.toggle("wrapperActiveFilter");
+        document.getElementById("filter-wrapper").classList.toggle("show-filter");
+        
+        
+        
+        //console.log(document.getElementById("content"))
+        //document.getElementById("content").classList.toggle("wrapperActiveFilter");
+    }
+
+    //function searchSubmit(searchValue) {
+        //document.getElementById('content').innerHTML = searchValue;
+    //}
+</script>
 </body>
 
 </html>
