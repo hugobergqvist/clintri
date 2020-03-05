@@ -121,6 +121,43 @@ buildSankeyTree = (data, phaseData) => {
         .links(data.links)
         .layout(0);
 
+
+
+      //Phase content list view builder
+      function buildPhaseContentList(phaseData) {
+        let sankey = document.getElementById("sankeyContainer");
+        let phaseList = document.getElementById("phaseContentListContainer");
+
+        sankey.style.display = "none";
+        let html = "";
+
+        for (i = 0; i < phaseData.length; i++) {
+
+          let div = "<div>" + phaseData[i].BriefTitle[0] + "</div>"
+          html += div;
+        }
+        phaseList.innerHTML = html;
+
+      }
+
+      //Mouse action functions
+      let mouseClick = function () {
+        console.log("click")
+        let phase = d3.select(this).attr("phase");
+
+        if (phase != "Interventional" && phase != "Observational") {
+          console.log(phase)
+          console.log(phaseData[phase])
+          let currentPhaseData = phaseData[phase];
+          buildPhaseContentList(currentPhaseData)
+        }
+
+      }
+
+      let mouseHover = function () {
+        console.log("hover")
+      }
+
       // add in the links
       var link = svg
         .append("g")
@@ -130,6 +167,9 @@ buildSankeyTree = (data, phaseData) => {
         .append("path")
         .attr("class", "link")
         .attr("d", sankey.link())
+        .attr("phase", function (d) { return d.target.name })
+        .on("click", mouseClick)
+        .on("mouseover", mouseHover)
         .style('fill', 'none')
         .style("stroke-width", function (d) {
           return Math.max(1, d.dy);
@@ -172,6 +212,9 @@ buildSankeyTree = (data, phaseData) => {
         })
         .style("stroke", function (d) {
           return d3.rgb(d.color).darker(2);
+        })
+        .on("click", function () {
+          return console.log("clicked");
         })
         // Add hover text
         .append("title")
@@ -250,6 +293,7 @@ buildSankeyTree = (data, phaseData) => {
         sankey.relayout();
         link.attr("d", sankey.link());
       }
+
     }),
     Promise.resolve()
   );
