@@ -254,6 +254,9 @@ buildTreeMap = data => {
     .on("click", mouseClick);
 
   // and to add the text labels
+  let previousX = 0;
+  let previousY = 0;
+
   let text = svg
     .selectAll("text")
     .data(root.leaves())
@@ -261,15 +264,38 @@ buildTreeMap = data => {
     .append("text")
     .attr("x", d => d.x0 + 5)
     .attr("y", d => d.y0 + 20)
+    .attr("transform", function (d) {
+      var rect_width = Math.round(d.x1 - d.x0);
+      if (rect_width < 60) {
+        hasRotated = true;
+        previousX = d.x0;
+        previousY = d.y0 + 30;
+        return "rotate(" + 90 + "," + previousX + "," + previousY + ")";
+      }
+    })
 
   text.append("tspan")
     .text(function (d) {
-      var string = d.data.name;
       var rect_width = Math.round(d.x1 - d.x0);
-      if (string.length * 10 > rect_width) {
-        string = string.substring(0, rect_width / 7);
-        if (string != d.data.name && rect_width > 40) { string = string + ".." }
+      var rect_height = Math.round(d.y1 - d.y0);
+      var string = d.data.name;
+
+      if (rect_width > 60) {
+        if (string.length * 10 > rect_width) {
+          string = string.substring(0, rect_width / 7);
+          if (string != d.data.name && rect_width > 40) { string = string + ".." }
+        }
       }
+
+      if (rect_width < 60) {
+        var rect_width = Math.round(d.x1 - d.x0);
+        if (string.length * 10 > rect_height) {
+          string = string.substring(0, rect_height / 15);
+          if (string != d.data.name && rect_height > 40) { string = string + ".. " }
+        }
+        var string = string + " (" + d.data.value + ")";
+      }
+
       return string;
     })
     .attr("font-size", function (d) {
@@ -284,12 +310,16 @@ buildTreeMap = data => {
 
   text.append("tspan")
     .text(function (d) {
-      var string = "(" + d.data.value + ")";
       var rect_width = Math.round(d.x1 - d.x0);
-      if (string.length * 10 > rect_width) {
-        string = string.substring(0, rect_width / 7);
+      var string = "";
+      if (rect_width >= 60) {
+        var string = "(" + d.data.value + ")";
+        var rect_width = Math.round(d.x1 - d.x0);
+        if (string.length * 10 > rect_width) {
+          string = string.substring(0, rect_width / 7);
+        }
+        return string;
       }
-      return string;
     })
     .attr("font-size", function (d) {
       var height = Math.round(d.y1 - d.y0);
