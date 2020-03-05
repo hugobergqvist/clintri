@@ -71,9 +71,33 @@ GoToSankeyTree = () => {
   createSankeytree(condition);
 };
 
-GoToList = () => {
-  // FILL IN!!
+// GoToList = () => {
+//   // FILL IN!!
+// };
+
+let CurrentData = {
+  "data": [],
+  "listData": []
 };
+
+
+// This saves the data that was previously used, so it can get accessed without calling the API again
+setCurrentData = (data, listData) => {
+  CurrentData.data = data;
+  CurrentData.listData = listData;
+
+  // console.log("CURRENTDATA = ", CurrentData);
+}
+
+// This function returns a JSON object of the current data. To use it and build sankey-tree use: 
+//      buildSankeyTree(data, listData).then(() => {
+//        stateHandler("loaded");
+//        setCurrentData(data, listData);
+//       });
+
+getCurrentData = () => {
+  return CurrentData;
+}
 
 //Load data regarding the sankey tree
 loadSankeytree = callback => {
@@ -96,7 +120,10 @@ addSankeyTree = (data, listData) => {
   treeDiv.style.display = "none";
   var sankeyDiv = document.getElementById("sankeyContainer");
   sankeyDiv.style.display = "grid";
-  buildSankeyTree(data, listData).then(stateHandler("loaded"));
+  buildSankeyTree(data, listData).then(() => {
+    stateHandler("loaded");
+    setCurrentData(data, listData);
+  });
 };
 
 addTreeMap = data => {

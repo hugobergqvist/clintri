@@ -43,43 +43,57 @@ buildSankeyTree = (data, phaseData) => {
         .nodePadding(50)
         .size([width, height]);
 
+      // This updates the breadcrumbnavigation, sankey-breadcrumb
+      const condition = getCondition();
+      const breadcrumbSankey = document.getElementById("breadcrumbSankey");
+      breadcrumbSankey.innerHTML = condition;
+      breadcrumbSankey.classList.remove("hideBreadcrumb");
+
+      const breadcrumbList = document.getElementById("breadcrumbList");
+      // const breadcrumbStudy = document.getElementById("breadcrumbStudy");
+
+      if (!breadcrumbList.classList.contains("hideBreadcrumb")) {
+        breadcrumbList.classList.add("hideBreadcrumb");
+      }
+      // else if (!breadcrumbStudy.classList.contains("hideBreadcrumb")) {
+      //   breadcrumbStudy.classList.add("hideBreadcrumb");
+      // }
+
+      //console.log("data in sankeyTree.js: ", data);
+
       // Constructs a new Sankey generator with the default settings.
       sankey
         .nodes(data.nodes)
         .links(data.links)
         .layout(0);
 
-      //Phase content list view builder
-      function buildPhaseContentList(phaseData) {
-        let sankey = document.getElementById("sankeyContainer");
-        let phaseList = document.getElementById("phaseContentListContainer");
-
-        sankey.style.display = "none";
-        let html = "";
-
-        for (i = 0; i < phaseData.length; i++) {
-          let div = "<div>" + phaseData[i].BriefTitle[0] + "</div>";
-          html += div;
-        }
-        phaseList.innerHTML = html;
-      }
+      const nodesToIgnore = [
+        "Expanded Access",
+        "Observational",
+        "Interventional"
+      ];
 
       //Mouse action functions
-      let mouseClick = function() {
-        console.log("click");
-        let phase = d3.select(this).attr("phase");
+      async function mouseClick(d) {
+        const studyType = d["source"]["name"];
+        const phaseName = d["target"]["name"];
+        const breadcrumb = studyType + " - " + phaseName;
+        const breadcrumbList = document.getElementById("breadcrumbList");
+        breadcrumbList.innerHTML = breadcrumb;
+        breadcrumbList.classList.remove("hideBreadcrumb");
 
-        if (phase != "Interventional" && phase != "Observational") {
-          console.log(phase);
-          console.log(phaseData[phase]);
-          let currentPhaseData = phaseData[phase];
-          buildPhaseContentList(currentPhaseData);
+        if (!nodesToIgnore.includes(d["target"]["name"]) && d["node"] !== 0) {
+          let phaseLists = [];
+          return new Promise(resolve => {
+            Object.keys(phaseData).forEach(elem => {
+              if (elem.includes(d["target"]["name"])) {
+                phaseLists.push(...phaseData[elem]);
+              }
+            });
+            resolve(phaseLists);
+          });
         }
-      };
-
-      let mouseHover = function() {
-        console.log("hover");
-      };
+      }
 
       // add in the links
       var link = svg
@@ -93,9 +107,13 @@ buildSankeyTree = (data, phaseData) => {
         .attr("phase", function(d) {
           return d.target.name;
         })
-        .on("click", mouseClick)
-        .on("mouseover", mouseHover)
+        .on("click", d => {
+          if (d["source"]["node"] !== 0) {
+            mouseClick(d).then(res => createPhaseList(res));
+          }
+        })
         .style("fill", "none")
+        .style("cursor", "pointer")
         .style("stroke-width", function(d) {
           return Math.max(1, d.dy);
         });
@@ -114,11 +132,6 @@ buildSankeyTree = (data, phaseData) => {
           }
         });
 
-      const nodesToIgnore = [
-        "Expanded Access",
-        "Observational",
-        "Interventional"
-      ];
       // add the rectangles for the nodes
       node
         .append("rect")
@@ -133,9 +146,17 @@ buildSankeyTree = (data, phaseData) => {
           return d3.rgb(d.color).darker(2);
         })
         .style("cursor", "pointer")
-        .on("click", d => {
-          onNodeClick(d).then(res => createPhaseList(res));
-        })
+        .call(
+          d3
+            .drag()
+            .subject(function(d) {
+              return d;
+            })
+            .on("start", function() {
+              this.parentNode.appendChild(this);
+            })
+            .on("drag", dragmove)
+        )
 
         // Add hover text
         .append("title")
@@ -144,20 +165,6 @@ buildSankeyTree = (data, phaseData) => {
             d.name + "\n" + "There are " + d.value + " studies in this node"
           );
         });
-
-      async function onNodeClick(d) {
-        if (!nodesToIgnore.includes(d["name"]) && d["node"] !== 0) {
-          let phaseLists = [];
-          return new Promise(resolve => {
-            Object.keys(phaseData).forEach(elem => {
-              if (elem.includes(d["name"])) {
-                phaseLists.push(...phaseData[elem]);
-              }
-            });
-            resolve(phaseLists);
-          });
-        }
-      }
 
       // add in the title for the nodes
       let rootVal = data["nodes"][0]["value"];
@@ -229,6 +236,19 @@ buildSankeyTree = (data, phaseData) => {
 
         return `url(#${gradientID})`;
       });
+      // the function for moving the nodes
+      function dragmove(d) {
+        d3.select(this).attr(
+          "transform",
+          "translate(" +
+            d.x +
+            "," +
+            (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) +
+            ")"
+        );
+        sankey.relayout();
+        link.attr("d", sankey.link());
+      }
     }),
     Promise.resolve()
   );

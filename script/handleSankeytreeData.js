@@ -34,6 +34,14 @@ const formatData = (condition, data, callback) => {
   var nodeCounter = 9;
 
   data.map(object => {
+    if (object["Phase"].length === 0) {
+      if (listObj["None"]) {
+        listObj["None"].push(object);
+      } else {
+        listObj["None"] = [object];
+      }
+    } else {
+    }
     if (listObj[object["Phase"]]) {
       listObj[object["Phase"]].push(object);
     } else {

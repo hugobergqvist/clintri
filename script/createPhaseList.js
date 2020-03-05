@@ -2,9 +2,9 @@ const createPhaseList = lists => {
   // Remove previous component
   let sankey = document.getElementById("sankeyContainer");
   sankey.style.display = "none";
-  let phaseListContainer = document.getElementById("phaseContentListContainer");
 
-  createListNavigation();
+  let phaseListContainer = document.getElementById("phaseContentListContainer");
+  phaseListContainer.style.display = "grid";
 
   let table = document.createElement("table");
   table.setAttribute("id", "phaseTable");
@@ -40,14 +40,6 @@ const createPhaseList = lists => {
   phaseListContainer.appendChild(table);
 
   console.log(lists);
-};
-
-const createListNavigation = () => {
-  const existing_element = document.querySelector("#sankeyContainer");
-  var searchBar = document.createElement("INPUT");
-  searchBar.setAttribute("type", "text");
-  searchBar.placeholder = "Ex: Heart";
-  existing_element.appendChild(searchBar);
 };
 
 const alphabethicalSort = arr => {
