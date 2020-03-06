@@ -256,14 +256,21 @@
     function drawMarker() {
 
         drawScale();
-        ctx.beginPath();
+        if(getCurrentPage() !=='HomePage')
+        {
+
         ctx.fillStyle = "#38729F";
+        ctx.strokeStyle = "#38729F";
+
+        
+        ctx.beginPath();
+        //ctx.fillStyle = "#38729F";
         ctx.fillRect(leftMark.x, 0, 6, 55);
         ctx.fillRect(rightMark.x-6, 0, 6, 55);
         ctx.closePath();
 
         ctx.beginPath();
-        ctx.strokeStyle = "#38729F";
+        //ctx.strokeStyle = "#38729F";
         ctx.lineWidth = 4;
         ctx.moveTo(leftMark.x, 1);
         ctx.lineTo(rightMark.x, 1);
@@ -290,6 +297,8 @@
         ctx.lineTo(rightMark.x-6, 34);
         ctx.fill();
         ctx.closePath();
+
+        }
 
     }
 
