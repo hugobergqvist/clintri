@@ -99,6 +99,7 @@ buildSankeyTree = (data, phaseData) => {
         .data(data.links)
         .enter()
         .append("path")
+        .attr("stroke-opacity", 0.3)
         .attr("class", "link")
         .attr("d", sankey.link())
         .attr("phase", function (d) {
