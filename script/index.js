@@ -134,7 +134,9 @@ GoToSankeyTree = () => {
 // };
 
 let CurrentData = {
+  // Nodes and links
   data: [],
+  // Object of the data 
   listData: []
 };
 
@@ -152,7 +154,7 @@ const getFetchedData = () => {
 setCurrentData = (data, listData) => {
   CurrentData.data = data;
   CurrentData.listData = listData;
-
+  console.log(CurrentData.listData)
   // console.log("CURRENTDATA = ", CurrentData);
 };
 
