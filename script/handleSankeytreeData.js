@@ -141,7 +141,7 @@ const megaFetch = (
   let loaderCounter = document.getElementById("loaderCounter");
 
   var currentRes = totalResult;
-  let megaUrl = `https://clinicaltrials.gov/api/query/study_fields?expr=${condition}&fields=BriefTitle%2CStudyType%2CPhase%2CNCTId%2CStartDate&min_rnk=${min}&max_rnk=${max}&fmt=json`;
+  let megaUrl = `https://clinicaltrials.gov/api/query/study_fields?expr=${condition}&fields=BriefTitle%2CStudyType%2CPhase%2CNCTId%2CGender%2CStdAge%2CEnrollmentCount%2CStartDate&min_rnk=${min}&max_rnk=${max}&fmt=json`;
   fetch(megaUrl)
     .then(rawRes => rawRes.json())
     .then(cleanRes => {
