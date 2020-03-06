@@ -5,60 +5,56 @@ const createPhaseList = (lists, genderFilter = "All", minimumAgeFilter = 0, maxi
   sankey.style.display = "none";
 
   let phaseListContainer = document.getElementById("phaseContentListContainer");
+
   phaseListContainer.style.display = "inline-block";
+
+  const firstStudyInListID = lists[0].NCTId[0];
+  //console.log("this is lists[0]", lists[0].NCTId[0]);
+  fetchSingleStudy(firstStudyInListID);
 
   let table = document.getElementById("phaseTable");
 
   let tableHead = document.getElementById("phaseTableHeader");
 
-  /*   let headRow = tableHead.insertRow();
-  let titleHeaderCell = headRow.insertCell(0);
-  let dateHeaderCell = headRow.insertCell(1);
-  let titleHeader = document.createTextNode("Study title");
-  let dateHeader = document.createTextNode("Start date");
-  titleHeaderCell.appendChild(titleHeader);
-  dateHeaderCell.appendChild(dateHeader); 
- */
-  var filteredList = []
+  var filteredList = [];
   lists.forEach(element => {
-
-    var MinAge = element.MinimumAge[0]
+    var MinAge = element.MinimumAge[0];
     try {
-      var TempMinAge = MinAge.split(" ")
+      var TempMinAge = MinAge.split(" ");
       if (TempMinAge[1] == "Months") {
-        MinAge = parseInt(TempMinAge[0]) / 12
+        MinAge = parseInt(TempMinAge[0]) / 12;
       } else {
-        MinAge = parseInt(TempMinAge[0])
+        MinAge = parseInt(TempMinAge[0]);
       }
-    } catch{
-      MinAge = 0
+    } catch {
+      MinAge = 0;
     }
-    var MaxAge = element.MaximumAge[0]
+    var MaxAge = element.MaximumAge[0];
     try {
-      var TempMaxAge = MaxAge.split(" ")
+      var TempMaxAge = MaxAge.split(" ");
       if (TempMaxAge[1] == "Months") {
-        MaxAge = parseInt(TempMaxAge[0]) / 12
+        MaxAge = parseInt(TempMaxAge[0]) / 12;
       } else {
-        MaxAge = parseInt(TempMaxAge[0])
+        MaxAge = parseInt(TempMaxAge[0]);
       }
-    } catch{
-      MaxAge = 100
+    } catch {
+      MaxAge = 100;
     }
     try {
-      var enrollCounter = parseInt(element.enrollmentCount)
-    } catch{
-      enrollCounter = 0
+      var enrollCounter = parseInt(element.enrollmentCount);
+    } catch {
+      enrollCounter = 0;
     }
     if (element.Gender == genderFilter || genderFilter == "None") {
       if (minimumAgeFilter <= MinAge || minimumAgeFilter == 0 || MinAge == 0) {
         if (maximumAgeFilter >= MaxAge || maximumAgeFilter == 100 || MaxAge == 100) {
           if (enrollmentCountFilter >= enrollCounter || enrollmentCountFilter == 0) {
-            filteredList.push(element)
+            filteredList.push(element);
           }
         }
       }
     }
-  })
+  });
 
   let tableBody = document.getElementById("phaseTableBody");
   filteredList.forEach(element => {
@@ -76,7 +72,7 @@ const createPhaseList = (lists, genderFilter = "All", minimumAgeFilter = 0, maxi
     titleCell.setAttribute("class", "studylistStudyTitle");
     titleCell.setAttribute("id", NCTId); // Funkar inte riktigt?
 
-    titleCell.onclick = function (e) {
+    titleCell.onclick = function(e) {
       onClickSingleStudy(e);
     };
 
