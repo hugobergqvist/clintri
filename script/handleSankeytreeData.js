@@ -1,4 +1,6 @@
 handleSankeyTreeData = (condition, callback) => {
+  setCurrentPage("SankeyPage");
+  console.log("Current page: ", getCurrentPage());
   megaFetch(condition, 1, 1000, [], callback);
 };
 
