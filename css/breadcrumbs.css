@@ -7,8 +7,7 @@ ul.breadcrumb {
 ul.breadcrumb li {
   display: inline;
   font-size: 15px;
-  color: #2f2f2f;
-  font-weight: 900;
+  color: #2f2f2f;  
   cursor: pointer;
 }
 
@@ -31,4 +30,9 @@ ul.breadcrumb li + li:before {
 
 .hideBreadcrumb {
   display: none !important;
+}
+
+.boldText {
+  font-size: 17px!important;
+  font-weight: 900!important;
 }
