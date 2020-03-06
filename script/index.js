@@ -133,6 +133,11 @@ addSankeyTree = (data, listData) => {
   treeDiv.style.display = "none";
   var sankeyDiv = document.getElementById("sankeyContainer");
   sankeyDiv.style.display = "grid";
+  const singleStudy = document.getElementById("singleStudy");
+  const phaseContentListContainer = document.getElementById("phaseContentListContainer");
+  singleStudy.style.display = "none";
+  phaseContentListContainer.style.display = "none";
+
   buildSankeyTree(data, listData).then(() => {
     stateHandler("loaded");
     setCurrentData(data, listData);

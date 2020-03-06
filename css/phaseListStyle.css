@@ -5,6 +5,14 @@
   width: 100%;
 }
 
+#phaseContentListContainer {
+  overflow-x: hidden;
+}
+
+#singleStudy {
+  overflow: auto;
+}
+
 #phaseTableHeader {
   background-color: #3b719f;
   color: white;
