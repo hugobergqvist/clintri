@@ -50,6 +50,8 @@ buildSankeyTree = (data, phaseData) => {
       const breadcrumbSankey = document.getElementById("breadcrumbSankey");
       breadcrumbSankey.innerHTML = condition;
       breadcrumbSankey.classList.remove("hideBreadcrumb");
+      setBoldText("breadcrumbSankey");
+      removeBoldText("breadcrumbHome");
 
       const breadcrumbList = document.getElementById("breadcrumbList");
       // const breadcrumbStudy = document.getElementById("breadcrumbStudy");
@@ -83,6 +85,7 @@ buildSankeyTree = (data, phaseData) => {
         const breadcrumbList = document.getElementById("breadcrumbList");
         breadcrumbList.innerHTML = breadcrumb;
         breadcrumbList.classList.remove("hideBreadcrumb");
+        removeBoldText("breadcrumbSankey");
 
         if (!nodesToIgnore.includes(d["target"]["name"]) && d["node"] !== 0) {
           let phaseLists = [];

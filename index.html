@@ -73,9 +73,9 @@
     </div>
     <div id="navigationBreadcrumbs">
         <ul class="breadcrumb">
-            <li id="breadcrumbHome" onclick="GoToHome()" class="home">Home</li>
+            <li id="breadcrumbHome" onclick="GoToHome()" class="home boldText">Home</li>
             <li id="breadcrumbSankey" onclick="GoToSankeyTree()" class="hideBreadcrumb">{Sankeytree}</li>
-            <li id="breadcrumbList" class="hideBreadcrumb">{List}</li>
+            <li id="breadcrumbList" class="hideBreadcrumb boldText">{List}</li>
             <!-- <li id="breadcrumbStudy" class="hideBreadcrumb">{study}</li> -->
         </ul>
     </div>
@@ -112,16 +112,20 @@
         </div>
         <div id="singleStudy">
             <div class="container" style="padding: 10px;">
-            <h2 id="singleStudyTitle">Name of study</h2>
-            <p class="singleStudyParagraph"><strong>Start date: </strong><span id="singleStudyStartDate"></span></p>
-            <p class="singleStudyParagraph"><strong>End date: </strong><span id="singleStudyEndDate"></span></p>
-            <p class="singleStudyParagraph"><strong>Current status: </strong><span id="singleStudyStatus"></span></p>
-            <p class="singleStudyParagraph"><strong>Enrollment count: </strong><span id="singleStudyEnrollmentCount"></span></p>
-            <p class="singleStudyParagraph"><strong>Gender: </strong><span id="singleStudyGender"></span></p>
-            <p class="singleStudyParagraph"><strong>Organization: </strong><span id="singleStudyOrganization"></span></p>
-            <p class="singleStudyParagraph"><strong>Description: </strong><span id="singleStudyDescription"></span></p>
-            <button><a id="goToWebsiteButton" target="_blank">Go to full study</a></button>
-        </div>
+                <h2 id="singleStudyTitle">Name of study</h2>
+                <p class="singleStudyParagraph"><strong>Start date: </strong><span id="singleStudyStartDate"></span></p>
+                <p class="singleStudyParagraph"><strong>End date: </strong><span id="singleStudyEndDate"></span></p>
+                <p class="singleStudyParagraph"><strong>Current status: </strong><span id="singleStudyStatus"></span>
+                </p>
+                <p class="singleStudyParagraph"><strong>Enrollment count: </strong><span
+                        id="singleStudyEnrollmentCount"></span></p>
+                <p class="singleStudyParagraph"><strong>Gender: </strong><span id="singleStudyGender"></span></p>
+                <p class="singleStudyParagraph"><strong>Organization: </strong><span
+                        id="singleStudyOrganization"></span></p>
+                <p class="singleStudyParagraph"><strong>Description: </strong><span id="singleStudyDescription"></span>
+                </p>
+                <button><a id="goToWebsiteButton" target="_blank">Go to full study</a></button>
+            </div>
         </div>
     </div>
 
@@ -188,20 +192,20 @@
     var isMovingLeft = false;
     var isMovingRight = false;
     var leftMark = { x: 10 };
-    var rightMark = { x: window.innerWidth-10};
+    var rightMark = { x: window.innerWidth - 10 };
 
-    var divWidth = window.innerWidth-20;
-    var scaleMarks = {start: 10+10, stop: 10}
+    var divWidth = window.innerWidth - 20;
+    var scaleMarks = { start: 10 + 10, stop: 10 }
 
-    
-    var startDate = new Date(1995,1,1,0,0,0)
-    var endDate = new Date(2020,1,0,0,0)
+
+    var startDate = new Date(1995, 1, 1, 0, 0, 0)
+    var endDate = new Date(2020, 1, 0, 0, 0)
     var currentDate = new Date();
-    var spanYears = currentDate.getYear()-startDate.getYear();
-    var spanMilliSecond = currentDate-startDate;
+    var spanYears = currentDate.getYear() - startDate.getYear();
+    var spanMilliSecond = currentDate - startDate;
 
-    var pixelsPerYear = divWidth / (endDate.getYear()-startDate.getYear())
-    console.log("date:", divWidth/pixelsPerYear)
+    var pixelsPerYear = divWidth / (endDate.getYear() - startDate.getYear())
+    console.log("date:", divWidth / pixelsPerYear)
 
     var startYear = 1995;
     var endYear = 2020;
@@ -214,37 +218,37 @@
 
     function drawScale() {
 
-        var stepsDist = divWidth/spanYears;
-        var stepDistSmall = stepsDist/6;
-        for(var i = 0; i < spanYears; i++ ){
-        ctx2.beginPath();
-        if( leftMark.x < divWidth - 18 - (i*stepsDist) && rightMark.x > divWidth - 18 - (i*stepsDist)){
-            ctx2.fillStyle ="rgba(47,47,47,1)";
-        }else{
-            ctx2.fillStyle ="rgba(183,183,183,1)";        
-        }
-        
-        ctx2.fillRect(divWidth-18 - (i*stepsDist),0,2,20);
-        //ctx2.fillRect(scaleMarks.start + (i*stepsDist),0,2,20);
-        ctx2.closePath();
-        ctx2.font = "14px Comfortaa";
-        ctx2.textAlign = "center"; 
-        ctx2.fillText(endYear-(i*1), divWidth - 18 - (i*stepsDist), 36);  
-        //ctx2.fillText(startYear+(i*1), 6+(i*stepsDist), 36);  
-                
-            for(var x=0; x<6; x++){
-                if(divWidth - 18 - (i*stepsDist)-(x*stepDistSmall) > spanYears){
+        var stepsDist = divWidth / spanYears;
+        var stepDistSmall = stepsDist / 6;
+        for (var i = 0; i < spanYears; i++) {
+            ctx2.beginPath();
+            if (leftMark.x < divWidth - 18 - (i * stepsDist) && rightMark.x > divWidth - 18 - (i * stepsDist)) {
+                ctx2.fillStyle = "rgba(47,47,47,1)";
+            } else {
+                ctx2.fillStyle = "rgba(183,183,183,1)";
+            }
+
+            ctx2.fillRect(divWidth - 18 - (i * stepsDist), 0, 2, 20);
+            //ctx2.fillRect(scaleMarks.start + (i*stepsDist),0,2,20);
+            ctx2.closePath();
+            ctx2.font = "14px Comfortaa";
+            ctx2.textAlign = "center";
+            ctx2.fillText(endYear - (i * 1), divWidth - 18 - (i * stepsDist), 36);
+            //ctx2.fillText(startYear+(i*1), 6+(i*stepsDist), 36);  
+
+            for (var x = 0; x < 6; x++) {
+                if (divWidth - 18 - (i * stepsDist) - (x * stepDistSmall) > spanYears) {
                     ctx2.beginPath();
-                if( leftMark.x < divWidth - 18 - (i*stepsDist) - (x*stepDistSmall) && rightMark.x > divWidth - 18 - (i*stepsDist) - (x*stepDistSmall)){
-                    ctx2.fillStyle ="rgba(47,47,47,1)";
-                }else{
-                    ctx2.fillStyle ="rgba(183,183,183,1)";
+                    if (leftMark.x < divWidth - 18 - (i * stepsDist) - (x * stepDistSmall) && rightMark.x > divWidth - 18 - (i * stepsDist) - (x * stepDistSmall)) {
+                        ctx2.fillStyle = "rgba(47,47,47,1)";
+                    } else {
+                        ctx2.fillStyle = "rgba(183,183,183,1)";
+                    }
+                    ctx2.fillRect(divWidth - 18 - (i * stepsDist) - (x * stepDistSmall), 0, 1, 15);
+                    //ctx2.fillRect(scaleMarks.start + (i*stepsDist)+(x*stepDistSmall),0,1,15);
+                    ctx2.closePath();
                 }
-                ctx2.fillRect(divWidth - 18 - (i*stepsDist)-(x*stepDistSmall),0,1,15);
-                //ctx2.fillRect(scaleMarks.start + (i*stepsDist)+(x*stepDistSmall),0,1,15);
-                ctx2.closePath();
-                }
-                
+
             }
         }
 
@@ -259,7 +263,7 @@
         ctx.beginPath();
         ctx.fillStyle = "#38729F";
         ctx.fillRect(leftMark.x, 0, 6, 55);
-        ctx.fillRect(rightMark.x-6, 0, 6, 55);
+        ctx.fillRect(rightMark.x - 6, 0, 6, 55);
         ctx.closePath();
 
         ctx.beginPath();
@@ -273,7 +277,7 @@
         ctx.beginPath();
         ctx.lineWidth = 14;
         ctx.moveTo(leftMark.x, 55);
-        ctx.lineTo(rightMark.x , 55);
+        ctx.lineTo(rightMark.x, 55);
         ctx.stroke();
         ctx.closePath();
 
@@ -285,9 +289,9 @@
         ctx.closePath();
 
         ctx.beginPath();
-        ctx.moveTo(rightMark.x-6, 18);
-        ctx.lineTo(rightMark.x-16, 26);
-        ctx.lineTo(rightMark.x-6, 34);
+        ctx.moveTo(rightMark.x - 6, 18);
+        ctx.lineTo(rightMark.x - 16, 26);
+        ctx.lineTo(rightMark.x - 6, 34);
         ctx.fill();
         ctx.closePath();
 
@@ -342,11 +346,11 @@
 
         var leftMarkerYear = (divWidth - 18 - leftMark.x) / pixelsPerYear
         var rightMarkerYear = (divWidth - 18 - rightMark.x) / pixelsPerYear
-        var leftMarkMonth = Math.round(12*(1-(leftMarkerYear % 1)));
-        var rightMarkMonth = Math.round(12*(1-(rightMarkerYear % 1)));
+        var leftMarkMonth = Math.round(12 * (1 - (leftMarkerYear % 1)));
+        var rightMarkMonth = Math.round(12 * (1 - (rightMarkerYear % 1)));
 
-        var start = new Date(2020 - Math.ceil(leftMarkerYear),leftMarkMonth,0,0,0);
-        var end = new Date(2020 - Math.ceil(rightMarkerYear), rightMarkMonth,0,0,0)
+        var start = new Date(2020 - Math.ceil(leftMarkerYear), leftMarkMonth, 0, 0, 0);
+        var end = new Date(2020 - Math.ceil(rightMarkerYear), rightMarkMonth, 0, 0, 0)
         //console.log("start", start);
         //console.log("end", end)
         /*
@@ -359,8 +363,8 @@
         console.log("Right Month:", rightMarkMonth)
         console.log()
         */
-        timeFilterSankeyTree(start, end )
-    }   
+        timeFilterSankeyTree(start, end)
+    }
 
 
     c.addEventListener("mouseup", e => {
