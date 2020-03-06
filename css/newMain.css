@@ -5,6 +5,13 @@ body {
   grid-template-columns: 290px 570px calc(100vw - 1560px) 450px 150px 100px;
   grid-template-rows: 120px 20px auto 75px;
   font-family: "Comfortaa", cursive;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 /*
 font-family: 'Comfortaa', cursive;
@@ -74,7 +81,7 @@ font-family: 'Bitter', serif;
   text-align: center;
 }
 .studylistStudyTitle:hover {
-cursor: pointer;
+  cursor: pointer;
 }
 #loaderCounter {
   background-color: rgba(241, 242, 243, 1);

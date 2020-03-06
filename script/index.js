@@ -31,6 +31,22 @@ stateHandler = state => {
     if (child) {
       existing_element.removeChild(child);
     }
+
+    const singleStudy = document.getElementById("singleStudy");
+    const phaseContentListContainer = document.getElementById("phaseContentListContainer");
+    singleStudy.style.display = "none";
+    phaseContentListContainer.style.display = "none";
+
+    const breadcrumbSankey = document.getElementById("breadcrumbSankey");
+    const breadcrumbList = document.getElementById("breadcrumbList");
+
+    if (!breadcrumbList.classList.contains("hideBreadcrumb")) {
+      breadcrumbList.classList.add("hideBreadcrumb");
+    }
+    if (!breadcrumbSankey.classList.contains("hideBreadcrumb")) {
+      breadcrumbSankey.classList.add("hideBreadcrumb");
+    }
+
     errorMessageDiv.classList.remove("hideMessage");
     console.log("We got an error when fetching from API");
   } else {
@@ -38,6 +54,16 @@ stateHandler = state => {
     //console.log("ERROR, stateHandler error")
   }
 };
+
+let currentPage = 'HomePage';
+
+const setCurrentPage = (newPage) => {
+  currentPage = newPage;
+}
+
+const getCurrentPage = (newPage) => {
+  return currentPage;
+}
 
 //Load data
 loadJSON = () => {
@@ -64,6 +90,8 @@ GoToHome = () => {
   location.reload();
 };
 
+console.log("Current page: ", getCurrentPage());
+
 GoToSankeyTree = () => {
   const condition = getCondition();
   document.getElementById("breadcrumbSankey").innerHTML = condition;
@@ -71,6 +99,9 @@ GoToSankeyTree = () => {
   const phaseContentListContainer = document.getElementById("phaseContentListContainer");
   singleStudy.style.display = "none";
   phaseContentListContainer.style.display = "none";
+  setCurrentPage("SankeyPage");
+  console.log("Current page: ", getCurrentPage());
+
 
   createSankeytree(condition);
 };
@@ -100,10 +131,7 @@ const getFetchedData = () => {
 setCurrentData = (data, listData) => {
   CurrentData.data = data;
   CurrentData.listData = listData;
-  console.log(CurrentData.data)
   console.log(CurrentData.listData)
-
-
   // console.log("CURRENTDATA = ", CurrentData);
 };
 
