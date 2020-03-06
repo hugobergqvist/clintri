@@ -68,6 +68,20 @@ const getCurrentPage = newPage => {
   return currentPage;
 };
 
+const setBoldText = (elementID) => {
+  const element = document.getElementById(elementID);
+  if (!element.classList.contains("boldText")) {
+    element.classList.add("boldText");
+  }
+}
+
+const removeBoldText = (elementID) => {
+  const element = document.getElementById(elementID);
+  if (element.classList.contains("boldText")) {
+    element.classList.remove("boldText");
+  }
+}
+
 //Load data
 loadJSON = () => {
   return new Promise(function(resolve, reject) {
@@ -104,6 +118,11 @@ GoToSankeyTree = () => {
   );
   singleStudy.style.display = "none";
   phaseContentListContainer.style.display = "none";
+
+  // Set and remove boldtext
+  setBoldText("breadcrumbSankey");
+  removeBoldText("breadcrumbHome");
+
   setCurrentPage("SankeyPage");
   console.log("Current page: ", getCurrentPage());
 
@@ -174,6 +193,10 @@ addSankeyTree = (data, listData) => {
   );
   singleStudy.style.display = "none";
   phaseContentListContainer.style.display = "none";
+
+  // Set and remove boldtext
+  setBoldText("breadcrumbSankey");
+  removeBoldText("breadcrumbHome");
 
   buildSankeyTree(data, listData).then(() => {
     stateHandler("loaded");
