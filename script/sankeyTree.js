@@ -299,7 +299,6 @@ let studySearch = document.getElementById("studySearch");
 
 // Sort on title
 studyTitle.addEventListener("click", () => {
-  document.getElementById("phaseTableBody").innerHTML = "";
 
   if (studySearch.value) {
     let newList = stringSearch(testList, studySearch.value);
@@ -313,7 +312,6 @@ studyTitle.addEventListener("click", () => {
 
 // Sort on date
 studyDateHead.addEventListener("click", () => {
-  document.getElementById("phaseTableBody").innerHTML = "";
   if (studySearch.value) {
     let newList = stringSearch(testList, studySearch.value);
     dateSort(newList);
@@ -326,7 +324,6 @@ studyDateHead.addEventListener("click", () => {
 
 // Sort on keyword
 studySearch.addEventListener("change", e => {
-  document.getElementById("phaseTableBody").innerHTML = "";
   let searchWord = e.target.value;
   let newList = stringSearch(testList, searchWord);
   createPhaseList(newList);

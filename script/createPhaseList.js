@@ -6,6 +6,8 @@ const createPhaseList = (lists, genderFilter = "All", minimumAgeFilter = 0, maxi
 
   let phaseListContainer = document.getElementById("phaseContentListContainer");
 
+  document.getElementById("phaseTableBody").innerHTML = "";
+
   phaseListContainer.style.display = "inline-block";
 
   const firstStudyInListID = lists[0].NCTId[0];
@@ -72,7 +74,7 @@ const createPhaseList = (lists, genderFilter = "All", minimumAgeFilter = 0, maxi
     titleCell.setAttribute("class", "studylistStudyTitle");
     titleCell.setAttribute("id", NCTId); // Funkar inte riktigt?
 
-    titleCell.onclick = function(e) {
+    titleCell.onclick = function (e) {
       onClickSingleStudy(e);
     };
 
