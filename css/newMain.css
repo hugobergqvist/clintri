@@ -73,6 +73,13 @@ font-family: 'Bitter', serif;
 #singleStudyTitle {
   text-align: center;
 }
+.studylistStudyTitle:hover {
+cursor: pointer;
+}
+#loaderCounter {
+  background-color: rgba(241, 242, 243, 1);
+  margin-top: -5px;
+}
 #sankeyTreeWrapper {
   display: none;
 }

@@ -32,9 +32,10 @@ const createPhaseList = lists => {
     // console.log(NCTId)
 
     newRow.setAttribute("class", "studylistItem");
+    titleCell.setAttribute("class", "studylistStudyTitle");
     titleCell.setAttribute("id", NCTId); // Funkar inte riktigt?
 
-    titleCell.onclick = function(e) {
+    titleCell.onclick = function (e) {
       onClickSingleStudy(e);
     };
 
