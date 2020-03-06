@@ -2,7 +2,7 @@ let testList;
 
 buildSankeyTree = (data, phaseData) => {
   return (
-    new Promise(function (resolve, reject) {
+    new Promise(function(resolve, reject) {
       // set the dimensions and margins of the graph
       var sankeyDiv = document.getElementById("sankeyContainer");
       var divWidth = sankeyDiv.offsetWidth;
@@ -11,11 +11,11 @@ buildSankeyTree = (data, phaseData) => {
         divHeight = 500;
       }
       var margin = {
-        top: 10,
-        right: 10,
-        bottom: 10,
-        left: 10
-      },
+          top: 10,
+          right: 10,
+          bottom: 10,
+          left: 10
+        },
         width = divWidth - margin.left - margin.right, // Kanske går att lägga inherit här istället men det påverkar möjligheten att visa upp allt
         height = divHeight - margin.top - margin.bottom;
 
@@ -69,7 +69,11 @@ buildSankeyTree = (data, phaseData) => {
         .links(data.links)
         .layout(0);
 
-      const nodesToIgnore = ["Expanded Access", "Observational", "Interventional"];
+      const nodesToIgnore = [
+        "Expanded Access",
+        "Observational",
+        "Interventional"
+      ];
 
       //Mouse action functions
       async function mouseClick(d) {
@@ -101,7 +105,7 @@ buildSankeyTree = (data, phaseData) => {
         .append("path")
         .attr("class", "link")
         .attr("d", sankey.link())
-        .attr("phase", function (d) {
+        .attr("phase", function(d) {
           return d.target.name;
         })
         .on("click", d => {
@@ -113,8 +117,14 @@ buildSankeyTree = (data, phaseData) => {
           }
         })
         .style("fill", "none")
-        .style("cursor", "pointer")
-        .style("stroke-width", function (d) {
+        .style("cursor", function(d) {
+          if (d["source"]["node"] !== 0) {
+            return "pointer";
+          } else {
+            return "default";
+          }
+        })
+        .style("stroke-width", function(d) {
           return Math.max(1, d.dy);
         });
 
@@ -126,7 +136,7 @@ buildSankeyTree = (data, phaseData) => {
         .enter()
         .append("g")
         .attr("class", "node")
-        .attr("transform", function (d) {
+        .attr("transform", function(d) {
           if (d["value"] > 0) {
             return "translate(" + d.x + "," + d.y + ")";
           }
@@ -135,33 +145,23 @@ buildSankeyTree = (data, phaseData) => {
       // add the rectangles for the nodes
       node
         .append("rect")
-        .attr("height", function (d) {
+        .attr("height", function(d) {
           return d.dy;
         })
         .attr("width", sankey.nodeWidth())
-        .style("fill", function (d) {
+        .style("fill", function(d) {
           return (d.color = color(d.name.replace(/ .*/, "")));
         })
-        .style("stroke", function (d) {
+        .style("stroke", function(d) {
           return d3.rgb(d.color).darker(2);
         })
-        .style("cursor", "pointer")
-        .call(
-          d3
-            .drag()
-            .subject(function (d) {
-              return d;
-            })
-            .on("start", function () {
-              this.parentNode.appendChild(this);
-            })
-            .on("drag", dragmove)
-        )
 
         // Add hover text
         .append("title")
-        .text(function (d) {
-          return d.name + "\n" + "There are " + d.value + " studies in this node";
+        .text(function(d) {
+          return (
+            d.name + "\n" + "There are " + d.value + " studies in this node"
+          );
         });
 
       // add in the title for the nodes
@@ -169,16 +169,18 @@ buildSankeyTree = (data, phaseData) => {
       node
         .append("text")
         .attr("x", -6)
-        .attr("y", function (d) {
+        .attr("y", function(d) {
           return d.dy / 2;
         })
         .attr("dy", ".35em")
         .attr("text-anchor", "end")
         .attr("transform", null)
-        .text(function (d) {
-          return d.name + ` (${d.value} studies)`;
+        .text(function(d) {
+          if (d.value > 0) {
+            return d.name + ` (${d.value} studies)`;
+          }
         })
-        .filter(function (d) {
+        .filter(function(d) {
           return d.x < width / 2;
         })
         .attr("x", 6 + sankey.nodeWidth())
@@ -225,7 +227,14 @@ buildSankeyTree = (data, phaseData) => {
       });
       // the function for moving the nodes
       function dragmove(d) {
-        d3.select(this).attr("transform", "translate(" + d.x + "," + (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) + ")");
+        d3.select(this).attr(
+          "transform",
+          "translate(" +
+            d.x +
+            "," +
+            (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) +
+            ")"
+        );
         sankey.relayout();
         link.attr("d", sankey.link());
       }
@@ -236,7 +245,7 @@ buildSankeyTree = (data, phaseData) => {
 
 const alphabethicalSort = arr => {
   // sort() returns the sorted array.
-  arr.sort(function (a, b) {
+  arr.sort(function(a, b) {
     var titleA = a.BriefTitle;
     var titleB = b.BriefTitle;
     if (titleA < titleB) {
@@ -255,7 +264,7 @@ const alphabethicalSort = arr => {
 };
 
 const dateSort = arr => {
-  arr.sort(function (a, b) {
+  arr.sort(function(a, b) {
     return new Date(b.StartDate) - new Date(a.StartDate);
   });
   return arr;

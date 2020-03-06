@@ -61,7 +61,7 @@ const formatData = (condition, data, callback) => {
   var counterObj = {};
   let listObj = {};
   var nodeCounter = 9;
-  console.log("DATA: ", data);
+
   data.map(object => {
     if (object["Phase"].length === 0) {
       if (listObj["None"]) {
