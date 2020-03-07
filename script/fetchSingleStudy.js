@@ -17,6 +17,10 @@ const fetchSingleStudy = id => {
       let organization;
       let status;
       let gender;
+      let minAge;
+      let maxAge;
+      let AgeSeperator = "";
+      let country;
       console.log(study);
 
       if (
@@ -92,23 +96,51 @@ const fetchSingleStudy = id => {
         status = "-";
       }
 
+      if (Object.keys(study.ProtocolSection.EligibilityModule).includes("MinimumAge")) {
+        minAge = study.ProtocolSection.EligibilityModule.MinimumAge;
+      } else {
+        minAge = " - ";
+      }
+
+      if (Object.keys(study.ProtocolSection.EligibilityModule).includes("MaximumAge")) {
+        maxAge = study.ProtocolSection.EligibilityModule.MaximumAge;
+      } else {
+        maxAge = "+";
+      }
+
+      if (Object.keys(study.ProtocolSection.EligibilityModule).includes("MinimumAge") && Object.keys(study.ProtocolSection.EligibilityModule).includes("MaximumAge")) {
+        AgeSeperator = " to ";
+      }
+
+      if (Object.keys(study.ProtocolSection.ContactsLocationsModule).includes("LocationList")) {
+        if (Object.keys(study.ProtocolSection.ContactsLocationsModule.LocationList).includes("Location")) {
+          if (Object.keys(study.ProtocolSection.ContactsLocationsModule.LocationList.Location[0]).includes("LocationCountry")) {
+            country = study.ProtocolSection.ContactsLocationsModule.LocationList.Location[0].LocationCountry;
+          } else {
+            country = "-";
+          }
+        } else {
+          country = "-";
+        }
+      } else {
+        country = "-";
+      }
+
+
       //console.log("this is description: ", studyDecription);
       //console.log(organization);
-
       document.getElementById("singleStudyTitle").innerHTML = studyTitle;
-      document.getElementById(
-        "singleStudyDescription"
-      ).innerHTML = studyDecription;
+      document.getElementById("singleStudyDescription").innerHTML = studyDecription;
       document.getElementById("singleStudyStartDate").innerHTML = startDate;
       document.getElementById("singleStudyEndDate").innerHTML = endDate;
-      document.getElementById(
-        "singleStudyOrganization"
-      ).innerHTML = organization;
+      document.getElementById("singleStudyOrganization").innerHTML = organization;
       document.getElementById("singleStudyGender").innerHTML = gender;
-      document.getElementById(
-        "singleStudyEnrollmentCount"
-      ).innerHTML = enrollmentCount;
+      document.getElementById("singleStudyEnrollmentCount").innerHTML = enrollmentCount;
       document.getElementById("singleStudyStatus").innerHTML = status;
+      document.getElementById("singleStudyAge").innerHTML = minAge + AgeSeperator + maxAge;
+
+      // LÄGG TILL RADEN NEDAN FÖR ATT PUSHA IN COUNTRY. SKAPA EN DIV I SINGLE STUDY SOM INNEHÅLLER COUNTRY
+      // document.getElementById("singleStudyCountry").innerHTML = country;
       const studyURL = `https://clinicaltrials.gov/ct2/show/${id}?term=NCT01062347&draw=2&rank=1`;
       document
         .getElementById("goToWebsiteButton")
