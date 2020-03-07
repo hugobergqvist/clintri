@@ -1,4 +1,5 @@
 const fetchSingleStudy = id => {
+
   // Show study-div
   let singleStudy = document.getElementById("singleStudy");
 
@@ -138,6 +139,7 @@ const fetchSingleStudy = id => {
       document.getElementById("singleStudyEnrollmentCount").innerHTML = enrollmentCount;
       document.getElementById("singleStudyStatus").innerHTML = status;
       document.getElementById("singleStudyAge").innerHTML = minAge + AgeSeperator + maxAge;
+      stateHandler("loaded")
 
       // LÄGG TILL RADEN NEDAN FÖR ATT PUSHA IN COUNTRY. SKAPA EN DIV I SINGLE STUDY SOM INNEHÅLLER COUNTRY
       // document.getElementById("singleStudyCountry").innerHTML = country;

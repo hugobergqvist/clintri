@@ -11,7 +11,7 @@ const createPhaseList = (lists, genderFilter = "All", minimumAgeFilter = 0, maxi
   phaseListContainer.style.display = "inline-block";
 
   const firstStudyInListID = lists[0].NCTId[0];
-  //console.log("this is lists[0]", lists[0].NCTId[0]);
+
   fetchSingleStudy(firstStudyInListID);
 
   let table = document.getElementById("phaseTable");
@@ -60,7 +60,7 @@ const createPhaseList = (lists, genderFilter = "All", minimumAgeFilter = 0, maxi
 
   let tableBody = document.getElementById("phaseTableBody");
   filteredList.forEach(element => {
-    //console.log(element);
+
     let newRow = tableBody.insertRow();
     let titleCell = newRow.insertCell(0);
     let dateCell = newRow.insertCell(1);
@@ -68,13 +68,15 @@ const createPhaseList = (lists, genderFilter = "All", minimumAgeFilter = 0, maxi
     let title = document.createTextNode(element["BriefTitle"]);
     let date = document.createTextNode(element["StartDate"]);
     let NCTId = element["NCTId"];
-    // console.log(NCTId)
+
 
     newRow.setAttribute("class", "studylistItem");
     titleCell.setAttribute("class", "studylistStudyTitle");
     titleCell.setAttribute("id", NCTId); // Funkar inte riktigt?
 
-    titleCell.onclick = function(e) {
+    titleCell.onclick = function (e) {
+      //state loading
+      stateHandler("loading");
       onClickSingleStudy(e);
     };
 
@@ -86,5 +88,5 @@ const createPhaseList = (lists, genderFilter = "All", minimumAgeFilter = 0, maxi
   table.appendChild(tableBody);
   phaseListContainer.appendChild(table);
 
-  //console.log(lists);
+
 };

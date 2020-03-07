@@ -113,7 +113,9 @@ buildSankeyTree = (data, phaseData) => {
           return d.target.name;
         })
         .on("click", d => {
+          
           if (d["source"]["node"] !== 0) {
+            stateHandler("loading");
             mouseClick(d).then(res => {
               createPhaseList(res);
               setCurrentPage("ListPage");
