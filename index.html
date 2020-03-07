@@ -419,7 +419,7 @@
             ctx.clearRect(0, 0, 2000, 2000);
             ctx2.clearRect(0, 0, 2000, 2000);
             drawMarker();
-            updateSankey()
+            updateVis()
         }
         if (isMovingRight === true) {
             rightMark.x = mousePos.x;
@@ -428,7 +428,7 @@
             ctx.clearRect(0, 0, 2000, 2000);
             ctx2.clearRect(0, 0, 2000, 2000);
             drawMarker();
-            updateSankey()
+            updateVis()
         }
         
     });
@@ -443,6 +443,19 @@
         }
 
     })
+
+    const updateVis = () => {
+        if(getCurrentPage() === 'HomePage'){
+            console.log('Updating homepage')
+        }
+        if(getCurrentPage() === 'SankeyPage'){
+            console.log('Updating SankeyTree')
+            updateSankey();
+        }
+        if(getCurrentPage() === 'ListPage'){
+            console.log('Updating ListPage')
+        }
+    }
 
     const updateSankey = () => {
 
