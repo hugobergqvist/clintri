@@ -10,7 +10,7 @@
 }
 
 #singleStudy {
-  overflow: hidden;
+  overflow: scroll;
 }
 
 #phaseTableHeader {
