@@ -2,7 +2,7 @@ body {
   height: 100vh;
   display: grid;
   margin: 0;
-  grid-template-columns: 290px 450px calc(100vw - 1440px) 450px 150px 100px;
+  grid-template-columns: 290px 430px calc(100vw - 1420px) 450px 150px 100px;
   grid-template-rows: 120px 20px auto 75px;
   font-family: "Comfortaa", cursive;
 
@@ -159,7 +159,7 @@ font-family: 'Bitter', serif;
 #logo-extend {
   justify-self: left;
   align-items: center;
-  grid-template-columns: 30px auto;
+  grid-template-columns: 12px auto;
 }
 #logo-border {
   background-color: magenta;
