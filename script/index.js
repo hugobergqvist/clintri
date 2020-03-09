@@ -87,7 +87,7 @@ let CurrentData = {
 let FetchedData = [];
 
 const setFetchedData = data => {
-  FetchedData.push(...data);
+  FetchedData = [...data];
 };
 
 const getFetchedData = () => {
