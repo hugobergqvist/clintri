@@ -115,7 +115,7 @@ const fetchSingleStudy = id => {
       ) {
         minAge = study.ProtocolSection.EligibilityModule.MinimumAge;
       } else {
-        minAge = " - ";
+        minAge = " < ";
       }
 
       if (
