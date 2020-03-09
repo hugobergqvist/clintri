@@ -189,7 +189,7 @@ const fetchSingleStudy = id => {
       stateHandler("loaded");
 
       // LÄGG TILL RADEN NEDAN FÖR ATT PUSHA IN COUNTRY. SKAPA EN DIV I SINGLE STUDY SOM INNEHÅLLER COUNTRY
-      // document.getElementById("singleStudyCountry").innerHTML = country;
+      document.getElementById("singleStudyCountry").innerHTML = country;
       const studyURL = `https://clinicaltrials.gov/ct2/show/${id}?term=NCT01062347&draw=2&rank=1`;
       document
         .getElementById("goToWebsiteButton")

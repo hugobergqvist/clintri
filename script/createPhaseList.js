@@ -1,6 +1,6 @@
 const createPhaseList = (
   lists,
-  genderFilter = "All",
+  genderFilter = "None",
   minimumAgeFilter = 0,
   maximumAgeFilter = 100,
   enrollmentCountFilter = 0
@@ -82,9 +82,10 @@ const createPhaseList = (
     newRow.setAttribute("class", "studylistItem");
     titleCell.setAttribute("class", "studylistStudyTitle");
     titleCell.id = NCTId; // Funkar inte riktigt?
+    dateCell.setAttribute("class", "dateCell")
     newRow.id = `row-${NCTId}`;
 
-    titleCell.onclick = function(e) {
+    titleCell.onclick = function (e) {
       //state loading
       stateHandler("loading");
       onClickSingleStudy(e);
