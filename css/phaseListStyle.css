@@ -38,7 +38,7 @@
 }
 
 #phaseTable tr:hover {
-  font-weight: 800;
+  text-decoration: underline;
 }
 
 #phaseTable th {
@@ -222,5 +222,6 @@
 }
 
 .selectedStudy {
-  background-color: rgb(173, 203, 255) !important;
+  background-color: #2f2f2f !important;
+  color: white;
 }
