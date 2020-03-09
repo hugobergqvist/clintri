@@ -90,6 +90,7 @@
 }
 
 #singleStudyOrg {
+  display: none;
   grid-row: 4/5;
   font-family: "Montserrat";
 }

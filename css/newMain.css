@@ -176,8 +176,8 @@ font-family: 'Bitter', serif;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
 }
 #search-input-text {
-  align-self: center;
-  width: 99%;
+  justify-self: center;
+  width: 70%;
   border: none;
   text-align: center;
   font-size: 30px;
