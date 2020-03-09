@@ -37,6 +37,10 @@
   background-color: #f2f2f2;
 }
 
+#phaseTable tr:hover {
+  font-weight: 800;
+}
+
 #phaseTable th {
   padding-top: 12px;
   padding-bottom: 12px;
@@ -215,4 +219,8 @@
   align-self: end;
   margin-bottom: 10px;
   font-weight: bolder;
+}
+
+.selectedStudy {
+  background-color: rgb(173, 203, 255) !important;
 }

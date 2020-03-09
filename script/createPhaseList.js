@@ -1,4 +1,10 @@
-const createPhaseList = (lists, genderFilter = "All", minimumAgeFilter = 0, maximumAgeFilter = 100, enrollmentCountFilter = 0) => {
+const createPhaseList = (
+  lists,
+  genderFilter = "All",
+  minimumAgeFilter = 0,
+  maximumAgeFilter = 100,
+  enrollmentCountFilter = 0
+) => {
   // Remove previous component
 
   let sankey = document.getElementById("sankeyContainer");
@@ -11,8 +17,6 @@ const createPhaseList = (lists, genderFilter = "All", minimumAgeFilter = 0, maxi
   phaseListContainer.style.display = "inline-block";
 
   const firstStudyInListID = lists[0].NCTId[0];
-
-  fetchSingleStudy(firstStudyInListID);
 
   let table = document.getElementById("phaseTable");
 
@@ -49,8 +53,15 @@ const createPhaseList = (lists, genderFilter = "All", minimumAgeFilter = 0, maxi
     }
     if (element.Gender == genderFilter || genderFilter == "None") {
       if (minimumAgeFilter <= MinAge || minimumAgeFilter == 0 || MinAge == 0) {
-        if (maximumAgeFilter >= MaxAge || maximumAgeFilter == 100 || MaxAge == 100) {
-          if (enrollmentCountFilter >= enrollCounter || enrollmentCountFilter == 0) {
+        if (
+          maximumAgeFilter >= MaxAge ||
+          maximumAgeFilter == 100 ||
+          MaxAge == 100
+        ) {
+          if (
+            enrollmentCountFilter >= enrollCounter ||
+            enrollmentCountFilter == 0
+          ) {
             filteredList.push(element);
           }
         }
@@ -60,7 +71,6 @@ const createPhaseList = (lists, genderFilter = "All", minimumAgeFilter = 0, maxi
 
   let tableBody = document.getElementById("phaseTableBody");
   filteredList.forEach(element => {
-
     let newRow = tableBody.insertRow();
     let titleCell = newRow.insertCell(0);
     let dateCell = newRow.insertCell(1);
@@ -69,12 +79,12 @@ const createPhaseList = (lists, genderFilter = "All", minimumAgeFilter = 0, maxi
     let date = document.createTextNode(element["StartDate"]);
     let NCTId = element["NCTId"];
 
-
     newRow.setAttribute("class", "studylistItem");
     titleCell.setAttribute("class", "studylistStudyTitle");
-    titleCell.setAttribute("id", NCTId); // Funkar inte riktigt?
+    titleCell.id = NCTId; // Funkar inte riktigt?
+    newRow.id = `row-${NCTId}`;
 
-    titleCell.onclick = function (e) {
+    titleCell.onclick = function(e) {
       //state loading
       stateHandler("loading");
       onClickSingleStudy(e);
@@ -87,6 +97,5 @@ const createPhaseList = (lists, genderFilter = "All", minimumAgeFilter = 0, maxi
   table.appendChild(tableHead);
   table.appendChild(tableBody);
   phaseListContainer.appendChild(table);
-
-
+  fetchSingleStudy(firstStudyInListID);
 };

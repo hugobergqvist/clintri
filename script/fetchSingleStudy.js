@@ -1,4 +1,15 @@
+let previousSelected = null;
+
 const fetchSingleStudy = id => {
+  if (previousSelected) {
+    previousSelected.classList.remove("selectedStudy");
+  }
+
+  let selectedListStudy = document.getElementById(`row-${id}`);
+  if (selectedListStudy) {
+    previousSelected = selectedListStudy;
+    selectedListStudy.classList.add("selectedStudy");
+  }
 
   // Show study-div
   let singleStudy = document.getElementById("singleStudy");
@@ -97,26 +108,56 @@ const fetchSingleStudy = id => {
         status = "-";
       }
 
-      if (Object.keys(study.ProtocolSection.EligibilityModule).includes("MinimumAge")) {
+      if (
+        Object.keys(study.ProtocolSection.EligibilityModule).includes(
+          "MinimumAge"
+        )
+      ) {
         minAge = study.ProtocolSection.EligibilityModule.MinimumAge;
       } else {
         minAge = " - ";
       }
 
-      if (Object.keys(study.ProtocolSection.EligibilityModule).includes("MaximumAge")) {
+      if (
+        Object.keys(study.ProtocolSection.EligibilityModule).includes(
+          "MaximumAge"
+        )
+      ) {
         maxAge = study.ProtocolSection.EligibilityModule.MaximumAge;
       } else {
         maxAge = "+";
       }
 
-      if (Object.keys(study.ProtocolSection.EligibilityModule).includes("MinimumAge") && Object.keys(study.ProtocolSection.EligibilityModule).includes("MaximumAge")) {
+      if (
+        Object.keys(study.ProtocolSection.EligibilityModule).includes(
+          "MinimumAge"
+        ) &&
+        Object.keys(study.ProtocolSection.EligibilityModule).includes(
+          "MaximumAge"
+        )
+      ) {
         AgeSeperator = " to ";
       }
 
-      if (Object.keys(study.ProtocolSection.ContactsLocationsModule).includes("LocationList")) {
-        if (Object.keys(study.ProtocolSection.ContactsLocationsModule.LocationList).includes("Location")) {
-          if (Object.keys(study.ProtocolSection.ContactsLocationsModule.LocationList.Location[0]).includes("LocationCountry")) {
-            country = study.ProtocolSection.ContactsLocationsModule.LocationList.Location[0].LocationCountry;
+      if (
+        Object.keys(study.ProtocolSection.ContactsLocationsModule).includes(
+          "LocationList"
+        )
+      ) {
+        if (
+          Object.keys(
+            study.ProtocolSection.ContactsLocationsModule.LocationList
+          ).includes("Location")
+        ) {
+          if (
+            Object.keys(
+              study.ProtocolSection.ContactsLocationsModule.LocationList
+                .Location[0]
+            ).includes("LocationCountry")
+          ) {
+            country =
+              study.ProtocolSection.ContactsLocationsModule.LocationList
+                .Location[0].LocationCountry;
           } else {
             country = "-";
           }
@@ -127,19 +168,25 @@ const fetchSingleStudy = id => {
         country = "-";
       }
 
-
       //console.log("this is description: ", studyDecription);
       //console.log(organization);
       document.getElementById("singleStudyTitle").innerHTML = studyTitle;
-      document.getElementById("singleStudyDescription").innerHTML = studyDecription;
+      document.getElementById(
+        "singleStudyDescription"
+      ).innerHTML = studyDecription;
       document.getElementById("singleStudyStartDate").innerHTML = startDate;
       document.getElementById("singleStudyEndDate").innerHTML = endDate;
-      document.getElementById("singleStudyOrganization").innerHTML = organization;
+      document.getElementById(
+        "singleStudyOrganization"
+      ).innerHTML = organization;
       document.getElementById("singleStudyGender").innerHTML = gender;
-      document.getElementById("singleStudyEnrollmentCount").innerHTML = enrollmentCount;
+      document.getElementById(
+        "singleStudyEnrollmentCount"
+      ).innerHTML = enrollmentCount;
       document.getElementById("singleStudyStatus").innerHTML = status;
-      document.getElementById("singleStudyAge").innerHTML = minAge + AgeSeperator + maxAge;
-      stateHandler("loaded")
+      document.getElementById("singleStudyAge").innerHTML =
+        minAge + AgeSeperator + maxAge;
+      stateHandler("loaded");
 
       // LÄGG TILL RADEN NEDAN FÖR ATT PUSHA IN COUNTRY. SKAPA EN DIV I SINGLE STUDY SOM INNEHÅLLER COUNTRY
       // document.getElementById("singleStudyCountry").innerHTML = country;
