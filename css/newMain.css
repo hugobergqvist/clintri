@@ -218,11 +218,38 @@ input:focus {
 }
 
 .show-filter {
-  display: inline-block;
+  display: grid;
+  grid-template-rows: 0.5fr 1fr 1fr 1fr 1fr;
   grid-column: 5/-1;
   z-index: 3;
   position: relative;
   background-color: #2f2f2f;
+  padding: 10px;
+}
+
+#filterOne {
+  color: white;
+  grid-row: 2/3;
+}
+#filterTwo {
+  color: white;
+  grid-row: 3/4;
+}
+#filterThree {
+  color: white;
+  grid-row: 4/5;
+}
+#filterFour {
+  color: white;
+  grid-row: 5/6;
+}
+
+#filterHeader {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  align-self: center;
 }
 
 @-ms-viewport {

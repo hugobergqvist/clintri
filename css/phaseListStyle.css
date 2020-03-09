@@ -10,7 +10,7 @@
 }
 
 #singleStudy {
-  overflow: hidden;
+  overflow: scroll;
 }
 
 #phaseTableHeader {
@@ -52,7 +52,6 @@
 .container {
   grid-column: 2/-1;
   grid-row: 1/2;
-  height: 100%;
   padding: 10px;
   padding-left: 40px;
   padding-right: 40px;
