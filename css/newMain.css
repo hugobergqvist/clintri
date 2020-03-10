@@ -13,6 +13,9 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
+body::-webkit-scrollbar {
+  display: none;
+}
 /*
 font-family: 'Comfortaa', cursive;
 font-family: "Montserrat", sans-serif;
