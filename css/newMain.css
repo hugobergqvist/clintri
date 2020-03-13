@@ -13,6 +13,27 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
+#about {
+  position: absolute;
+  background-color: rgba(47, 47, 47, 1);
+  width: 150px;
+  height: 30px;
+  top: 0;
+  left: calc(50% - 75px);
+  text-align: center;
+
+  opacity: 0.2;
+  transition: opacity 0.25s ease-in-out;
+  -moz-transition: opacity 0.25s ease-in-out;
+  -webkit-transition: opacity 0.25s ease-in-out;
+}
+#about:hover {
+  opacity: 1;
+}
+#about > span {
+  font-size: 12px;
+  color: white;
+}
 body::-webkit-scrollbar {
   display: none;
 }
@@ -153,10 +174,14 @@ font-family: 'Bitter', serif;
 }
 
 .filter {
-  display: none;
+  display: grid;
   background-color: #2f2f2f;
   grid-row: 3/-2;
-  grid-column: 5/-3;
+  grid-column: 5/-1;
+  margin-left: 250px;
+  transition: all 0.5s;
+  -webkit-transition: all 0.25s;
+  overflow: hidden;
 }
 
 #logo-extend {
@@ -228,6 +253,7 @@ input:focus {
   position: relative;
   background-color: #2f2f2f;
   padding: 10px;
+  margin-left: 0px;
 }
 
 #filterOne {
