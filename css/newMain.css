@@ -2,7 +2,7 @@ body {
   height: 100vh;
   display: grid;
   margin: 0;
-  grid-template-columns: 290px 430px calc(100vw - 1420px) 450px 150px 100px;
+  grid-template-columns: 290px minmax(100px, 430px) calc(100vw - 1420px) 450px 150px 100px;
   grid-template-rows: 120px 20px auto 75px;
   font-family: "Comfortaa", cursive;
 
@@ -18,8 +18,8 @@ body {
   background-color: rgba(47, 47, 47, 1);
   width: 150px;
   height: 30px;
-  top: 0;
-  left: calc(50% - 75px);
+  top: 95px;
+  left: calc(70% - 75px);
   text-align: center;
 
   opacity: 0.2;
@@ -32,7 +32,87 @@ body {
 }
 #about > span {
   font-size: 12px;
+  font-weight: bold;
   color: white;
+}
+.aboutWrapperClass {
+  position: absolute;
+  width: 95%;
+  height: 90%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  padding: 20px;
+  padding-bottom: 40px;
+  background-color: rgba(47, 47, 47, 0.98);
+  z-index: -20;
+  opacity: 0;
+  transition: all 0.25s;
+
+  display: none;
+  grid-template-columns: 1fr 0.5fr 1fr;
+  grid-auto-rows: auto;
+  grid-gap: 40px;
+  color: white;
+  overflow: auto;
+}
+
+.aboutWrapperClass > div {
+  /*border: 1px solid white;*/
+  font-family: "Montserrat", sans-serif;
+}
+.aboutWrapper-show {
+  z-index: 20;
+  display: grid;
+  opacity: 1;
+}
+#aboutText {
+  grid-column: 1/3;
+  grid-row: 1/2;
+}
+#aboutVideo {
+  grid-column: 3/-1;
+  grid-row: 1/2;
+}
+#video {
+  width: 100%;
+  height: 100%;
+}
+#learningsImg {
+  display: grid;
+  align-content: center;
+  grid-column: 1/2;
+  grid-row: 2/3;
+  overflow: hidden;
+}
+#learningsText {
+  grid-column: 2/-1;
+  grid-row: 2/3;
+}
+#teamWrapper {
+  grid-column: 1/-1;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  justify-items: center;
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+  text-align: center;
+  font-family: "Comfortaa", cursive;
+}
+.profileName {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.profileMail {
+  font-size: 12px;
+  font-weight: normal;
+}
+.profileWork {
+  font-size: 14px;
+  font-weight: bold;
 }
 body::-webkit-scrollbar {
   display: none;
@@ -281,8 +361,30 @@ input:focus {
   align-self: center;
 }
 
+#logoExtendedTextOne {
+  font-size: 20px;
+}
+#logoExtendedTextTwo {
+  font-size: 15px;
+}
+
 @-ms-viewport {
   width: device-width;
+}
+
+@media only screen and (max-width: 1430px) {
+  #logoExtendedTextOne {
+    font-size: 18px;
+  }
+  #logoExtendedTextTwo {
+    font-size: 13px;
+  }
+}
+
+@media only screen and (max-width: 1250px) {
+  #logo-extend {
+    display: none;
+  }
 }
 
 /*

@@ -28,10 +28,10 @@
     <div id="logo-extend" class="header">
         <div id="logo-border" style="width:1px; height:50px; background-color: black;"></div>
         <div style="padding-top:5px">
-            <span style="font-weight: 400; font-size: 20px; line-height: 0px;">Clinical trials information
+            <span id="logoExtendedTextOne" style="font-weight: 400; line-height: 0px;">Clinical trials information
                 visualization</span>
             <br />
-            <span style="font-size: 15px; font-weight: 200;">Based on 300 000+ medical trials</span>
+            <span id="logoExtendedTextTwo" style="font-weight: 200;">Based on 300 000+ medical trials</span>
         </div>
     </div>
 
@@ -270,11 +270,82 @@
         <canvas id="canvas2"></canvas>
         <canvas id="canvas"></canvas>
     </div>
-    <!--
-        <div id="about">
+        <div id="about" onclick="toggleAbout()">
         <span>about this project</span>
     </div>
-    -->
+    <div id="aboutWrapper" class="aboutWrapperClass" onclick="toggleAbout()">
+        <div id="aboutText">
+            <h1>ABOUT</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sed elit ligula. Aliquam erat volutpat. Nam non aliquet lectus. Sed scelerisque sed nulla ut pretium. Aenean rhoncus ex vel massa sollicitudin, id interdum dolor volutpat. Quisque lorem ipsum, elementum vel aliquet sed, hendrerit et ligula. Etiam nec condimentum mi. Suspendisse sollicitudin, urna eu sagittis suscipit, mi risus posuere velit, sit amet tempor metus risus at nibh. Quisque condimentum, ex vel molestie ultricies, purus tortor vestibulum ligula, eget sagittis velit enim sed enim. Cras ac eleifend Leo. Morbi ac finibus nibh, non dapibus magna. Quisque metus mauris, maximus a ullamcorper at, lacinia sit amet mi. Nulla rhoncus eros a ex iaculis interdum. Fusce nulla urna, hendrerit ut augue ac, pellentesque porta sapien. Ut dignissim diam nibh, nec sagittis metus feugiat ac.
+
+                Donec tincidunt nisl vel lacinia bibendum. Nunc condimentum turpis quis eros sollicitudin, vitae mattis justo tristique. Sed dictum posuere metus, sagittis pharetra arcu tempor vel. Pellentesque id auctor metus, ut porta risus. Vestibulum sodales eleifend est, eu pharetra mauris interdum vel. Ut varius ipsum et tellus tempus venenatis tempus a felis. Nam et ante luctus, sagittis massa ac, eleifend enim. Nullam dignissim odio nunc, vel varius sapien ultricies in.</p>
+        </div>
+        <div id="aboutVideo">
+            <iframe id="video" src="https://player.vimeo.com/video/386181250"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </div>
+
+        <div id="learningsImg">
+            <img src="images/learnings.jpg" width="95%"/>
+        </div>
+        <div id="learningsText">
+            <h1>LEARNINGS</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sed elit ligula. Aliquam erat volutpat. Nam non aliquet lectus. Sed scelerisque sed nulla ut pretium. Aenean rhoncus ex vel massa sollicitudin, id interdum dolor volutpat. Quisque lorem ipsum, elementum vel aliquet sed, hendrerit et ligula. Etiam nec condimentum mi. Suspendisse sollicitudin, urna eu sagittis suscipit, mi risus posuere velit, sit amet tempor metus risus at nibh. Quisque condimentum, ex vel molestie ultricies, purus tortor vestibulum ligula, eget sagittis velit enim sed enim. Cras ac eleifend Leo. Morbi ac finibus nibh, non dapibus magna. Quisque metus mauris, maximus a ullamcorper at, lacinia sit amet mi. Nulla rhoncus eros a ex iaculis interdum. Fusce nulla urna, hendrerit ut augue ac, pellentesque porta sapien. Ut dignissim diam nibh, nec sagittis metus feugiat ac.
+
+                Donec tincidunt nisl vel lacinia bibendum. Nunc condimentum turpis quis eros sollicitudin, vitae mattis justo tristique. Sed dictum posuere metus, sagittis pharetra arcu tempor vel. Pellentesque id auctor metus, ut porta risus. Vestibulum sodales eleifend est, eu pharetra mauris interdum vel. Ut varius ipsum et tellus tempus venenatis tempus a felis. Nam et ante luctus, sagittis massa ac, eleifend enim. Nullam dignissim odio nunc, vel varius sapien ultricies in.</p>
+        </div>
+
+        <div id="teamWrapper">
+            <div id="davidDiv">
+                <img src="images/profilePic.png" width="95%"/>
+                <div class="profileName">David Magnusson</div>
+                <div class="profileMail">dmagnuss@kth.se</div>
+                <br/>
+                <div class="profileWork">UI/UX-DESIGN</div>
+                <div class="profileWork">FRONT END</div>
+            </div>
+            <div id="OliverDiv">
+                <img src="images/profilePic.png" width="95%"/>
+                <div class="profileName">David Magnusson</div>
+                <div class="profileMail">dmagnuss@kth.se</div>
+                <br/>
+                <div class="profileWork">UI/UX-DESIGN</div>
+                <div class="profileWork">FRONT END</div>
+            </div>
+            <div id="hugoDiv">
+                <img src="images/profilePic.png" width="95%"/>
+                <div class="profileName">David Magnusson</div>
+                <div class="profileMail">dmagnuss@kth.se</div>
+                <br/>
+                <div class="profileWork">UI/UX-DESIGN</div>
+                <div class="profileWork">FRONT END</div>
+            </div>
+            <div id="martinDiv">
+                <img src="images/profilePic.png" width="95%"/>
+                <div class="profileName">David Magnusson</div>
+                <div class="profileMail">dmagnuss@kth.se</div>
+                <br/>
+                <div class="profileWork">UI/UX-DESIGN</div>
+                <div class="profileWork">FRONT END</div>
+            </div>
+            <div id="bjornDiv">
+                <img src="images/profilePic.png" width="95%"/>
+                <div class="profileName">David Magnusson</div>
+                <div class="profileMail">dmagnuss@kth.se</div>
+                <br/>
+                <div class="profileWork">UI/UX-DESIGN</div>
+                <div class="profileWork">FRONT END</div>
+            </div>
+            <div id="jacobDiv">
+                <img src="images/profilePic.png" width="95%"/>
+                <div class="profileName">David Magnusson</div>
+                <div class="profileMail">dmagnuss@kth.se</div>
+                <br/>
+                <div class="profileWork">UI/UX-DESIGN</div>
+                <div class="profileWork">FRONT END</div>
+            </div>
+        </div>
+    </div>
+
     
     
 </body>
@@ -538,6 +609,11 @@
         //console.log(document.getElementById("content"))
         //document.getElementById("content").classList.toggle("wrapperActiveFilter");
     }
+
+    function toggleAbout(){
+        document.getElementById("aboutWrapper").classList.toggle("aboutWrapper-show");
+    }
+
 
     //function searchSubmit(searchValue) {
         //document.getElementById('content').innerHTML = searchValue;
